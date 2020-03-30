@@ -1,17 +1,3 @@
-body, html {
-  height: 100%;
-}
-
-.bg { 
-  /* Full height */
-  height: 100%; 
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .column {
 	background-color: white;
 	margin: 10px;
@@ -21,8 +7,4 @@ body, html {
 
 .container-margin {
 	margin-top:150px;
-}
-
-.navbar-color {
-	background-color: white;
 }
