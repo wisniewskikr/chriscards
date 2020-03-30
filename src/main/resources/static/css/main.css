@@ -1,0 +1,66 @@
+body, html {
+  height: 100%;
+}
+
+.bg { 
+  /* The image used */
+  background-image: url("/images/dance.jpg");
+
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.column {
+	background-color: white;
+	margin: 10px;
+	border-radius: 25px;
+}
+
+.container-margin {
+	margin-top:150px;
+}
+
+.navbar-color {
+	background-color: white;
+}
+
+.checkbox input[type=checkbox] {
+	margin-left: 0px !important;
+}
+
+.container-pagination {
+	text-align: center;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.pager {
+	display: inline-block;
+}
+
+.pagination {
+	display: inline-block;
+}
+
+li.disabled {	
+	cursor: not-allowed;
+}
+
+.container-sorting {
+	text-align: center;
+}
+
+.container-sorting select {
+	display: inline-block;
+}
+
+.form-control {
+	width: 160px !important;
+}

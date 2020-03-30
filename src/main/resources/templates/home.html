@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Home</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
+	<script type="text/javascript" th:inline="javascript" th:src="@{/js/jquery-1.9.1.js}"></script>
+	<script type="text/javascript" th:inline="javascript" th:src="@{/js/script.js}"></script>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"></link>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>				
+</head>
+
+<body class="bg">
+
+	<nav class="navbar navbar-fixed-top navbar-color">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <a class="navbar-brand" href="#">Chris Blog Dance</a>
+	    </div>
+	    <ul class="nav navbar-nav navbar-right">
+	        <li><a href="#"><span class="glyphicon glyphicon-user"></span> About Me</a></li>
+	        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+	     </ul>	    
+	  </div>
+	</nav>	
+	
+	<div class="container container-margin" th:object="${command}">
+		<div class="row">
+		<form th:action="@{{base}/home(base=${basePath})}" method="post" id="form">	
+		
+			<!-- Left -->
+			<div class="col-md-3 column">
+				<h3>Dance Types</h3>														
+				<div th:each="danceType : *{danceTypes}">
+					<div class="checkbox">					    	
+				    	<input type="checkbox" th:field="*{selectedDanceTypes}" th:value="${danceType.id}" onclick="document.querySelector('#form').submit()"/>
+				    	<label th:for="${#ids.prev('selectedDanceTypes')}" th:text="${danceType.name}"></label>
+				    </div>
+			    </div>
+			</div>
+			
+			<!-- Right -->
+		    <div class="col-md-8 column">
+		    
+			    	<h3>Movies</h3>	
+			    		<div class="container-sorting">	    	
+						  <label for="sel1">Sorting:</label>
+					      <select class="form-control" th:field="*{selectedSorting}" onchange="document.querySelector('#form').submit()">
+					        <option th:each="sort : *{sorting}" th:value="${sort.value}" th:text="${sort.text}"/>			        
+					      </select>				      
+				      </div>	      	
+			     		    	
+			    	<div th:each="article : *{articles}">
+			    		<hr/>
+			    		<div class="media">
+					    <div class="media-left">
+					    	<img th:src="@{/images/{thumb}(thumb=${article.thumb})}" class="media-object pointer openModal" style="width:240px" 
+					    	data-toggle="modal" data-target="#myModal" th:attr="youTube=${article.youTube}"/>
+					    </div>
+					    <div class="media-body">
+							<!-- a th:href="@{/home/article/{articleId}(articleId=${article.id})}" th:text="${article.title}"></a-->
+							<h4 th:text="${article.title}"></h4>
+							<div th:text="${article.date}"></div>
+							<div th:text="${article.pair}"></div>							
+					    </div>
+					  </div>		    						
+					</div>
+					<div th:if="*{#lists.isEmpty(articles)}">
+						There are no movies.
+					</div>
+					
+					<div th:unless="*{#lists.isEmpty(articles)}" class="container-pagination">
+						<ul class="pager">
+						    <li th:if="*{disablePrevious}" class="previous disabled"><a href="#">Previous</a></li>
+						    <li th:unless="*{disablePrevious}" class="previous"><a th:href="@{/home?currentPage={page}&selectedDanceTypes={selectedDanceTypes}&selectedSorting={selectedSorting}(page=*{currentPage} - 1,selectedDanceTypes=*{selectedDanceTypes},selectedSorting=*{selectedSorting})}">Previous</a></li>
+						</ul>
+						<ul class="pagination" th:each="page : *{pages}">					
+						    <li th:if="${#strings.equals(page, #strings.toString(command.currentPage))}" class="active"><a href="#" th:text="${page}"></a></li>
+							<li th:unless="${#strings.equals(page, #strings.toString(command.currentPage))}"><a th:href="@{/home?currentPage={page}&selectedDanceTypes={selectedDanceTypes}&selectedSorting={selectedSorting}(page=${page},selectedDanceTypes=*{selectedDanceTypes},selectedSorting=*{selectedSorting})}" th:text="${page}"></a></li>
+					    </ul>
+					    <ul class="pager">
+					      <li th:if="*{disableNext}" class="next disabled"><a href="#">Next</a></li>
+					      <li th:unless="*{disableNext}" class="next"><a th:href="@{/home?currentPage={page}&selectedDanceTypes={selectedDanceTypes}&selectedSorting={selectedSorting}(page=*{currentPage} + 1,selectedDanceTypes=*{selectedDanceTypes},selectedSorting=*{selectedSorting})}">Next</a></li>
+				 	    </ul>
+					</div>				
+				
+		    </div>		    
+		
+		</form>	
+		</div>    
+	</div>
+	
+	<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body" id="yt-player">
+          <iframe width="860" height="750" class="iframe">
+		</iframe>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+	
+	
+<script type="text/javascript">
+$('#myModal').on('hidden.bs.modal', function () {
+    $("#myModal iframe").attr("src", $("#myModal iframe").attr("src"));
+});
+
+$(document).on("click", ".openModal", function () {
+   var youTube = $(this).attr('youTube');    
+   $(".modal-body .iframe").attr('src', youTube);
+});
+</script>
+</body>
+</html>
