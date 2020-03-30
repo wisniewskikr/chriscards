@@ -21,10 +21,6 @@
 	    <div class="navbar-header">
 	      <a class="navbar-brand" href="#">Chris Cards</a>
 	    </div>
-	    <ul class="nav navbar-nav navbar-right">
-	        <li><a href="#"><span class="glyphicon glyphicon-user"></span> About Me</a></li>
-	        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-	     </ul>	    
 	  </div>
 	</nav>	
 	
@@ -32,50 +28,9 @@
 		<div class="row">
 		<form th:action="@{{base}/home(base=${basePath})}" method="post" id="form">	
 								
-			<!-- Right -->
-		    <div class="col-md-8 column">
+		    <div class="col-md column h-25">
 		    
-			    	<h3>Movies</h3>	
-			    		<div class="container-sorting">	    	
-						  <label for="sel1">Sorting:</label>
-					      <select class="form-control" th:field="*{selectedSorting}" onchange="document.querySelector('#form').submit()">
-					        <option th:each="sort : *{sorting}" th:value="${sort.value}" th:text="${sort.text}"/>			        
-					      </select>				      
-				      </div>	      	
-			     		    	
-			    	<div th:each="article : *{articles}">
-			    		<hr/>
-			    		<div class="media">
-					    <div class="media-left">
-					    	<img th:src="@{/images/{thumb}(thumb=${article.thumb})}" class="media-object pointer openModal" style="width:240px" 
-					    	data-toggle="modal" data-target="#myModal" th:attr="youTube=${article.youTube}"/>
-					    </div>
-					    <div class="media-body">
-							<!-- a th:href="@{/home/article/{articleId}(articleId=${article.id})}" th:text="${article.title}"></a-->
-							<h4 th:text="${article.title}"></h4>
-							<div th:text="${article.date}"></div>
-							<div th:text="${article.pair}"></div>							
-					    </div>
-					  </div>		    						
-					</div>
-					<div th:if="*{#lists.isEmpty(articles)}">
-						There are no movies.
-					</div>
-					
-					<div th:unless="*{#lists.isEmpty(articles)}" class="container-pagination">
-						<ul class="pager">
-						    <li th:if="*{disablePrevious}" class="previous disabled"><a href="#">Previous</a></li>
-						    <li th:unless="*{disablePrevious}" class="previous"><a th:href="@{/home?currentPage={page}&selectedDanceTypes={selectedDanceTypes}&selectedSorting={selectedSorting}(page=*{currentPage} - 1,selectedDanceTypes=*{selectedDanceTypes},selectedSorting=*{selectedSorting})}">Previous</a></li>
-						</ul>
-						<ul class="pagination" th:each="page : *{pages}">					
-						    <li th:if="${#strings.equals(page, #strings.toString(command.currentPage))}" class="active"><a href="#" th:text="${page}"></a></li>
-							<li th:unless="${#strings.equals(page, #strings.toString(command.currentPage))}"><a th:href="@{/home?currentPage={page}&selectedDanceTypes={selectedDanceTypes}&selectedSorting={selectedSorting}(page=${page},selectedDanceTypes=*{selectedDanceTypes},selectedSorting=*{selectedSorting})}" th:text="${page}"></a></li>
-					    </ul>
-					    <ul class="pager">
-					      <li th:if="*{disableNext}" class="next disabled"><a href="#">Next</a></li>
-					      <li th:unless="*{disableNext}" class="next"><a th:href="@{/home?currentPage={page}&selectedDanceTypes={selectedDanceTypes}&selectedSorting={selectedSorting}(page=*{currentPage} + 1,selectedDanceTypes=*{selectedDanceTypes},selectedSorting=*{selectedSorting})}">Next</a></li>
-				 	    </ul>
-					</div>				
+			    	<h3>Karty</h3>	    				
 				
 		    </div>		    
 		

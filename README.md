@@ -5,7 +5,9 @@ CHRIS CARDS
 DESCRIPTION
 -----------
 
-...
+- Spring Boot
+- Thymeleaf
+- Bootstrap
   
 
 USAGE
