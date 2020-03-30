@@ -9,7 +9,7 @@ public class InitController {
 
 	@RequestMapping
 	public String index() {
-		return "redirect:home";
+		return "redirect:cards";
 	}
 	
 }
