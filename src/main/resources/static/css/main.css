@@ -3,9 +3,6 @@ body, html {
 }
 
 .bg { 
-  /* The image used */
-  background-image: url("/images/dance.jpg");
-
   /* Full height */
   height: 100%; 
 

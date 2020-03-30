@@ -19,7 +19,7 @@
 	<nav class="navbar navbar-fixed-top navbar-color">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
-	      <a class="navbar-brand" href="#">Chris Blog Dance</a>
+	      <a class="navbar-brand" href="#">Chris Cards</a>
 	    </div>
 	    <ul class="nav navbar-nav navbar-right">
 	        <li><a href="#"><span class="glyphicon glyphicon-user"></span> About Me</a></li>
@@ -31,18 +31,7 @@
 	<div class="container container-margin" th:object="${command}">
 		<div class="row">
 		<form th:action="@{{base}/home(base=${basePath})}" method="post" id="form">	
-		
-			<!-- Left -->
-			<div class="col-md-3 column">
-				<h3>Dance Types</h3>														
-				<div th:each="danceType : *{danceTypes}">
-					<div class="checkbox">					    	
-				    	<input type="checkbox" th:field="*{selectedDanceTypes}" th:value="${danceType.id}" onclick="document.querySelector('#form').submit()"/>
-				    	<label th:for="${#ids.prev('selectedDanceTypes')}" th:text="${danceType.name}"></label>
-				    </div>
-			    </div>
-			</div>
-			
+								
 			<!-- Right -->
 		    <div class="col-md-8 column">
 		    
