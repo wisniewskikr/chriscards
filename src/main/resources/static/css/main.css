@@ -10,3 +10,7 @@
 .container-margin {
 	margin-top:150px;
 }
+
+.panel-main {
+	cursor: pointer;
+}

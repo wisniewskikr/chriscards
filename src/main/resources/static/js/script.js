@@ -1,3 +1,3 @@
-$(function() {
-	$( document ).tooltip();
-});
+function redirect(target) {
+	location.href=target;
+}

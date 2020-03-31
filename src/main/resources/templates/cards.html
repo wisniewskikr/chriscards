@@ -25,12 +25,25 @@
 	</nav>	
 	
 	<div class="container container-margin" th:object="${command}">
-		<div class="row">
-		<form th:action="@{{base}/home(base=${basePath})}" method="post" id="form">	
+		<div class="row">		
 		    <div class="col-md column h-25">
-			    <h3>Karty</h3>	    				
-		    </div>		    
-		</form>	
+		    
+				<h3>Karty</h3>	  			    
+			    
+			    <div class="panel panel-default panel-main" onclick="redirect('/packages')">
+					<div class="panel-body">Paczki</div>
+				</div>
+				
+				<div class="panel panel-default panel-main" onclick="redirect('/learning')">
+					<div class="panel-body">Nauka</div>
+				</div>
+				
+				<div class="panel panel-default panel-main" onclick="redirect('/more')">
+					<div class="panel-body">Więcej</div>
+				</div>
+			
+			</div>
+		    		    
 		</div>    
 	</div>
 

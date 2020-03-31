@@ -28,7 +28,21 @@
 		<div class="row">
 		<form th:action="@{{base}/home(base=${basePath})}" method="post" id="form">	
 		    <div class="col-md column h-25">
-			    <h3>Nauka</h3>	    				
+		    
+			    <h3>Nauka</h3>
+			    
+			    <div class="panel panel-default panel-main" onclick="redirect('/cards')">
+					<div class="panel-body">Karty</div>
+				</div>
+			    
+			    <div class="panel panel-default panel-main" onclick="redirect('/packages')">
+					<div class="panel-body">Paczki</div>
+				</div>				
+				
+				<div class="panel panel-default panel-main" onclick="redirect('/more')">
+					<div class="panel-body">Więcej</div>
+				</div>
+			    	    				
 		    </div>		    
 		</form>	
 		</div>    
