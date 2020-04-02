@@ -21,3 +21,5 @@ http://localhost:8080
 
 Link to DB CONSOLE:
 http://localhost:8080/console
+
+https://fontawesome.com/icons/layer-plus?sty
