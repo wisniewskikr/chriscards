@@ -4,15 +4,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import pl.kwi.springboot.commands.cards.CardsCommand;
+import pl.kwi.springboot.commands.cards.NewCardCommand;
 
 @Controller
-public class CardsController {
+public class NewCardController {
 
-	@RequestMapping(value="/cards")
-	public String cards(
-			@ModelAttribute("command") CardsCommand command) {
-		return "cards/cards";
+	@RequestMapping(value="/newCard")
+	public String newCard(
+			@ModelAttribute("command") NewCardCommand command) {
+		return "cards/newCard";
 	}
 	
 }
