@@ -20,6 +20,13 @@ public class CategoryEntity {
     private String name;
 
     
+    public CategoryEntity() {
+	}
+	public CategoryEntity(String name) {
+		this.name = name;
+	}
+	
+	
 	public long getId() {
 		return id;
 	}

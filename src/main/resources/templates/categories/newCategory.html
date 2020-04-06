@@ -31,12 +31,18 @@
 	<div class="container container-margin" th:object="${command}">
 		<div class="row">
 			<div class="col-md column h-25">
-		
-				<div class="panel panel-default panel-main" onclick="redirect('/newCategory')">
-					<h3 class="panel-body">Dodaj nową kategorię.</h3>
-				</div>  
 				
-				<button type="button" class="btn btn-default btn-lg" onclick="redirect('/more')">Powrót</button>
+				<form action="/addCategory">
+			
+				    <div class="form-group">
+      					<label for="category">Kategoria:</label>
+      					<input class="form-control input-lg" id="category" type="text" th:field="*{category}">
+    				</div>
+					
+					<button type="submit" class="btn btn-default btn-lg">Zapisz</button>	
+					<button type="button" class="btn btn-default btn-lg" onclick="redirect('/categories')">Powrót</button>
+				
+				</form>
 								
 			</div>
 		</div>    
