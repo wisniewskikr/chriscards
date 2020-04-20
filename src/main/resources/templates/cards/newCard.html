@@ -43,7 +43,7 @@
 					  		<option th:each="category : *{categories}" th:value="${category.name}" th:text="${category.name}"/>	
 						</select>
 						<div>
-							<a href="/newCategory">Dodaj kategorię</a>
+							<a href="/newCategory?redirect=newCard">Dodaj kategorię</a>
 						</div>
 				    </div>
 				</fieldset>

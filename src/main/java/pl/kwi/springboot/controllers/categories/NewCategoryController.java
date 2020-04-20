@@ -28,7 +28,7 @@ public class NewCategoryController {
 			@ModelAttribute("command") NewCategoryCommand command) {
 		
 		categoryRepository.save(new CategoryEntity(command.getCategory()));
-		return "categories/categories";
+		return "redirect:" + command.getRedirect();
 		
 	}
 	
