@@ -31,3 +31,7 @@ fieldset.scheduler-border {
         padding:0 10px;
         border-bottom:none;
     }
+    
+.error {
+	color: red;
+}    

@@ -38,6 +38,7 @@
 				    <div class="form-group">
       					<label for="category">Kategoria:</label>
       					<input class="form-control input-lg" id="category" type="text" th:field="*{category}">
+      					<p th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="error">Category error</p>
     				</div>
 					
 					<button type="submit" class="btn btn-default btn-lg">Zapisz</button>	

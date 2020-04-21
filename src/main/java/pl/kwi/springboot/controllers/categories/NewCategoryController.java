@@ -1,7 +1,9 @@
 package pl.kwi.springboot.controllers.categories;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,9 +27,16 @@ public class NewCategoryController {
 	
 	@RequestMapping(value="/addCategory")
 	public String addCategory(
-			@ModelAttribute("command") NewCategoryCommand command) {
+			@ModelAttribute("command") NewCategoryCommand command,
+			BindingResult bindingResult) {
 		
-		categoryRepository.save(new CategoryEntity(command.getCategory()));
+		try {
+			categoryRepository.save(new CategoryEntity(command.getCategory()));
+		} catch (DataIntegrityViolationException e) {
+			bindingResult.rejectValue("category", null, "Taka kategoria już istnieje");			
+			return "categories/newCategory";
+		}
+		
 		return "redirect:" + command.getRedirect() + "?selectedCategory=" + command.getCategory();
 		
 	}
