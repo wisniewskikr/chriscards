@@ -39,7 +39,7 @@
 				<fieldset class="scheduler-border">
 				    <legend class="scheduler-border">Katetoria</legend>
 				    <div class="control-group">
-					    <select class="selectpicker" data-live-search="true" title="Wybierz kategorię ..." th:disabled="*{#lists.isEmpty(categories)}">
+					    <select class="selectpicker" data-live-search="true" title="Wybierz kategorię ..." th:disabled="*{#lists.isEmpty(categories)}" th:field="*{selectedCategory}">
 					  		<option th:each="category : *{categories}" th:value="${category.name}" th:text="${category.name}"/>	
 						</select>
 						<div>

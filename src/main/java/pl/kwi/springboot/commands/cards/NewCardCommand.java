@@ -6,6 +6,7 @@ public class NewCardCommand {
 	
 	
 	private Iterable<CategoryEntity> categories;
+	private String selectedCategory;
 
 	
 	public Iterable<CategoryEntity> getCategories() {
@@ -14,6 +15,13 @@ public class NewCardCommand {
 	public void setCategories(Iterable<CategoryEntity> categories) {
 		this.categories = categories;
 	}
-
+	
+	public String getSelectedCategory() {
+		return selectedCategory;
+	}
+	public void setSelectedCategory(String selectedCategory) {
+		this.selectedCategory = selectedCategory;
+	}	
+	
 	
 }
