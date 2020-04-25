@@ -1,11 +1,14 @@
 package pl.kwi.springboot.commands.cards;
 
+import javax.validation.constraints.NotNull;
+
 import pl.kwi.springboot.db.entities.CategoryEntity;
 
 public class NewCardCommand {
 	
 	
 	private Iterable<CategoryEntity> categories;
+	@NotNull(message = "Kategoria nie może być pusta")
 	private String selectedCategory;
 	private String polishWord;
 	private String polishSentence;

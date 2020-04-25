@@ -2,6 +2,8 @@ package pl.kwi.springboot.controllers.cards;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +28,12 @@ public class NewCardController {
 	
 	@RequestMapping(value="/addCard", method = RequestMethod.POST)
 	public String addCard(
-			@ModelAttribute("command") NewCardCommand command) {
+			@Validated @ModelAttribute("command") NewCardCommand command,
+			BindingResult bindingResult) {
+		
+		if (bindingResult.hasErrors()) {
+			return "cards/newCard";
+		}
 		
 		return "redirect:cards";
 		
