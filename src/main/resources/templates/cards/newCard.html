@@ -48,6 +48,86 @@
 				    </div>
 				</fieldset>
 				
+				<fieldset class="scheduler-border">
+				    <legend class="scheduler-border">Język Polski</legend>
+				    <div class="control-group">
+				    	<div class="form-group">
+				    		<label for="category">Słowo:</label>
+      						<input class="form-control input-lg" id="polishWord" type="text" th:field="*{polishWord}">
+      						<p th:if="${#fields.hasErrors('polishWord')}" th:errors="*{polishWord}" class="error">Error</p>
+				    	</div>
+				    	<div class="form-group">
+				    		<label for="category">Zdanie:</label>
+      						<input class="form-control input-lg" id="polishSentence" type="text" th:field="*{polishSentence}">
+      						<p th:if="${#fields.hasErrors('polishSentence')}" th:errors="*{polishSentence}" class="error">Error</p>
+				    	</div>
+				    </div>
+				</fieldset>
+				
+				<fieldset class="scheduler-border">
+				    <legend class="scheduler-border">Język Angielski</legend>
+				    <div class="control-group">
+				    	<div class="form-group">
+				    		<label for="category">Słowo:</label>
+      						<input class="form-control input-lg" id="englishWord" type="text" th:field="*{englishWord}">
+      						<p th:if="${#fields.hasErrors('englishWord')}" th:errors="*{englishWord}" class="error">Error</p>
+				    	</div>
+				    	<div class="form-group">
+				    		<label for="category">Zdanie:</label>
+      						<input class="form-control input-lg" id="englishSentence" type="text" th:field="*{englishSentence}">
+      						<p th:if="${#fields.hasErrors('englishSentence')}" th:errors="*{englishSentence}" class="error">Error</p>
+				    	</div>
+				    </div>
+				</fieldset>
+				
+				<fieldset class="scheduler-border">
+				    <legend class="scheduler-border">Język Rosyjski</legend>
+				    <div class="control-group">
+				    	<div class="form-group">
+				    		<label for="category">Słowo:</label>
+      						<input class="form-control input-lg" id="russianWord" type="text" th:field="*{russianWord}">
+      						<p th:if="${#fields.hasErrors('russianWord')}" th:errors="*{russianWord}" class="error">Error</p>
+				    	</div>
+				    	<div class="form-group">
+				    		<label for="category">Zdanie:</label>
+      						<input class="form-control input-lg" id="russianSentence" type="text" th:field="*{russianSentence}">
+      						<p th:if="${#fields.hasErrors('russianSentence')}" th:errors="*{russianSentence}" class="error">Error</p>
+				    	</div>
+				    </div>
+				</fieldset>
+				
+				<fieldset class="scheduler-border">
+				    <legend class="scheduler-border">Język Hiszpański</legend>
+				    <div class="control-group">
+				    	<div class="form-group">
+				    		<label for="category">Słowo:</label>
+      						<input class="form-control input-lg" id="spainWord" type="text" th:field="*{spainWord}">
+      						<p th:if="${#fields.hasErrors('spainWord')}" th:errors="*{spainWord}" class="error">Error</p>
+				    	</div>
+				    	<div class="form-group">
+				    		<label for="category">Zdanie:</label>
+      						<input class="form-control input-lg" id="spainSentence" type="text" th:field="*{spainSentence}">
+      						<p th:if="${#fields.hasErrors('spainSentence')}" th:errors="*{spainSentence}" class="error">Error</p>
+				    	</div>
+				    </div>
+				</fieldset>
+				
+				<fieldset class="scheduler-border">
+				    <legend class="scheduler-border">Język Niemiecki</legend>
+				    <div class="control-group">
+				    	<div class="form-group">
+				    		<label for="category">Słowo:</label>
+      						<input class="form-control input-lg" id="germanWord" type="text" th:field="*{germanWord}">
+      						<p th:if="${#fields.hasErrors('germanWord')}" th:errors="*{germanWord}" class="error">Error</p>
+				    	</div>
+				    	<div class="form-group">
+				    		<label for="category">Zdanie:</label>
+      						<input class="form-control input-lg" id="germanSentence" type="text" th:field="*{germanSentence}">
+      						<p th:if="${#fields.hasErrors('germanSentence')}" th:errors="*{germanSentence}" class="error">Error</p>
+				    	</div>
+				    </div>
+				</fieldset>
+				
 				<a class="btn btn-default btn-lg" href="/cards">Powrót</a>
 				
 			</div>
