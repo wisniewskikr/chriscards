@@ -1,5 +1,6 @@
 package pl.kwi.springboot.commands.cards;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import pl.kwi.springboot.db.entities.CategoryEntity;
@@ -8,17 +9,27 @@ public class NewCardCommand {
 	
 	
 	private Iterable<CategoryEntity> categories;
-	@NotNull(message = "Kategoria nie może być pusta")
+	@NotNull(message = "Proszę wybrać jakąś wartość")
 	private String selectedCategory;
+	@NotBlank(message = "To pole nie może być puste")
 	private String polishWord;
+	@NotBlank(message = "To pole nie może być puste")
 	private String polishSentence;
+	@NotBlank(message = "To pole nie może być puste")
 	private String englishWord;
+	@NotBlank(message = "To pole nie może być puste")
 	private String englishSentence;
+	@NotBlank(message = "To pole nie może być puste")
 	private String russianWord;
+	@NotBlank(message = "To pole nie może być puste")
 	private String russianSentence;
+	@NotBlank(message = "To pole nie może być puste")
 	private String spainWord;
+	@NotBlank(message = "To pole nie może być puste")
 	private String spainSentence;
+	@NotBlank(message = "To pole nie może być puste")
 	private String germanWord;
+	@NotBlank(message = "To pole nie może być puste")
 	private String germanSentence;
 
 	
