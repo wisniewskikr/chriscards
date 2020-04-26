@@ -33,4 +33,8 @@ fieldset.scheduler-border {
     
 .error {
 	color: red;
-}    
+}  
+
+.prononciation {
+	font-style: italic;
+}  
