@@ -22,7 +22,7 @@ public class DeleteCategoryController {
 	public String displayDeleteCategory(
 			@ModelAttribute("command") DeleteCategoryCommand command) {
 		
-		command.setCategories(categoryRepository.findAll());
+		command.setCategories(categoryRepository.findAllWithoutDefault());
 		
 		return "categories/deleteCategory";
 		
@@ -34,7 +34,7 @@ public class DeleteCategoryController {
 			BindingResult bindingResult) {
 		
 		if (StringUtils.isBlank(command.getSelectedCategory())) {
-			command.setCategories(categoryRepository.findAll());
+			command.setCategories(categoryRepository.findAllWithoutDefault());
 			bindingResult.rejectValue("selectedCategory", null, "Proszę wybrać kategorię do usunięcia");			
 			return "categories/deleteCategory";
 		}

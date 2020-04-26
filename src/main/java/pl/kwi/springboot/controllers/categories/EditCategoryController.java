@@ -22,7 +22,7 @@ public class EditCategoryController {
 	public String displayEditCategory(
 			@ModelAttribute("command") EditCategoryCommand command) {
 		
-		command.setCategories(categoryRepository.findAll());
+		command.setCategories(categoryRepository.findAllWithoutDefault());
 		
 		return "categories/editCategory";
 		
@@ -34,13 +34,13 @@ public class EditCategoryController {
 			BindingResult bindingResult) {
 		
 		if (StringUtils.isBlank(command.getSelectedCategory())) {
-			command.setCategories(categoryRepository.findAll());
+			command.setCategories(categoryRepository.findAllWithoutDefault());
 			bindingResult.rejectValue("selectedCategory", null, "Proszę wybrać kategorię do edycji");			
 			return "categories/editCategory";
 		}
 		
 		if (StringUtils.isBlank(command.getNewCategory())) {
-			command.setCategories(categoryRepository.findAll());
+			command.setCategories(categoryRepository.findAllWithoutDefault());
 			bindingResult.rejectValue("newCategory", null, "Proszę podać nazwę nowej kategorii");			
 			return "categories/editCategory";
 		}	
