@@ -44,9 +44,11 @@
 					    <div class="control-group">
 					    	<div class="form-group">
 							    <label for="selectedCategory">* Wybierz kategorię:</label>
-							    <select class="selectpicker form-control" data-live-search="true" title="Wybierz kategorię ..." th:disabled="*{#lists.isEmpty(categories)}" th:field="*{selectedCategory}">
+							    <select class="selectpicker form-control" style="width: 100px;" data-live-search="true" title="Wybierz kategorię ..." th:disabled="*{#lists.isEmpty(categories)}" th:field="*{selectedCategory}">
 							  		<option th:each="category : *{categories}" th:value="${category.id}" th:text="${category.name}"/>	
 								</select>
+								<i class="fas fa-info-circle" data-toggle="tooltip" data-placement="bottom" 
+								title="Wybierz kategorię, do której należy dana karta. Na przykład kategoria 'Samochód' dla kart tj. 'koło', 'kierownica', 'skrzynia biegów' itd. Domyślna kategoria to 'Inne'. Zawsze możesz ją zaktualizować przy edycji karty."></i>
 								<p th:if="${#fields.hasErrors('selectedCategory')}" th:errors="*{selectedCategory}" class="error">Error</p>
 								<div>
 									<a href="/newCategory?redirect=newCard">Dodaj kategorię</a>
