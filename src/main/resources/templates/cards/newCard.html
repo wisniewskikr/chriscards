@@ -45,7 +45,7 @@
 					    	<div class="form-group">
 							    <label for="selectedCategory">* Wybierz kategorię:</label>
 							    <select class="selectpicker form-control" data-live-search="true" title="Wybierz kategorię ..." th:disabled="*{#lists.isEmpty(categories)}" th:field="*{selectedCategory}">
-							  		<option th:each="category : *{categories}" th:value="${category.name}" th:text="${category.name}"/>	
+							  		<option th:each="category : *{categories}" th:value="${category.id}" th:text="${category.name}"/>	
 								</select>
 								<p th:if="${#fields.hasErrors('selectedCategory')}" th:errors="*{selectedCategory}" class="error">Error</p>
 								<div>

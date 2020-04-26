@@ -1,5 +1,6 @@
 package pl.kwi.springboot.controllers.cards;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,9 @@ public class NewCardController {
 	public String newCard(
 			@ModelAttribute("command") NewCardCommand command) {
 		
+		if (StringUtils.isBlank(command.getSelectedCategory())) {
+			command.setSelectedCategory("1");
+		}		
 		command.setCategories(categoryRepository.findAll());
 		return "cards/newCard";
 		

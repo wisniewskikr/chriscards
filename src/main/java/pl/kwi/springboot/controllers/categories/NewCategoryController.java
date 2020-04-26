@@ -30,14 +30,15 @@ public class NewCategoryController {
 			@ModelAttribute("command") NewCategoryCommand command,
 			BindingResult bindingResult) {
 		
+		CategoryEntity category;
 		try {
-			categoryRepository.save(new CategoryEntity(command.getCategory()));
+			category = categoryRepository.save(new CategoryEntity(command.getCategory()));
 		} catch (DataIntegrityViolationException e) {
 			bindingResult.rejectValue("category", null, "Taka kategoria już istnieje");			
 			return "categories/newCategory";
 		}
 		
-		return "redirect:" + command.getRedirect() + "?selectedCategory=" + command.getCategory();
+		return "redirect:" + command.getRedirect() + "?selectedCategory=" + category.getId();
 		
 	}
 	
