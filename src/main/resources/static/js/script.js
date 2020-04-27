@@ -5,3 +5,7 @@ $(document).ready(function(){
 function redirect(target) {
 	location.href=target;
 }
+
+function submitAction(formId, action) {
+	$('#' + formId).attr('action', action).submit();
+}

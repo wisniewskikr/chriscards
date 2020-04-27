@@ -37,7 +37,7 @@
 		<div class="row">		
 		    <div class="col-md column h-25">
 				
-				<form action="/addCard" method="post">	
+				<form id="newCardForm" method="post">	
 					    
 					<fieldset class="scheduler-border">
 					    <legend class="scheduler-border">Katetoria</legend>
@@ -48,7 +48,7 @@
 							  		<option th:each="category : *{categories}" th:value="${category.id}" th:text="${category.name}"/>	
 								</select>
 								<i class="fas fa-info-circle" data-toggle="tooltip" data-placement="bottom" 
-								title="Wybierz kategorię, do której należy dana karta. Na przykład kategoria 'Samochód' dla kart tj. 'koło', 'kierownica', 'skrzynia biegów' itd. Domyślna kategoria to 'Inne'. Zawsze możesz ją zaktualizować przy edycji karty."></i>
+								title="Wybierz kategorię, do której należy dana karta. Na przykład kategoria 'Samochód' dla kart tj. 'Koło', 'Kierownica', 'Skrzynia biegów' itd. Domyślna kategoria to 'Inne'. Zawsze możesz ją zaktualizować przy edycji karty."></i>
 								<p th:if="${#fields.hasErrors('selectedCategory')}" th:errors="*{selectedCategory}" class="error">Error</p>
 								<div>
 									<a href="/newCategory?redirect=newCard">Dodaj kategorię</a>
@@ -177,8 +177,11 @@
 					    </div>
 					</fieldset>
 					
-					<button type="submit" class="btn btn-default btn-lg">Zapisz</button>
-					<a class="btn btn-default btn-lg" href="/cards">Powrót</a>
+					<button type="button" class="btn btn-default btn-lg" onClick="submitAction('newCardForm', '/previousCard')" >Poprzednia</button>
+					<button type="button" class="btn btn-default btn-lg" onClick="submitAction('newCardForm', '/saveCards')">Zapisz</button>
+					<a class="btn btn-default btn-lg" href="/cards">Anuluj</a>
+					<button type="button" class="btn btn-default btn-lg" onClick="submitAction('newCardForm', '/deleteCurrentCard')">Usuń aktualną kartę</button>
+					<button type="button" class="btn btn-default btn-lg" onClick="submitAction('newCardForm', '/nextCard')">Następna</button>
 					
 				</form>
 				

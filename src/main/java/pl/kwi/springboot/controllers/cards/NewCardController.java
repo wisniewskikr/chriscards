@@ -30,8 +30,8 @@ public class NewCardController {
 		
 	}
 	
-	@RequestMapping(value="/addCard", method = RequestMethod.POST)
-	public String addCard(
+	@RequestMapping(value="/saveCards", method = RequestMethod.POST)
+	public String saveCards(
 			@Validated @ModelAttribute("command") NewCardCommand command,
 			BindingResult bindingResult) {
 		
@@ -42,5 +42,45 @@ public class NewCardController {
 		return "redirect:cards";
 		
 	}
+	
+	@RequestMapping(value="/deleteCurrentCard", method = RequestMethod.POST)
+	public String deleteCurrentCard(
+			@Validated @ModelAttribute("command") NewCardCommand command,
+			BindingResult bindingResult) {
+		
+		if (bindingResult.hasErrors()) {
+			return "cards/newCard";
+		}
+		
+		return "redirect:cards";
+		
+	}
+	
+	@RequestMapping(value="/previousCard", method = RequestMethod.POST)
+	public String previuosCard(
+			@Validated @ModelAttribute("command") NewCardCommand command,
+			BindingResult bindingResult) {
+		
+		if (bindingResult.hasErrors()) {
+			return "cards/newCard";
+		}
+		
+		return "redirect:cards";
+		
+	}
+	
+	@RequestMapping(value="/nextCard", method = RequestMethod.POST)
+	public String nextCard(
+			@Validated @ModelAttribute("command") NewCardCommand command,
+			BindingResult bindingResult) {
+		
+		if (bindingResult.hasErrors()) {
+			return "cards/newCard";
+		}
+		
+		return "redirect:cards";
+		
+	}
+	
 	
 }
