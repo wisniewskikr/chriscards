@@ -35,7 +35,7 @@ public class WordEntity {
     @Column
     private String sentencePronociation;
     
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private LanguageEnum language;
     
     @ManyToOne(fetch = FetchType.LAZY)
