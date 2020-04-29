@@ -28,10 +28,10 @@ public class CardEntity {
 	private CategoryEntity category;
 	
 	@OneToMany(
-	        mappedBy = "card",
 	        cascade = CascadeType.ALL,
 	        orphanRemoval = true
-	    )
+	 )
+	@JoinColumn(name = "card_id")
 	private List<WordEntity> words = new ArrayList<WordEntity>();
  
 
