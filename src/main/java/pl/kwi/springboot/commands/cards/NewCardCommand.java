@@ -41,6 +41,8 @@ public class NewCardCommand {
 	@NotBlank(message = "To pole nie może być puste")
 	private String germanSentence;
 	private String germanSentencePrononciation;
+	private String currentCardNumber;
+	private String allCardsCount;
 	
 	
 	public Iterable<CategoryEntity> getCategories() {
@@ -196,5 +198,19 @@ public class NewCardCommand {
 		this.germanSentencePrononciation = germanSentencePrononciation;
 	}
 	
+	public String getCurrentCardNumber() {
+		return currentCardNumber;
+	}
+	public void setCurrentCardNumber(String currentCardNumber) {
+		this.currentCardNumber = currentCardNumber;
+	}
+	
+	public String getAllCardsCount() {
+		return allCardsCount;
+	}
+	public void setAllCardsCount(String allCardsCount) {
+		this.allCardsCount = allCardsCount;
+	}
+		
 	
 }

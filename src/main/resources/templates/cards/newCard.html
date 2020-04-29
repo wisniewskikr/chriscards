@@ -36,9 +36,13 @@
 	<div class="container container-margin" th:object="${command}">
 		<div class="row">		
 		    <div class="col-md column h-25">
-				
+		    				
 				<form id="newCardForm" method="post">	
-					    
+					
+					<p class="text-center">    
+						<span th:text="*{currentCardNumber}"/> / <span th:text="*{allCardsCount}"/>
+					</p>	
+					
 					<fieldset class="scheduler-border">
 					    <legend class="scheduler-border">Katetoria</legend>
 					    <div class="control-group">

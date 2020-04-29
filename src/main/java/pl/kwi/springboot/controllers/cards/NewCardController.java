@@ -37,12 +37,17 @@ public class NewCardController {
 
 	@RequestMapping(value="/newCard")
 	public String newCard(
-			@ModelAttribute("command") NewCardCommand command) {
+			@ModelAttribute("command") NewCardCommand command,
+			HttpSession session) {
 		
 		if (StringUtils.isBlank(command.getSelectedCategory())) {
 			command.setSelectedCategory(DEFAULT_CATEGORY_1);
 		}		
 		command.setCategories(categoryRepository.findAll());
+		command.setCurrentCardNumber("1");
+		command.setAllCardsCount("1");
+		session.setAttribute("cards", new ArrayList<CardEntity>());
+		
 		return "cards/newCard";
 		
 	}
@@ -56,25 +61,12 @@ public class NewCardController {
 			return "cards/newCard";
 		}
 		
-		CategoryEntity category = categoryRepository.findById(Long.valueOf(command.getSelectedCategory())).get();
-		List<WordEntity> words = new ArrayList<WordEntity>();
-		WordEntity word;
-		word = new WordEntity(command.getPolishWord(), command.getPolishWordPrononciation(), command.getPolishSentence(), command.getPolishSentencePrononciation(), LanguageEnum.POLISH);
-		words.add(word);
-		word = new WordEntity(command.getEnglishWord(), command.getEnglishWordPrononciation(), command.getEnglishSentence(), command.getEnglishSentencePrononciation(), LanguageEnum.ENGLISH);
-		words.add(word);
-		word = new WordEntity(command.getRussianWord(), command.getRussianWordPrononciation(), command.getRussianSentence(), command.getRussianSentencePrononciation(), LanguageEnum.RUSSIAN);
-		words.add(word);
-		word = new WordEntity(command.getSpainWord(), command.getSpainWordPrononciation(), command.getSpainSentence(), command.getSpainSentencePrononciation(), LanguageEnum.SPAIN);
-		words.add(word);
-		word = new WordEntity(command.getGermanWord(), command.getGermanWordPrononciation(), command.getGermanSentence(), command.getGermanSentencePrononciation(), LanguageEnum.GERMAN);
-		words.add(word);
-		cardRepository.save(new CardEntity(category, words));
+		createCard(command);
 		
 		return "redirect:cards";
 		
 	}
-	
+		
 	@RequestMapping(value="/deleteCurrentCard", method = RequestMethod.POST)
 	public String deleteCurrentCard(
 			@Validated @ModelAttribute("command") NewCardCommand command,
@@ -112,6 +104,25 @@ public class NewCardController {
 		}		
 		
 		return "redirect:cards";
+		
+	}
+	
+	private void createCard(NewCardCommand command) {
+		
+		CategoryEntity category = categoryRepository.findById(Long.valueOf(command.getSelectedCategory())).get();
+		List<WordEntity> words = new ArrayList<WordEntity>();
+		WordEntity word;
+		word = new WordEntity(command.getPolishWord(), command.getPolishWordPrononciation(), command.getPolishSentence(), command.getPolishSentencePrononciation(), LanguageEnum.POLISH);
+		words.add(word);
+		word = new WordEntity(command.getEnglishWord(), command.getEnglishWordPrononciation(), command.getEnglishSentence(), command.getEnglishSentencePrononciation(), LanguageEnum.ENGLISH);
+		words.add(word);
+		word = new WordEntity(command.getRussianWord(), command.getRussianWordPrononciation(), command.getRussianSentence(), command.getRussianSentencePrononciation(), LanguageEnum.RUSSIAN);
+		words.add(word);
+		word = new WordEntity(command.getSpainWord(), command.getSpainWordPrononciation(), command.getSpainSentence(), command.getSpainSentencePrononciation(), LanguageEnum.SPAIN);
+		words.add(word);
+		word = new WordEntity(command.getGermanWord(), command.getGermanWordPrononciation(), command.getGermanSentence(), command.getGermanSentencePrononciation(), LanguageEnum.GERMAN);
+		words.add(word);
+		cardRepository.save(new CardEntity(category, words));
 		
 	}
 	
