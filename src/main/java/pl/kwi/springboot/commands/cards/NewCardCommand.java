@@ -11,34 +11,34 @@ public class NewCardCommand {
 	private Iterable<CategoryEntity> categories;
 	@NotNull(message = "Proszę wybrać jakąś wartość")
 	private String selectedCategory;
-	@NotBlank(message = "To pole nie może być puste")
+	//@NotBlank(message = "To pole nie może być puste")
 	private String polishWord;
 	private String polishWordPrononciation;
-	@NotBlank(message = "To pole nie może być puste")
+	//@NotBlank(message = "To pole nie może być puste")
 	private String polishSentence;
 	private String polishSentencePrononciation;
-	@NotBlank(message = "To pole nie może być puste")
+	//@NotBlank(message = "To pole nie może być puste")
 	private String englishWord;
 	private String englishWordPrononciation;
-	@NotBlank(message = "To pole nie może być puste")
+	//@NotBlank(message = "To pole nie może być puste")
 	private String englishSentence;
 	private String englishSentencePrononciation;
-	@NotBlank(message = "To pole nie może być puste")
+	//@NotBlank(message = "To pole nie może być puste")
 	private String russianWord;
 	private String russianWordPrononciation;
-	@NotBlank(message = "To pole nie może być puste")
+	//@NotBlank(message = "To pole nie może być puste")
 	private String russianSentence;
 	private String russianSentencePrononciation;
-	@NotBlank(message = "To pole nie może być puste")
+	//@NotBlank(message = "To pole nie może być puste")
 	private String spainWord;
 	private String spainWordPrononciation;
-	@NotBlank(message = "To pole nie może być puste")
+	//@NotBlank(message = "To pole nie może być puste")
 	private String spainSentence;
 	private String spainSentencePrononciation;
-	@NotBlank(message = "To pole nie może być puste")
+	//@NotBlank(message = "To pole nie może być puste")
 	private String germanWord;
 	private String germanWordPrononciation;
-	@NotBlank(message = "To pole nie może być puste")
+	//@NotBlank(message = "To pole nie może być puste")
 	private String germanSentence;
 	private String germanSentencePrononciation;
 	private String currentCardNumber;

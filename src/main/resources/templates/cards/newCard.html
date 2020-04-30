@@ -39,7 +39,9 @@
 		    				
 				<form id="newCardForm" method="post">	
 					
-					<p class="text-center">    
+					<p class="text-center">
+						<input type="hidden" th:field="*{currentCardNumber}" th:value="${currentCardNumber}" />
+						<input type="hidden" th:field="*{allCardsCount}" th:value="${allCardsCount}" />    
 						<span th:text="*{currentCardNumber}"/> / <span th:text="*{allCardsCount}"/>
 					</p>	
 					

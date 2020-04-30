@@ -26,6 +26,9 @@ import pl.kwi.springboot.db.repositories.CategoryRepository;
 public class NewCardController {
 	
 	
+	private static final String CARDS_ATTRIBUTE = "cards";
+	private static final String DEFAULT_CARDS_COUNT = "1";
+	private static final String DEFAULT_CARD_NUMBER = "1";
 	private static final String DEFAULT_CATEGORY_1 = "1";
 	
 	@Autowired
@@ -44,24 +47,30 @@ public class NewCardController {
 			command.setSelectedCategory(DEFAULT_CATEGORY_1);
 		}		
 		command.setCategories(categoryRepository.findAll());
-		command.setCurrentCardNumber("1");
-		command.setAllCardsCount("1");
-		session.setAttribute("cards", new ArrayList<CardEntity>());
+		command.setCurrentCardNumber(DEFAULT_CARD_NUMBER);
+		command.setAllCardsCount(DEFAULT_CARDS_COUNT);
+		session.setAttribute(CARDS_ATTRIBUTE, new ArrayList<CardEntity>());
 		
 		return "cards/newCard";
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/saveCards", method = RequestMethod.POST)
 	public String saveCards(
 			@Validated @ModelAttribute("command") NewCardCommand command,
-			BindingResult bindingResult) {
+			BindingResult bindingResult,
+			HttpSession session) {
 		
 		if (bindingResult.hasErrors()) {
 			return "cards/newCard";
 		}
 		
-		createCard(command);
+		addNewCardToSessionAttribute(session, command);
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
+		for (CardEntity card : cards) {
+			cardRepository.save(card);
+		}		
 		
 		return "redirect:cards";
 		
@@ -101,13 +110,19 @@ public class NewCardController {
 		
 		if (bindingResult.hasErrors()) {
 			return "cards/newCard";
-		}		
+		}
 		
-		return "redirect:cards";
+		command.setCategories(categoryRepository.findAll());		
+		String currentCardNumber = String.valueOf(Integer.valueOf(command.getCurrentCardNumber()) + 1);
+		String cardsCount = String.valueOf(Integer.valueOf(command.getAllCardsCount()) + 1);
+		handleCardNumeration(currentCardNumber, cardsCount, command);
+		addNewCardToSessionAttribute(session, command);
+		
+		return "cards/newCard";
 		
 	}
 	
-	private void createCard(NewCardCommand command) {
+	private CardEntity createCard(NewCardCommand command) {
 		
 		CategoryEntity category = categoryRepository.findById(Long.valueOf(command.getSelectedCategory())).get();
 		List<WordEntity> words = new ArrayList<WordEntity>();
@@ -122,7 +137,23 @@ public class NewCardController {
 		words.add(word);
 		word = new WordEntity(command.getGermanWord(), command.getGermanWordPrononciation(), command.getGermanSentence(), command.getGermanSentencePrononciation(), LanguageEnum.GERMAN);
 		words.add(word);
-		cardRepository.save(new CardEntity(category, words));
+		return new CardEntity(category, words);
+		
+	}
+	
+	private void handleCardNumeration(String currentCardNumber, String cardsCount, NewCardCommand command) {
+		
+		command.setCurrentCardNumber(currentCardNumber);
+		command.setAllCardsCount(cardsCount);
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void addNewCardToSessionAttribute(HttpSession session, NewCardCommand command) {
+		
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
+		cards.add(createCard(command));	
+		session.setAttribute(CARDS_ATTRIBUTE, cards);
 		
 	}
 	
