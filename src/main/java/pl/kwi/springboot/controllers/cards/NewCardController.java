@@ -92,13 +92,27 @@ public class NewCardController {
 	@RequestMapping(value="/previousCard", method = RequestMethod.POST)
 	public String previuosCard(
 			@Validated @ModelAttribute("command") NewCardCommand command,
-			BindingResult bindingResult) {
+			BindingResult bindingResult,
+			HttpSession session) {
 		
 		if (bindingResult.hasErrors()) {
 			return "cards/newCard";
 		}
 		
-		return "redirect:cards";
+		command.setCategories(categoryRepository.findAll());
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
+		
+		if(!command.getAllCardsCount().equals(String.valueOf(cards.size()))) {			
+			addNewCardToSessionAttribute(session, command);
+			readNewCardCommand(command, session, Integer.valueOf(command.getCurrentCardNumber()) - 2);
+			command.setCurrentCardNumber(String.valueOf(Integer.valueOf(command.getCurrentCardNumber()) - 1));			
+		} else {		
+			updateCardInSessionAttribute(session, command, Integer.valueOf(command.getCurrentCardNumber()) - 1);
+			readNewCardCommand(command, session, Integer.valueOf(command.getCurrentCardNumber()) - 2);
+			command.setCurrentCardNumber(String.valueOf(Integer.valueOf(command.getCurrentCardNumber()) - 1));			
+		}
+				
+		return "cards/newCard";
 		
 	}
 	
@@ -112,11 +126,19 @@ public class NewCardController {
 			return "cards/newCard";
 		}
 		
-		command.setCategories(categoryRepository.findAll());		
-		String currentCardNumber = String.valueOf(Integer.valueOf(command.getCurrentCardNumber()) + 1);
-		String cardsCount = String.valueOf(Integer.valueOf(command.getAllCardsCount()) + 1);
-		handleCardNumeration(currentCardNumber, cardsCount, command);
-		addNewCardToSessionAttribute(session, command);
+		command.setCategories(categoryRepository.findAll());
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
+		
+		if(!command.getAllCardsCount().equals(String.valueOf(cards.size()))) {
+			addNewCardToSessionAttribute(session, command);
+			cleanNewCardCommand(command);
+			command.setCurrentCardNumber(String.valueOf(Integer.valueOf(command.getCurrentCardNumber()) + 1));
+			command.setAllCardsCount(String.valueOf(Integer.valueOf(command.getAllCardsCount()) + 1));			
+		} else {
+			updateCardInSessionAttribute(session, command, Integer.valueOf(command.getCurrentCardNumber()) - 1);
+			readNewCardCommand(command, session, Integer.valueOf(command.getCurrentCardNumber()));
+			command.setCurrentCardNumber(String.valueOf(Integer.valueOf(command.getCurrentCardNumber()) + 1));
+		}		
 		
 		return "cards/newCard";
 		
@@ -141,19 +163,89 @@ public class NewCardController {
 		
 	}
 	
-	private void handleCardNumeration(String currentCardNumber, String cardsCount, NewCardCommand command) {
-		
-		command.setCurrentCardNumber(currentCardNumber);
-		command.setAllCardsCount(cardsCount);
-		
-	}
-	
 	@SuppressWarnings("unchecked")
 	private void addNewCardToSessionAttribute(HttpSession session, NewCardCommand command) {
 		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
 		cards.add(createCard(command));	
 		session.setAttribute(CARDS_ATTRIBUTE, cards);
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void updateCardInSessionAttribute(HttpSession session, NewCardCommand command, int index) {
+		
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
+		cards.set(index, createCard(command));	
+		session.setAttribute(CARDS_ATTRIBUTE, cards);
+		
+	}
+	
+	private void cleanNewCardCommand(NewCardCommand command) {
+		
+		command.setPolishWord(null);
+		command.setPolishWordPrononciation(null);
+		command.setPolishSentence(null);
+		command.setPolishSentencePrononciation(null);
+		
+		command.setEnglishWord(null);
+		command.setEnglishWordPrononciation(null);
+		command.setEnglishSentence(null);
+		command.setEnglishSentencePrononciation(null);
+		
+		command.setRussianWord(null);
+		command.setRussianWordPrononciation(null);
+		command.setRussianSentence(null);
+		command.setRussianSentencePrononciation(null);
+		
+		command.setSpainWord(null);
+		command.setSpainWordPrononciation(null);
+		command.setSpainSentence(null);
+		command.setSpainSentencePrononciation(null);
+		
+		command.setGermanWord(null);
+		command.setGermanWordPrononciation(null);
+		command.setGermanSentence(null);
+		command.setGermanSentencePrononciation(null);
+		
+	}
+	
+	private void readNewCardCommand(NewCardCommand command, HttpSession session, int index) {
+		
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
+		CardEntity card = cards.get(index);
+		
+		command.setSelectedCategory(String.valueOf(card.getCategory().getId()));
+		
+		WordEntity polishWord = card.getWords().get(0);		
+		command.setPolishWord(polishWord.getWord());
+		command.setPolishWordPrononciation(polishWord.getWordPrononciation());
+		command.setPolishSentence(polishWord.getSentence());
+		command.setPolishSentencePrononciation(polishWord.getSentencePronociation());
+		
+		WordEntity englishhWord = card.getWords().get(1);
+		command.setEnglishWord(englishhWord.getWord());
+		command.setEnglishWordPrononciation(englishhWord.getWordPrononciation());
+		command.setEnglishSentence(englishhWord.getSentence());
+		command.setEnglishSentencePrononciation(englishhWord.getSentencePronociation());
+		
+		WordEntity russianhWord = card.getWords().get(2);
+		command.setRussianWord(russianhWord.getWord());
+		command.setRussianWordPrononciation(russianhWord.getWordPrononciation());
+		command.setRussianSentence(russianhWord.getSentence());
+		command.setRussianSentencePrononciation(russianhWord.getSentencePronociation());
+		
+		WordEntity spainhWord = card.getWords().get(3);
+		command.setSpainWord(spainhWord.getWord());
+		command.setSpainWordPrononciation(spainhWord.getWordPrononciation());
+		command.setSpainSentence(spainhWord.getSentence());
+		command.setSpainSentencePrononciation(spainhWord.getSentencePronociation());
+		
+		WordEntity germanhWord = card.getWords().get(4);
+		command.setGermanWord(germanhWord.getWord());
+		command.setGermanWordPrononciation(germanhWord.getWordPrononciation());
+		command.setGermanSentence(germanhWord.getSentence());
+		command.setGermanSentencePrononciation(germanhWord.getSentencePronociation());
 		
 	}
 	
