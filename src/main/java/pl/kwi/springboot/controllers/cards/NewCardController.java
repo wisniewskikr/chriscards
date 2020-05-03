@@ -49,6 +49,7 @@ public class NewCardController {
 		command.setCategories(categoryRepository.findAll());
 		command.setCurrentCardNumber(DEFAULT_CARD_NUMBER);
 		command.setAllCardsCount(DEFAULT_CARDS_COUNT);
+		command.setVisiblePrevious(false);
 		session.setAttribute(CARDS_ATTRIBUTE, new ArrayList<CardEntity>());
 		
 		return "cards/newCard";
@@ -101,7 +102,7 @@ public class NewCardController {
 		
 		command.setCategories(categoryRepository.findAll());
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
-		
+				
 		if(!command.getAllCardsCount().equals(String.valueOf(cards.size()))) {			
 			addNewCardToSessionAttribute(session, command);
 			readNewCardCommand(command, session, Integer.valueOf(command.getCurrentCardNumber()) - 2);
@@ -110,6 +111,12 @@ public class NewCardController {
 			updateCardInSessionAttribute(session, command, Integer.valueOf(command.getCurrentCardNumber()) - 1);
 			readNewCardCommand(command, session, Integer.valueOf(command.getCurrentCardNumber()) - 2);
 			command.setCurrentCardNumber(String.valueOf(Integer.valueOf(command.getCurrentCardNumber()) - 1));			
+		}
+		
+		if("1".equals(command.getCurrentCardNumber())) {
+			command.setVisiblePrevious(false);
+		} else {
+			command.setVisiblePrevious(true);
 		}
 				
 		return "cards/newCard";
@@ -138,7 +145,13 @@ public class NewCardController {
 			updateCardInSessionAttribute(session, command, Integer.valueOf(command.getCurrentCardNumber()) - 1);
 			readNewCardCommand(command, session, Integer.valueOf(command.getCurrentCardNumber()));
 			command.setCurrentCardNumber(String.valueOf(Integer.valueOf(command.getCurrentCardNumber()) + 1));
-		}		
+		}	
+		
+		if("1".equals(command.getCurrentCardNumber())) {
+			command.setVisiblePrevious(false);
+		} else {
+			command.setVisiblePrevious(true);
+		}
 		
 		return "cards/newCard";
 		

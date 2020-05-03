@@ -43,6 +43,7 @@ public class NewCardCommand {
 	private String germanSentencePrononciation;
 	private String currentCardNumber;
 	private String allCardsCount;
+	private boolean visiblePrevious;
 	
 	
 	public Iterable<CategoryEntity> getCategories() {
@@ -211,6 +212,13 @@ public class NewCardCommand {
 	public void setAllCardsCount(String allCardsCount) {
 		this.allCardsCount = allCardsCount;
 	}
-		
+	
+	public boolean isVisiblePrevious() {
+		return visiblePrevious;
+	}
+	public void setVisiblePrevious(boolean visiblePrevious) {
+		this.visiblePrevious = visiblePrevious;
+	}
+			
 	
 }
