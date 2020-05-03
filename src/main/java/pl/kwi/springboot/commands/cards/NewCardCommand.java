@@ -43,8 +43,7 @@ public class NewCardCommand {
 	private String germanSentencePrononciation;
 	private String currentCardNumber;
 	private String allCardsCount;
-	private boolean visiblePrevious;
-	
+	private boolean disablePrevious;
 	
 	public Iterable<CategoryEntity> getCategories() {
 		return categories;
@@ -213,11 +212,11 @@ public class NewCardCommand {
 		this.allCardsCount = allCardsCount;
 	}
 	
-	public boolean isVisiblePrevious() {
-		return visiblePrevious;
+	public boolean isDisablePrevious() {
+		return disablePrevious;
 	}
-	public void setVisiblePrevious(boolean visiblePrevious) {
-		this.visiblePrevious = visiblePrevious;
+	public void setDisablePrevious(boolean disablePrevious) {
+		this.disablePrevious = disablePrevious;
 	}
 			
 	

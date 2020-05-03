@@ -49,7 +49,7 @@ public class NewCardController {
 		command.setCategories(categoryRepository.findAll());
 		command.setCurrentCardNumber(DEFAULT_CARD_NUMBER);
 		command.setAllCardsCount(DEFAULT_CARDS_COUNT);
-		command.setVisiblePrevious(false);
+		command.setDisablePrevious(true);
 		session.setAttribute(CARDS_ATTRIBUTE, new ArrayList<CardEntity>());
 		
 		return "cards/newCard";
@@ -114,9 +114,9 @@ public class NewCardController {
 		}
 		
 		if("1".equals(command.getCurrentCardNumber())) {
-			command.setVisiblePrevious(false);
+			command.setDisablePrevious(true);
 		} else {
-			command.setVisiblePrevious(true);
+			command.setDisablePrevious(false);
 		}
 				
 		return "cards/newCard";
@@ -148,9 +148,9 @@ public class NewCardController {
 		}	
 		
 		if("1".equals(command.getCurrentCardNumber())) {
-			command.setVisiblePrevious(false);
+			command.setDisablePrevious(true);
 		} else {
-			command.setVisiblePrevious(true);
+			command.setDisablePrevious(false);
 		}
 		
 		return "cards/newCard";

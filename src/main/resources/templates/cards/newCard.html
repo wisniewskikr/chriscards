@@ -183,7 +183,7 @@
 					    </div>
 					</fieldset>
 					
-					<button type="button" th:if="*{visiblePrevious}" class="btn btn-default btn-lg" onClick="submitAction('newCardForm', '/previousCard')" >Poprzednia</button>
+					<button type="button" class="btn btn-default btn-lg" th:disabled="*{disablePrevious}" onClick="submitAction('newCardForm', '/previousCard')" >Poprzednia</button>
 					<button type="button" class="btn btn-default btn-lg" onClick="submitAction('newCardForm', '/saveCards')">Zapisz</button>
 					<a class="btn btn-default btn-lg" href="/cards">Anuluj</a>
 					<button type="button" class="btn btn-default btn-lg" onClick="submitAction('newCardForm', '/deleteCurrentCard')">Usuń aktualną kartę</button>
