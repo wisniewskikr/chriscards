@@ -64,11 +64,18 @@ public class NewCardController {
 			HttpSession session) {
 		
 		if (bindingResult.hasErrors()) {
+			command.setCategories(categoryRepository.findAll());
 			return "cards/newCard";
 		}
 		
-		addNewCardToSessionAttribute(session, command);
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
+		if(!command.getAllCardsCount().equals(String.valueOf(cards.size()))) {			
+			addNewCardToSessionAttribute(session, command);
+		} else {
+			updateCardInSessionAttribute(session, command, Integer.valueOf(command.getCurrentCardNumber()) - 1);
+		}
+			
+		cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
 		for (CardEntity card : cards) {
 			cardRepository.save(card);
 		}		
@@ -83,6 +90,7 @@ public class NewCardController {
 			BindingResult bindingResult) {
 		
 		if (bindingResult.hasErrors()) {
+			command.setCategories(categoryRepository.findAll());
 			return "cards/newCard";
 		}
 		
@@ -97,6 +105,7 @@ public class NewCardController {
 			HttpSession session) {
 		
 		if (bindingResult.hasErrors()) {
+			command.setCategories(categoryRepository.findAll());
 			return "cards/newCard";
 		}
 		
@@ -130,6 +139,7 @@ public class NewCardController {
 			HttpSession session) {
 		
 		if (bindingResult.hasErrors()) {
+			command.setCategories(categoryRepository.findAll());
 			return "cards/newCard";
 		}
 		
