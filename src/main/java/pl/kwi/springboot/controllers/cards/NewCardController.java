@@ -87,14 +87,26 @@ public class NewCardController {
 	@RequestMapping(value="/deleteCurrentCard", method = RequestMethod.POST)
 	public String deleteCurrentCard(
 			@Validated @ModelAttribute("command") NewCardCommand command,
-			BindingResult bindingResult) {
+			BindingResult bindingResult,
+			HttpSession session) {
 		
-		if (bindingResult.hasErrors()) {
-			command.setCategories(categoryRepository.findAll());
-			return "cards/newCard";
+		if(DEFAULT_CARD_NUMBER.equals(command.getCurrentCardNumber())) {
+			return "redirect:newCard";
 		}
 		
-		return "redirect:cards";
+		command.setCategories(categoryRepository.findAll());
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);		
+		
+		if(command.getAllCardsCount().equals(String.valueOf(cards.size())) ||
+				command.getAllCardsCount().equals(String.valueOf(cards.size() + 1))) {
+			readNewCardCommand(command, session, Integer.valueOf(command.getCurrentCardNumber()) - 2);
+			command.setCurrentCardNumber(String.valueOf(Integer.valueOf(command.getCurrentCardNumber()) - 1));	
+			command.setAllCardsCount(String.valueOf(Integer.valueOf(command.getAllCardsCount()) - 1));
+			cards.remove(cards.size() -1);
+			session.setAttribute(CARDS_ATTRIBUTE, cards);
+		}
+		
+		return "cards/newCard";
 		
 	}
 	
