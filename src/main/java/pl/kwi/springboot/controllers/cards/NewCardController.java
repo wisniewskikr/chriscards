@@ -90,7 +90,7 @@ public class NewCardController {
 			BindingResult bindingResult,
 			HttpSession session) {
 		
-		if(DEFAULT_CARD_NUMBER == command.getCurrentCardNumber()) {
+		if(DEFAULT_CARD_NUMBER == command.getAllCardsCount()) {
 			return "redirect:newCard";
 		}
 		
