@@ -27,8 +27,8 @@ public class NewCardController {
 	
 	
 	private static final String CARDS_ATTRIBUTE = "cards";
-	private static final String DEFAULT_CARDS_COUNT = "1";
-	private static final String DEFAULT_CARD_NUMBER = "1";
+	private static final int DEFAULT_CARDS_COUNT = 1;
+	private static final int DEFAULT_CARD_NUMBER = 1;
 	private static final String DEFAULT_CATEGORY_1 = "1";
 	
 	@Autowired
@@ -69,7 +69,7 @@ public class NewCardController {
 		}
 		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
-		if(!command.getAllCardsCount().equals(String.valueOf(cards.size()))) {			
+		if(command.getAllCardsCount() != cards.size()) {			
 			addNewCardToSessionAttribute(session, command);
 		} else {
 			updateCardInSessionAttribute(session, command, Integer.valueOf(command.getCurrentCardNumber()) - 1);
@@ -90,7 +90,7 @@ public class NewCardController {
 			BindingResult bindingResult,
 			HttpSession session) {
 		
-		if(DEFAULT_CARD_NUMBER.equals(command.getCurrentCardNumber())) {
+		if(DEFAULT_CARD_NUMBER == command.getCurrentCardNumber()) {
 			return "redirect:newCard";
 		}
 		
@@ -105,13 +105,13 @@ public class NewCardController {
 		
 		if(currentCardNumber == allCardsCount) {
 			readNewCardCommand(command, session, currentCardNumber - 2);
-			command.setCurrentCardNumber(String.valueOf(currentCardNumber - 1));	
-			command.setAllCardsCount(String.valueOf(allCardsCount - 1));
+			command.setCurrentCardNumber(currentCardNumber - 1);	
+			command.setAllCardsCount(allCardsCount - 1);
 			cards.remove(cards.size() -1);
 			session.setAttribute(CARDS_ATTRIBUTE, cards);
 		} else {
 			readNewCardCommand(command, session, currentCardNumber);
-			command.setAllCardsCount(String.valueOf(allCardsCount - 1));
+			command.setAllCardsCount(allCardsCount - 1);
 			cards.remove(currentCardNumber -1);
 			session.setAttribute(CARDS_ATTRIBUTE, cards);
 		}
@@ -142,7 +142,7 @@ public class NewCardController {
 				
 		updateCardInSessionAttribute(session, command, currentCardNumber - 1);
 		readNewCardCommand(command, session, currentCardNumber - 2);
-		command.setCurrentCardNumber(String.valueOf(currentCardNumber - 1));
+		command.setCurrentCardNumber(currentCardNumber - 1);
 		
 		if("1".equals(command.getCurrentCardNumber())) {
 			command.setDisablePrevious(true);
@@ -177,12 +177,12 @@ public class NewCardController {
 		if(currentCardNumber == allCardsCount) {
 			updateCardInSessionAttribute(session, command, currentCardNumber - 1);
 			cleanNewCardCommand(command);
-			command.setCurrentCardNumber(String.valueOf(currentCardNumber + 1));
-			command.setAllCardsCount(String.valueOf(allCardsCount + 1));			
+			command.setCurrentCardNumber(currentCardNumber + 1);
+			command.setAllCardsCount(allCardsCount + 1);			
 		} else {
 			updateCardInSessionAttribute(session, command, currentCardNumber - 1);
 			readNewCardCommand(command, session, currentCardNumber);
-			command.setCurrentCardNumber(String.valueOf(currentCardNumber + 1));
+			command.setCurrentCardNumber(currentCardNumber + 1);
 		}	
 		
 		if("1".equals(command.getCurrentCardNumber())) {
