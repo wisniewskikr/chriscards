@@ -72,7 +72,7 @@ public class NewCardController {
 		if(command.getAllCardsCount() != cards.size()) {			
 			addNewCardToSessionAttribute(session, command);
 		} else {
-			updateCardInSessionAttribute(session, command, Integer.valueOf(command.getCurrentCardNumber()) - 1);
+			updateCardInSessionAttribute(session, command, command.getCurrentCardNumber() - 1);
 		}
 			
 		cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
@@ -96,23 +96,21 @@ public class NewCardController {
 		
 		command.setCategories(categoryRepository.findAll());
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);		
-		Integer allCardsCount = Integer.valueOf(command.getAllCardsCount());
-		Integer currentCardNumber = Integer.valueOf(command.getCurrentCardNumber());
 		
-		if(allCardsCount != (cards.size())) {
+		if(command.getAllCardsCount() != (cards.size())) {
 			cards.add(new CardEntity());
 		}
 		
-		if(currentCardNumber == allCardsCount) {
-			readNewCardCommand(command, session, currentCardNumber - 2);
-			command.setCurrentCardNumber(currentCardNumber - 1);	
-			command.setAllCardsCount(allCardsCount - 1);
+		if(command.getCurrentCardNumber() == command.getAllCardsCount()) {
+			readNewCardCommand(command, session, command.getCurrentCardNumber() - 2);
+			command.setCurrentCardNumber(command.getCurrentCardNumber() - 1);	
+			command.setAllCardsCount(command.getAllCardsCount() - 1);
 			cards.remove(cards.size() -1);
 			session.setAttribute(CARDS_ATTRIBUTE, cards);
 		} else {
-			readNewCardCommand(command, session, currentCardNumber);
-			command.setAllCardsCount(allCardsCount - 1);
-			cards.remove(currentCardNumber -1);
+			readNewCardCommand(command, session, command.getCurrentCardNumber());
+			command.setAllCardsCount(command.getAllCardsCount() - 1);
+			cards.remove(command.getCurrentCardNumber() -1);
 			session.setAttribute(CARDS_ATTRIBUTE, cards);
 		}
 		
@@ -133,16 +131,14 @@ public class NewCardController {
 		
 		command.setCategories(categoryRepository.findAll());
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
-		Integer allCardsCount = Integer.valueOf(command.getAllCardsCount());
-		Integer currentCardNumber = Integer.valueOf(command.getCurrentCardNumber());
 		
-		if(allCardsCount != (cards.size())) {
+		if(command.getAllCardsCount() != (cards.size())) {
 			addNewCardToSessionAttribute(session, command);
 		}
 				
-		updateCardInSessionAttribute(session, command, currentCardNumber - 1);
-		readNewCardCommand(command, session, currentCardNumber - 2);
-		command.setCurrentCardNumber(currentCardNumber - 1);
+		updateCardInSessionAttribute(session, command, command.getCurrentCardNumber() - 1);
+		readNewCardCommand(command, session, command.getCurrentCardNumber() - 2);
+		command.setCurrentCardNumber(command.getCurrentCardNumber() - 1);
 		
 		if("1".equals(command.getCurrentCardNumber())) {
 			command.setDisablePrevious(true);
@@ -167,22 +163,20 @@ public class NewCardController {
 		
 		command.setCategories(categoryRepository.findAll());
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
-		Integer allCardsCount = Integer.valueOf(command.getAllCardsCount());
-		Integer currentCardNumber = Integer.valueOf(command.getCurrentCardNumber());
 		
-		if(allCardsCount != (cards.size())) {
+		if(command.getAllCardsCount() != (cards.size())) {
 			addNewCardToSessionAttribute(session, command);
 		}
 		
-		if(currentCardNumber == allCardsCount) {
-			updateCardInSessionAttribute(session, command, currentCardNumber - 1);
+		if(command.getCurrentCardNumber() == command.getAllCardsCount()) {
+			updateCardInSessionAttribute(session, command, command.getCurrentCardNumber() - 1);
 			cleanNewCardCommand(command);
-			command.setCurrentCardNumber(currentCardNumber + 1);
-			command.setAllCardsCount(allCardsCount + 1);			
+			command.setCurrentCardNumber(command.getCurrentCardNumber() + 1);
+			command.setAllCardsCount(command.getAllCardsCount() + 1);			
 		} else {
-			updateCardInSessionAttribute(session, command, currentCardNumber - 1);
-			readNewCardCommand(command, session, currentCardNumber);
-			command.setCurrentCardNumber(currentCardNumber + 1);
+			updateCardInSessionAttribute(session, command, command.getCurrentCardNumber() - 1);
+			readNewCardCommand(command, session, command.getCurrentCardNumber());
+			command.setCurrentCardNumber(command.getCurrentCardNumber() + 1);
 		}	
 		
 		if("1".equals(command.getCurrentCardNumber())) {
