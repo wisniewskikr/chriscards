@@ -183,11 +183,20 @@
 					    </div>
 					</fieldset>
 					
-					<button type="button" class="btn btn-default btn-lg" th:disabled="*{disablePrevious}" onClick="submitAction('newCardForm', '/previousCard')" >Poprzednia</button>
-					<button type="button" class="btn btn-default btn-lg" onClick="submitAction('newCardForm', '/saveCards')">Zapisz</button>
-					<a class="btn btn-default btn-lg" href="/cards">Anuluj</a>
-					<button type="button" class="btn btn-default btn-lg" onClick="submitAction('newCardForm', '/deleteCurrentCard')">Usuń aktualną kartę</button>
-					<button type="button" class="btn btn-default btn-lg" onClick="submitAction('newCardForm', '/nextCard')">Następna</button>
+					<div class="btn-group btn-group-justified btn-group-lg">
+						<!-- button type="button" class="btn btn-secondary" th:disabled="*{disablePrevious}" onClick="submitAction('newCardForm', '/previousCard')" >Poprzednia</button>
+						<button type="button" class="btn btn-secondary" onClick="submitAction('newCardForm', '/deleteCurrentCard')">Usuń aktualną kartę</button>
+						<button type="button" class="btn btn-secondary" onClick="submitAction('newCardForm', '/nextCard')">Następna</button -->
+						
+						<a href="#" class="btn btn-secondary" th:disabled="*{disablePrevious}" onClick="submitAction('newCardForm', '/previousCard')"><i class="fas fa-arrow-circle-left fa-6x"></i> <br/> Poprzednia</a>
+						<a href="#" class="btn btn-secondary" onClick="submitAction('newCardForm', '/deleteCurrentCard')"><i class="far fa-trash-alt fa-6x"></i> <br/> Usuń</a>
+						<a href="#" class="btn btn-secondary" onClick="submitAction('newCardForm', '/nextCard')"><i class="far fa-plus-square fa-6x"></i> <br/> Dodaj</a>
+					</div>
+					
+					<div>
+						<button type="button" class="btn btn-default btn-lg" onClick="submitAction('newCardForm', '/saveCards')">Zapisz</button>
+						<a class="btn btn-default btn-lg" href="/cards">Anuluj</a>						
+					</div>
 					
 				</form>
 				
