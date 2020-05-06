@@ -76,7 +76,7 @@ public class NewCardController {
 		} else {
 			handleExistingCard(command, session, command.getCurrentCardNumber() + 1);
 		}			
-		handleDisablePrevious(command);
+		handlePreviousAndNext(command);
 		
 		return "cards/newCard";
 		
@@ -98,7 +98,7 @@ public class NewCardController {
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
 		adjustCardsInSession(command, session, cards);
 		handleExistingCard(command, session, command.getCurrentCardNumber() - 1);		
-		handleDisablePrevious(command);
+		handlePreviousAndNext(command);
 				
 		return "cards/newCard";
 		
@@ -270,12 +270,18 @@ public class NewCardController {
 		
 	}
 	
-	private void handleDisablePrevious(NewCardCommand command) {
+	private void handlePreviousAndNext(NewCardCommand command) {
 		
 		if(DEFAULT_CARD_NUMBER == command.getCurrentCardNumber()) {
 			command.setDisablePrevious(true);
 		} else {
 			command.setDisablePrevious(false);
+		}
+		
+		if(command.getCurrentCardNumber() == command.getAllCardsCount()) {
+			command.setVisibleNext(false);
+		} else {
+			command.setVisibleNext(true);
 		}
 		
 	}

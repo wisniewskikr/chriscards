@@ -190,7 +190,8 @@
 						
 						<a href="#" class="btn btn-secondary" th:disabled="*{disablePrevious}" onClick="submitAction('newCardForm', '/previousCard')"><i class="fas fa-arrow-circle-left fa-6x"></i> <br/> Poprzednia</a>
 						<a href="#" class="btn btn-secondary" onClick="submitAction('newCardForm', '/deleteCurrentCard')"><i class="far fa-trash-alt fa-6x"></i> <br/> Usuń</a>
-						<a href="#" class="btn btn-secondary" onClick="submitAction('newCardForm', '/nextCard')"><i class="far fa-plus-square fa-6x"></i> <br/> Dodaj</a>
+						<a href="#" class="btn btn-secondary" onClick="submitAction('newCardForm', '/nextCard')" th:unless="*{visibleNext}"><i class="far fa-plus-square fa-6x"></i> <br/> Dodaj</a>
+						<a href="#" class="btn btn-secondary" onClick="submitAction('newCardForm', '/nextCard')" th:if="*{visibleNext}"><i class="fas fa-arrow-circle-right fa-6x"></i> <br/> Następna</a>
 					</div>
 					
 					<div>
