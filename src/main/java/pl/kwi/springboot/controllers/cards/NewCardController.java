@@ -57,6 +57,78 @@ public class NewCardController {
 	}
 	
 	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/nextCard", method = RequestMethod.POST)
+	public String nextCard(
+			@Validated @ModelAttribute("command") NewCardCommand command,
+			BindingResult bindingResult,
+			HttpSession session) {
+		
+		if (bindingResult.hasErrors()) {
+			command.setCategories(categoryRepository.findAll());
+			return "cards/newCard";
+		}
+		
+		command.setCategories(categoryRepository.findAll());
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
+		adjustCardsInSession(command, session, cards);		
+		if(command.getCurrentCardNumber() == command.getAllCardsCount()) {
+			handleNewCard(command, session);			
+		} else {
+			handleExistingCard(command, session, command.getCurrentCardNumber() + 1);
+		}			
+		handleDisablePrevious(command);
+		
+		return "cards/newCard";
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/previousCard", method = RequestMethod.POST)
+	public String previuosCard(
+			@Validated @ModelAttribute("command") NewCardCommand command,
+			BindingResult bindingResult,
+			HttpSession session) {
+		
+		if (bindingResult.hasErrors()) {
+			command.setCategories(categoryRepository.findAll());
+			return "cards/newCard";
+		}
+		
+		command.setCategories(categoryRepository.findAll());
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
+		adjustCardsInSession(command, session, cards);
+		handleExistingCard(command, session, command.getCurrentCardNumber() - 1);		
+		handleDisablePrevious(command);
+				
+		return "cards/newCard";
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/deleteCurrentCard", method = RequestMethod.POST)
+	public String deleteCurrentCard(
+			@Validated @ModelAttribute("command") NewCardCommand command,
+			BindingResult bindingResult,
+			HttpSession session) {
+		
+		if(DEFAULT_CARD_NUMBER == command.getAllCardsCount()) {
+			return "redirect:newCard";
+		}
+		
+		command.setCategories(categoryRepository.findAll());
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);		
+		adjustCardsInSession(command, session, cards);		
+		if(command.getCurrentCardNumber() == command.getAllCardsCount()) {
+			deleteCardLast(command, session, cards);
+		} else {
+			deleteCardinMiddle(command, session, cards);
+		}
+		
+		return "cards/newCard";
+		
+	}	
+	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/saveCards", method = RequestMethod.POST)
 	public String saveCards(
 			@Validated @ModelAttribute("command") NewCardCommand command,
@@ -82,112 +154,7 @@ public class NewCardController {
 		
 		return "redirect:cards";
 		
-	}
-		
-	@RequestMapping(value="/deleteCurrentCard", method = RequestMethod.POST)
-	public String deleteCurrentCard(
-			@Validated @ModelAttribute("command") NewCardCommand command,
-			BindingResult bindingResult,
-			HttpSession session) {
-		
-		if(DEFAULT_CARD_NUMBER == command.getAllCardsCount()) {
-			return "redirect:newCard";
-		}
-		
-		command.setCategories(categoryRepository.findAll());
-		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);		
-		
-		if(command.getAllCardsCount() != (cards.size())) {
-			cards.add(new CardEntity());
-		}
-		
-		if(command.getCurrentCardNumber() == command.getAllCardsCount()) {
-			readNewCardCommand(command, session, command.getCurrentCardNumber() - 2);
-			command.setCurrentCardNumber(command.getCurrentCardNumber() - 1);	
-			command.setAllCardsCount(command.getAllCardsCount() - 1);
-			cards.remove(cards.size() -1);
-			session.setAttribute(CARDS_ATTRIBUTE, cards);
-		} else {
-			readNewCardCommand(command, session, command.getCurrentCardNumber());
-			command.setAllCardsCount(command.getAllCardsCount() - 1);
-			cards.remove(command.getCurrentCardNumber() -1);
-			session.setAttribute(CARDS_ATTRIBUTE, cards);
-		}
-		
-		return "cards/newCard";
-		
-	}
-	
-	@RequestMapping(value="/previousCard", method = RequestMethod.POST)
-	public String previuosCard(
-			@Validated @ModelAttribute("command") NewCardCommand command,
-			BindingResult bindingResult,
-			HttpSession session) {
-		
-		if (bindingResult.hasErrors()) {
-			command.setCategories(categoryRepository.findAll());
-			return "cards/newCard";
-		}
-		
-		command.setCategories(categoryRepository.findAll());
-		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
-		
-		if(command.getAllCardsCount() != (cards.size())) {
-			addNewCardToSessionAttribute(session, command);
-		}
-				
-		updateCardInSessionAttribute(session, command, command.getCurrentCardNumber() - 1);
-		readNewCardCommand(command, session, command.getCurrentCardNumber() - 2);
-		command.setCurrentCardNumber(command.getCurrentCardNumber() - 1);
-		
-		if("1".equals(command.getCurrentCardNumber())) {
-			command.setDisablePrevious(true);
-		} else {
-			command.setDisablePrevious(false);
-		}
-				
-		return "cards/newCard";
-		
-	}
-	
-	@RequestMapping(value="/nextCard", method = RequestMethod.POST)
-	public String nextCard(
-			@Validated @ModelAttribute("command") NewCardCommand command,
-			BindingResult bindingResult,
-			HttpSession session) {
-		
-		if (bindingResult.hasErrors()) {
-			command.setCategories(categoryRepository.findAll());
-			return "cards/newCard";
-		}
-		
-		command.setCategories(categoryRepository.findAll());
-		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
-		
-		if(command.getAllCardsCount() != (cards.size())) {
-			addNewCardToSessionAttribute(session, command);
-		}
-		
-		if(command.getCurrentCardNumber() == command.getAllCardsCount()) {
-			updateCardInSessionAttribute(session, command, command.getCurrentCardNumber() - 1);
-			cleanNewCardCommand(command);
-			command.setCurrentCardNumber(command.getCurrentCardNumber() + 1);
-			command.setAllCardsCount(command.getAllCardsCount() + 1);			
-		} else {
-			updateCardInSessionAttribute(session, command, command.getCurrentCardNumber() - 1);
-			readNewCardCommand(command, session, command.getCurrentCardNumber());
-			command.setCurrentCardNumber(command.getCurrentCardNumber() + 1);
-		}	
-		
-		if("1".equals(command.getCurrentCardNumber())) {
-			command.setDisablePrevious(true);
-		} else {
-			command.setDisablePrevious(false);
-		}
-		
-		return "cards/newCard";
-		
-	}
+	}		
 	
 	private CardEntity createCard(NewCardCommand command) {
 		
@@ -255,6 +222,7 @@ public class NewCardController {
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void readNewCardCommand(NewCardCommand command, HttpSession session, int index) {
 		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
@@ -291,6 +259,60 @@ public class NewCardController {
 		command.setGermanWordPrononciation(germanhWord.getWordPrononciation());
 		command.setGermanSentence(germanhWord.getSentence());
 		command.setGermanSentencePrononciation(germanhWord.getSentencePronociation());
+		
+	}
+	
+	private void adjustCardsInSession(NewCardCommand command, HttpSession session, List<CardEntity> cards) {
+		
+		if(command.getAllCardsCount() != (cards.size())) {
+			addNewCardToSessionAttribute(session, command);
+		}
+		
+	}
+	
+	private void handleDisablePrevious(NewCardCommand command) {
+		
+		if(DEFAULT_CARD_NUMBER == command.getCurrentCardNumber()) {
+			command.setDisablePrevious(true);
+		} else {
+			command.setDisablePrevious(false);
+		}
+		
+	}
+	
+	private void handleExistingCard(NewCardCommand command, HttpSession session, int nextCardNumber) {
+		
+		updateCardInSessionAttribute(session, command, command.getCurrentCardNumber() - 1);
+		readNewCardCommand(command, session, nextCardNumber - 1);
+		command.setCurrentCardNumber(nextCardNumber);
+		
+	}
+	
+	private void handleNewCard(NewCardCommand command, HttpSession session) {
+		
+		updateCardInSessionAttribute(session, command, command.getCurrentCardNumber() - 1);
+		cleanNewCardCommand(command);
+		command.setCurrentCardNumber(command.getCurrentCardNumber() + 1);
+		command.setAllCardsCount(command.getAllCardsCount() + 1);
+		
+	}
+	
+	private void deleteCardLast(NewCardCommand command, HttpSession session, List<CardEntity> cards) {
+		
+		readNewCardCommand(command, session, command.getCurrentCardNumber() - 2);
+		command.setCurrentCardNumber(command.getCurrentCardNumber() - 1);	
+		command.setAllCardsCount(command.getAllCardsCount() - 1);
+		cards.remove(cards.size() -1);
+		session.setAttribute(CARDS_ATTRIBUTE, cards);
+		
+	}
+	
+	private void deleteCardinMiddle(NewCardCommand command, HttpSession session, List<CardEntity> cards) {
+		
+		readNewCardCommand(command, session, command.getCurrentCardNumber());
+		command.setAllCardsCount(command.getAllCardsCount() - 1);
+		cards.remove(command.getCurrentCardNumber() -1);
+		session.setAttribute(CARDS_ATTRIBUTE, cards);
 		
 	}
 	
