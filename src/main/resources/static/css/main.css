@@ -38,3 +38,9 @@ fieldset.scheduler-border {
 .prononciation {
 	font-style: italic;
 }
+
+.not-active {
+  pointer-events: none;
+  text-decoration: none;
+  color: #333;
+}

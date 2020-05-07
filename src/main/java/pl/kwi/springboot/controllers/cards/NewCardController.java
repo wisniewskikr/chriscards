@@ -123,6 +123,7 @@ public class NewCardController {
 		} else {
 			deleteCardinMiddle(command, session, cards);
 		}
+		handlePreviousAndNext(command);
 		
 		return "cards/newCard";
 		
