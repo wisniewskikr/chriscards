@@ -8,6 +8,8 @@ import pl.kwi.springboot.db.entities.CategoryEntity;
 public class NewCardCommand {
 	
 	
+	//@NotBlank(message = "To pole nie może być puste")
+	private String deckName;
 	private Iterable<CategoryEntity> categories;
 	@NotNull(message = "Proszę wybrać jakąś wartość")
 	private String selectedCategory;
@@ -45,6 +47,14 @@ public class NewCardCommand {
 	private int allCardsCount;
 	private boolean disablePrevious;
 	private boolean visibleNext;
+		
+	
+	public String getDeckName() {
+		return deckName;
+	}
+	public void setDeckName(String deckName) {
+		this.deckName = deckName;
+	}
 	
 	public Iterable<CategoryEntity> getCategories() {
 		return categories;

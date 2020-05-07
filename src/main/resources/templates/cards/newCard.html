@@ -46,6 +46,17 @@
 					</p>	
 					
 					<fieldset class="scheduler-border">
+					    <legend class="scheduler-border">Talia</legend>
+					    <div class="control-group">
+					    	<div class="form-group">
+							    <label for="deckName">* Nazwa talii:</label>
+							    <input class="form-control input-lg" id="deckName" type="text" th:field="*{deckName}">
+								<p th:if="${#fields.hasErrors('deckName')}" th:errors="*{deckName}" class="error">Error</p>
+							</div>
+					    </div>
+					</fieldset>
+					
+					<fieldset class="scheduler-border">
 					    <legend class="scheduler-border">Katetoria</legend>
 					    <div class="control-group">
 					    	<div class="form-group">

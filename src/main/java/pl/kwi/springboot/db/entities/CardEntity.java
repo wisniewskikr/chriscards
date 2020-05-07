@@ -24,8 +24,12 @@ public class CardEntity {
     private long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "deck_id")
+	private DeckEntity deck;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-	private CategoryEntity category;
+	private CategoryEntity category;	
 	
 	@OneToMany(
 	        cascade = CascadeType.ALL,
@@ -49,7 +53,14 @@ public class CardEntity {
 	public void setId(long id) {
 		this.id = id;
 	}
-
+	
+	public DeckEntity getDeck() {
+		return deck;
+	}
+	public void setDeck(DeckEntity deck) {
+		this.deck = deck;
+	}
+	
 	public CategoryEntity getCategory() {
 		return category;
 	}
