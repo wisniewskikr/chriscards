@@ -25,7 +25,7 @@ public class DeckEntity {
     private String name;
 
     @OneToMany(
-            mappedBy = "category",
+            mappedBy = "deck",
             cascade = CascadeType.ALL,
             orphanRemoval = true
         )

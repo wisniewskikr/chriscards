@@ -1,18 +1,11 @@
 package pl.kwi.springboot.commands.cards;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
-import pl.kwi.springboot.db.entities.CategoryEntity;
 
 public class NewCardCommand {
 	
 	
 	//@NotBlank(message = "To pole nie może być puste")
 	private String deckName;
-	private Iterable<CategoryEntity> categories;
-	@NotNull(message = "Proszę wybrać jakąś wartość")
-	private String selectedCategory;
 	//@NotBlank(message = "To pole nie może być puste")
 	private String polishWord;
 	private String polishWordPrononciation;
@@ -54,20 +47,6 @@ public class NewCardCommand {
 	}
 	public void setDeckName(String deckName) {
 		this.deckName = deckName;
-	}
-	
-	public Iterable<CategoryEntity> getCategories() {
-		return categories;
-	}
-	public void setCategories(Iterable<CategoryEntity> categories) {
-		this.categories = categories;
-	}
-	
-	public String getSelectedCategory() {
-		return selectedCategory;
-	}
-	public void setSelectedCategory(String selectedCategory) {
-		this.selectedCategory = selectedCategory;
 	}
 	
 	public String getPolishWord() {

@@ -27,10 +27,6 @@ public class CardEntity {
     @JoinColumn(name = "deck_id")
 	private DeckEntity deck;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-	private CategoryEntity category;	
-	
 	@OneToMany(
 	        cascade = CascadeType.ALL,
 	        orphanRemoval = true
@@ -41,8 +37,11 @@ public class CardEntity {
 
 	public CardEntity() {
 	}
-	public CardEntity(CategoryEntity category, List<WordEntity> words) {
-		this.category = category;
+	public CardEntity(DeckEntity deck, List<WordEntity> words) {
+		this.deck = deck;
+		this.words = words;
+	}
+	public CardEntity(List<WordEntity> words) {
 		this.words = words;
 	}
 
@@ -61,13 +60,6 @@ public class CardEntity {
 		this.deck = deck;
 	}
 	
-	public CategoryEntity getCategory() {
-		return category;
-	}
-	public void setCategory(CategoryEntity category) {
-		this.category = category;
-	}
-
 	public List<WordEntity> getWords() {
 		return words;
 	}

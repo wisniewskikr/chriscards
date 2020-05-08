@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -17,25 +16,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pl.kwi.springboot.commands.cards.NewCardCommand;
 import pl.kwi.springboot.controllers.enums.LanguageEnum;
 import pl.kwi.springboot.db.entities.CardEntity;
-import pl.kwi.springboot.db.entities.CategoryEntity;
+import pl.kwi.springboot.db.entities.DeckEntity;
 import pl.kwi.springboot.db.entities.WordEntity;
 import pl.kwi.springboot.db.repositories.CardRepository;
-import pl.kwi.springboot.db.repositories.CategoryRepository;
+import pl.kwi.springboot.db.repositories.DeckRepository;
 
 @Controller
 public class NewCardController {
 	
 	
+	private static final String DEFAULT_DECK_NAME = "Nowa Talia";
 	private static final String CARDS_ATTRIBUTE = "cards";
 	private static final int DEFAULT_CARDS_COUNT = 1;
 	private static final int DEFAULT_CARD_NUMBER = 1;
-	private static final String DEFAULT_CATEGORY_1 = "1";
-	
-	@Autowired
-	private CategoryRepository categoryRepository;
 	
 	@Autowired
 	private CardRepository cardRepository;
+	
+	@Autowired
+	private DeckRepository deckRepository;
 	
 
 	@RequestMapping(value="/newCard")
@@ -43,10 +42,7 @@ public class NewCardController {
 			@ModelAttribute("command") NewCardCommand command,
 			HttpSession session) {
 		
-		if (StringUtils.isBlank(command.getSelectedCategory())) {
-			command.setSelectedCategory(DEFAULT_CATEGORY_1);
-		}		
-		command.setCategories(categoryRepository.findAll());
+		command.setDeckName(DEFAULT_DECK_NAME);
 		command.setCurrentCardNumber(DEFAULT_CARD_NUMBER);
 		command.setAllCardsCount(DEFAULT_CARDS_COUNT);
 		command.setDisablePrevious(true);
@@ -64,11 +60,9 @@ public class NewCardController {
 			HttpSession session) {
 		
 		if (bindingResult.hasErrors()) {
-			command.setCategories(categoryRepository.findAll());
 			return "cards/newCard";
 		}
 		
-		command.setCategories(categoryRepository.findAll());
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
 		adjustCardsInSession(command, session, cards);		
 		if(command.getCurrentCardNumber() == command.getAllCardsCount()) {
@@ -90,11 +84,9 @@ public class NewCardController {
 			HttpSession session) {
 		
 		if (bindingResult.hasErrors()) {
-			command.setCategories(categoryRepository.findAll());
 			return "cards/newCard";
 		}
 		
-		command.setCategories(categoryRepository.findAll());
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
 		adjustCardsInSession(command, session, cards);
 		handleExistingCard(command, session, command.getCurrentCardNumber() - 1);		
@@ -115,7 +107,6 @@ public class NewCardController {
 			return "redirect:newCard";
 		}
 		
-		command.setCategories(categoryRepository.findAll());
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);		
 		adjustCardsInSession(command, session, cards);		
 		if(command.getCurrentCardNumber() == command.getAllCardsCount()) {
@@ -137,9 +128,10 @@ public class NewCardController {
 			HttpSession session) {
 		
 		if (bindingResult.hasErrors()) {
-			command.setCategories(categoryRepository.findAll());
 			return "cards/newCard";
 		}
+		
+		DeckEntity deck = deckRepository.save(new DeckEntity(command.getDeckName()));
 		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
 		if(command.getAllCardsCount() != cards.size()) {			
@@ -150,6 +142,7 @@ public class NewCardController {
 			
 		cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
 		for (CardEntity card : cards) {
+			card.setDeck(deck);
 			cardRepository.save(card);
 		}		
 		
@@ -159,7 +152,6 @@ public class NewCardController {
 	
 	private CardEntity createCard(NewCardCommand command) {
 		
-		CategoryEntity category = categoryRepository.findById(Long.valueOf(command.getSelectedCategory())).get();
 		List<WordEntity> words = new ArrayList<WordEntity>();
 		WordEntity word;
 		word = new WordEntity(command.getPolishWord(), command.getPolishWordPrononciation(), command.getPolishSentence(), command.getPolishSentencePrononciation(), LanguageEnum.POLISH);
@@ -172,7 +164,7 @@ public class NewCardController {
 		words.add(word);
 		word = new WordEntity(command.getGermanWord(), command.getGermanWordPrononciation(), command.getGermanSentence(), command.getGermanSentencePrononciation(), LanguageEnum.GERMAN);
 		words.add(word);
-		return new CardEntity(category, words);
+		return new CardEntity(words);
 		
 	}
 	
@@ -228,8 +220,6 @@ public class NewCardController {
 		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
 		CardEntity card = cards.get(index);
-		
-		command.setSelectedCategory(String.valueOf(card.getCategory().getId()));
 		
 		WordEntity polishWord = card.getWords().get(0);		
 		command.setPolishWord(polishWord.getWord());
