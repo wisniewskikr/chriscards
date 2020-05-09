@@ -162,8 +162,6 @@ public class NewCardController {
 		words.add(word);
 		word = new WordEntity(command.getSpainWord(), command.getSpainWordPrononciation(), command.getSpainSentence(), command.getSpainSentencePrononciation(), LanguageEnum.SPAIN);
 		words.add(word);
-		word = new WordEntity(command.getGermanWord(), command.getGermanWordPrononciation(), command.getGermanSentence(), command.getGermanSentencePrononciation(), LanguageEnum.GERMAN);
-		words.add(word);
 		return new CardEntity(words);
 		
 	}
@@ -208,11 +206,6 @@ public class NewCardController {
 		command.setSpainSentence(null);
 		command.setSpainSentencePrononciation(null);
 		
-		command.setGermanWord(null);
-		command.setGermanWordPrononciation(null);
-		command.setGermanSentence(null);
-		command.setGermanSentencePrononciation(null);
-		
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -244,12 +237,6 @@ public class NewCardController {
 		command.setSpainWordPrononciation(spainhWord.getWordPrononciation());
 		command.setSpainSentence(spainhWord.getSentence());
 		command.setSpainSentencePrononciation(spainhWord.getSentencePronociation());
-		
-		WordEntity germanhWord = card.getWords().get(4);
-		command.setGermanWord(germanhWord.getWord());
-		command.setGermanWordPrononciation(germanhWord.getWordPrononciation());
-		command.setGermanSentence(germanhWord.getSentence());
-		command.setGermanSentencePrononciation(germanhWord.getSentencePronociation());
 		
 	}
 	

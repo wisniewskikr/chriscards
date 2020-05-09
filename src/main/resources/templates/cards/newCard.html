@@ -152,30 +152,6 @@
 					    </div>
 					</fieldset>
 					
-					<fieldset class="scheduler-border">
-					    <legend class="scheduler-border">Język Niemiecki</legend>
-					    <div class="control-group">
-					    	<div class="form-group">
-					    		<label for="germanWord">* Słowo:</label>
-	      						<input class="form-control input-lg" id="germanWord" type="text" th:field="*{germanWord}">
-	      						<p th:if="${#fields.hasErrors('germanWord')}" th:errors="*{germanWord}" class="error">Error</p>
-					    	</div>
-					    	<div class="form-group">
-					    		<label for="germanWordPrononciation" class="prononciation">Wymowa słowa:</label>
-	      						<input class="form-control input-lg prononciation" id="germanWordPrononciation" type="text" th:field="*{germanWordPrononciation}">
-					    	</div>
-					    	<div class="form-group">
-					    		<label for="germanSentence">* Zdanie:</label>
-	      						<input class="form-control input-lg" id="germanSentence" type="text" th:field="*{germanSentence}">
-	      						<p th:if="${#fields.hasErrors('germanSentence')}" th:errors="*{germanSentence}" class="error">Error</p>
-					    	</div>
-					    	<div class="form-group">
-					    		<label for="germanSentencePrononciation" class="prononciation">Wymowa zdania:</label>
-	      						<input class="form-control input-lg prononciation" id="germanSentencePrononciation" type="text" th:field="*{germanSentencePrononciation}">
-					    	</div>
-					    </div>
-					</fieldset>
-					
 					<div class="btn-group btn-group-justified btn-group-lg">
 						<a href="#" class="btn btn-secondary" th:classappend="*{disablePrevious} ? not-active : active" onClick="submitAction('newCardForm', '/previousCard')"><i class="fas fa-arrow-circle-left fa-6x"></i> <br/> Poprzednia</a>
 						<a href="#" class="btn btn-secondary" onClick="submitAction('newCardForm', '/deleteCurrentCard')"><i class="far fa-trash-alt fa-6x"></i> <br/> Usuń</a>

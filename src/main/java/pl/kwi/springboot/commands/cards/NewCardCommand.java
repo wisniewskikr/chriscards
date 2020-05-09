@@ -30,12 +30,6 @@ public class NewCardCommand {
 	//@NotBlank(message = "To pole nie może być puste")
 	private String spainSentence;
 	private String spainSentencePrononciation;
-	//@NotBlank(message = "To pole nie może być puste")
-	private String germanWord;
-	private String germanWordPrononciation;
-	//@NotBlank(message = "To pole nie może być puste")
-	private String germanSentence;
-	private String germanSentencePrononciation;
 	private int currentCardNumber;
 	private int allCardsCount;
 	private boolean disablePrevious;
@@ -159,34 +153,6 @@ public class NewCardCommand {
 	public void setSpainSentencePrononciation(String spainSentencePrononciation) {
 		this.spainSentencePrononciation = spainSentencePrononciation;
 	}
-	
-	public String getGermanWord() {
-		return germanWord;
-	}
-	public void setGermanWord(String germanWord) {
-		this.germanWord = germanWord;
-	}
-	
-	public String getGermanWordPrononciation() {
-		return germanWordPrononciation;
-	}
-	public void setGermanWordPrononciation(String germanWordPrononciation) {
-		this.germanWordPrononciation = germanWordPrononciation;
-	}
-	
-	public String getGermanSentence() {
-		return germanSentence;
-	}
-	public void setGermanSentence(String germanSentence) {
-		this.germanSentence = germanSentence;
-	}
-	
-	public String getGermanSentencePrononciation() {
-		return germanSentencePrononciation;
-	}
-	public void setGermanSentencePrononciation(String germanSentencePrononciation) {
-		this.germanSentencePrononciation = germanSentencePrononciation;
-	}	
 	
 	public int getCurrentCardNumber() {
 		return currentCardNumber;
