@@ -25,7 +25,7 @@ import pl.kwi.springboot.db.repositories.DeckRepository;
 public class NewCardController {
 	
 	
-	private static final String DEFAULT_DECK_NAME = "Nowa Talia";
+	private static final String DEFAULT_DECK_NAME = "Talia numer ";
 	private static final String CARDS_ATTRIBUTE = "cards";
 	private static final int DEFAULT_CARDS_COUNT = 1;
 	private static final int DEFAULT_CARD_NUMBER = 1;
@@ -41,8 +41,8 @@ public class NewCardController {
 	public String newCard(
 			@ModelAttribute("command") NewCardCommand command,
 			HttpSession session) {
-		
-		command.setDeckName(DEFAULT_DECK_NAME);
+						
+		command.setDeckName(DEFAULT_DECK_NAME + getDeckDefaultId());
 		command.setCurrentCardNumber(DEFAULT_CARD_NUMBER);
 		command.setAllCardsCount(DEFAULT_CARDS_COUNT);
 		command.setDisablePrevious(true);
@@ -310,6 +310,18 @@ public class NewCardController {
 		command.setAllCardsCount(command.getAllCardsCount() - 1);
 		cards.remove(command.getCurrentCardNumber() -1);
 		session.setAttribute(CARDS_ATTRIBUTE, cards);
+		
+	}
+	
+	private long getDeckDefaultId() {
+		
+		Long maxId = deckRepository.getMaxId();
+		if(maxId == null) {
+			maxId = 0L;
+		}
+		maxId++;
+		
+		return maxId;
 		
 	}
 	
