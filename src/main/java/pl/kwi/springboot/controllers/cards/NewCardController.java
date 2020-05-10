@@ -22,6 +22,7 @@ import pl.kwi.springboot.db.repositories.CardRepository;
 import pl.kwi.springboot.db.repositories.DeckRepository;
 
 @Controller
+@RequestMapping(value="/cards")
 public class NewCardController {
 	
 	
@@ -37,7 +38,7 @@ public class NewCardController {
 	private DeckRepository deckRepository;
 	
 
-	@RequestMapping(value="/newCard")
+	@RequestMapping(value="/new")
 	public String newCard(
 			@ModelAttribute("command") NewCardCommand command,
 			HttpSession session) {
@@ -53,8 +54,8 @@ public class NewCardController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value="/nextCard", method = RequestMethod.POST)
-	public String nextCard(
+	@RequestMapping(value="/next", method = RequestMethod.POST)
+	public String next(
 			@Validated @ModelAttribute("command") NewCardCommand command,
 			BindingResult bindingResult,
 			HttpSession session) {
@@ -77,8 +78,8 @@ public class NewCardController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value="/previousCard", method = RequestMethod.POST)
-	public String previuosCard(
+	@RequestMapping(value="/previous", method = RequestMethod.POST)
+	public String previuos(
 			@Validated @ModelAttribute("command") NewCardCommand command,
 			BindingResult bindingResult,
 			HttpSession session) {
@@ -97,7 +98,7 @@ public class NewCardController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value="/deleteCurrentCard", method = RequestMethod.POST)
+	@RequestMapping(value="/delete", method = RequestMethod.POST)
 	public String deleteCurrentCard(
 			@Validated @ModelAttribute("command") NewCardCommand command,
 			BindingResult bindingResult,
@@ -121,8 +122,8 @@ public class NewCardController {
 	}	
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value="/saveCards", method = RequestMethod.POST)
-	public String saveCards(
+	@RequestMapping(value="/save", method = RequestMethod.POST)
+	public String save(
 			@Validated @ModelAttribute("command") NewCardCommand command,
 			BindingResult bindingResult,
 			HttpSession session) {
@@ -146,7 +147,7 @@ public class NewCardController {
 			cardRepository.save(card);
 		}		
 		
-		return "redirect:cards";
+		return "redirect:/cards";
 		
 	}		
 	
