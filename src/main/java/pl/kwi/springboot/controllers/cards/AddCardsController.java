@@ -38,8 +38,8 @@ public class AddCardsController {
 	private DeckRepository deckRepository;
 	
 
-	@RequestMapping(value="/new")
-	public String newCard(
+	@RequestMapping(value="/add")
+	public String add(
 			@ModelAttribute("command") AddCardsCommand command,
 			HttpSession session) {
 						
@@ -105,7 +105,7 @@ public class AddCardsController {
 			HttpSession session) {
 		
 		if(DEFAULT_CARD_NUMBER == command.getAllCardsCount()) {
-			return "redirect:newCard";
+			return "redirect:add";
 		}
 		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);		
