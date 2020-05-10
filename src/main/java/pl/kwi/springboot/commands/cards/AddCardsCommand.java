@@ -1,7 +1,7 @@
 package pl.kwi.springboot.commands.cards;
 
 
-public class NewCardCommand {
+public class AddCardsCommand {
 	
 	
 	//@NotBlank(message = "To pole nie może być puste")

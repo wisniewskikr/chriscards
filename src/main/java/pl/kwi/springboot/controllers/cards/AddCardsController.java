@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import pl.kwi.springboot.commands.cards.NewCardCommand;
+import pl.kwi.springboot.commands.cards.AddCardsCommand;
 import pl.kwi.springboot.controllers.enums.LanguageEnum;
 import pl.kwi.springboot.db.entities.CardEntity;
 import pl.kwi.springboot.db.entities.DeckEntity;
@@ -23,7 +23,7 @@ import pl.kwi.springboot.db.repositories.DeckRepository;
 
 @Controller
 @RequestMapping(value="/cards")
-public class NewCardController {
+public class AddCardsController {
 	
 	
 	private static final String DEFAULT_DECK_NAME = "Talia numer ";
@@ -40,7 +40,7 @@ public class NewCardController {
 
 	@RequestMapping(value="/new")
 	public String newCard(
-			@ModelAttribute("command") NewCardCommand command,
+			@ModelAttribute("command") AddCardsCommand command,
 			HttpSession session) {
 						
 		command.setDeckName(DEFAULT_DECK_NAME + getDeckDefaultId());
@@ -49,19 +49,19 @@ public class NewCardController {
 		command.setDisablePrevious(true);
 		session.setAttribute(CARDS_ATTRIBUTE, new ArrayList<CardEntity>());
 		
-		return "cards/newCard";
+		return "cards/addCards";
 		
 	}
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/next", method = RequestMethod.POST)
 	public String next(
-			@Validated @ModelAttribute("command") NewCardCommand command,
+			@Validated @ModelAttribute("command") AddCardsCommand command,
 			BindingResult bindingResult,
 			HttpSession session) {
 		
 		if (bindingResult.hasErrors()) {
-			return "cards/newCard";
+			return "cards/addCards";
 		}
 		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
@@ -73,19 +73,19 @@ public class NewCardController {
 		}			
 		handlePreviousAndNext(command);
 		
-		return "cards/newCard";
+		return "cards/addCards";
 		
 	}
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/previous", method = RequestMethod.POST)
 	public String previuos(
-			@Validated @ModelAttribute("command") NewCardCommand command,
+			@Validated @ModelAttribute("command") AddCardsCommand command,
 			BindingResult bindingResult,
 			HttpSession session) {
 		
 		if (bindingResult.hasErrors()) {
-			return "cards/newCard";
+			return "cards/addCards";
 		}
 		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
@@ -93,14 +93,14 @@ public class NewCardController {
 		handleExistingCard(command, session, command.getCurrentCardNumber() - 1);		
 		handlePreviousAndNext(command);
 				
-		return "cards/newCard";
+		return "cards/addCards";
 		
 	}
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/delete", method = RequestMethod.POST)
 	public String deleteCurrentCard(
-			@Validated @ModelAttribute("command") NewCardCommand command,
+			@Validated @ModelAttribute("command") AddCardsCommand command,
 			BindingResult bindingResult,
 			HttpSession session) {
 		
@@ -117,19 +117,19 @@ public class NewCardController {
 		}
 		handlePreviousAndNext(command);
 		
-		return "cards/newCard";
+		return "cards/addCards";
 		
 	}	
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/save", method = RequestMethod.POST)
 	public String save(
-			@Validated @ModelAttribute("command") NewCardCommand command,
+			@Validated @ModelAttribute("command") AddCardsCommand command,
 			BindingResult bindingResult,
 			HttpSession session) {
 		
 		if (bindingResult.hasErrors()) {
-			return "cards/newCard";
+			return "cards/addCards";
 		}
 		
 		DeckEntity deck = deckRepository.save(new DeckEntity(command.getDeckName()));
@@ -151,7 +151,7 @@ public class NewCardController {
 		
 	}		
 	
-	private CardEntity createCard(NewCardCommand command) {
+	private CardEntity createCard(AddCardsCommand command) {
 		
 		List<WordEntity> words = new ArrayList<WordEntity>();
 		WordEntity word;
@@ -168,7 +168,7 @@ public class NewCardController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void addNewCardToSessionAttribute(HttpSession session, NewCardCommand command) {
+	private void addNewCardToSessionAttribute(HttpSession session, AddCardsCommand command) {
 		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
 		cards.add(createCard(command));	
@@ -177,7 +177,7 @@ public class NewCardController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void updateCardInSessionAttribute(HttpSession session, NewCardCommand command, int index) {
+	private void updateCardInSessionAttribute(HttpSession session, AddCardsCommand command, int index) {
 		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
 		cards.set(index, createCard(command));	
@@ -185,7 +185,7 @@ public class NewCardController {
 		
 	}
 	
-	private void cleanNewCardCommand(NewCardCommand command) {
+	private void cleanNewCardCommand(AddCardsCommand command) {
 		
 		command.setPolishWord(null);
 		command.setPolishWordPrononciation(null);
@@ -210,7 +210,7 @@ public class NewCardController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void readNewCardCommand(NewCardCommand command, HttpSession session, int index) {
+	private void readNewCardCommand(AddCardsCommand command, HttpSession session, int index) {
 		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
 		CardEntity card = cards.get(index);
@@ -241,7 +241,7 @@ public class NewCardController {
 		
 	}
 	
-	private void adjustCardsInSession(NewCardCommand command, HttpSession session, List<CardEntity> cards) {
+	private void adjustCardsInSession(AddCardsCommand command, HttpSession session, List<CardEntity> cards) {
 		
 		if(command.getAllCardsCount() != (cards.size())) {
 			addNewCardToSessionAttribute(session, command);
@@ -249,7 +249,7 @@ public class NewCardController {
 		
 	}
 	
-	private void handlePreviousAndNext(NewCardCommand command) {
+	private void handlePreviousAndNext(AddCardsCommand command) {
 		
 		if(DEFAULT_CARD_NUMBER == command.getCurrentCardNumber()) {
 			command.setDisablePrevious(true);
@@ -265,7 +265,7 @@ public class NewCardController {
 		
 	}
 	
-	private void handleExistingCard(NewCardCommand command, HttpSession session, int nextCardNumber) {
+	private void handleExistingCard(AddCardsCommand command, HttpSession session, int nextCardNumber) {
 		
 		updateCardInSessionAttribute(session, command, command.getCurrentCardNumber() - 1);
 		readNewCardCommand(command, session, nextCardNumber - 1);
@@ -273,7 +273,7 @@ public class NewCardController {
 		
 	}
 	
-	private void handleNewCard(NewCardCommand command, HttpSession session) {
+	private void handleNewCard(AddCardsCommand command, HttpSession session) {
 		
 		updateCardInSessionAttribute(session, command, command.getCurrentCardNumber() - 1);
 		cleanNewCardCommand(command);
@@ -282,7 +282,7 @@ public class NewCardController {
 		
 	}
 	
-	private void deleteCardLast(NewCardCommand command, HttpSession session, List<CardEntity> cards) {
+	private void deleteCardLast(AddCardsCommand command, HttpSession session, List<CardEntity> cards) {
 		
 		readNewCardCommand(command, session, command.getCurrentCardNumber() - 2);
 		command.setCurrentCardNumber(command.getCurrentCardNumber() - 1);	
@@ -292,7 +292,7 @@ public class NewCardController {
 		
 	}
 	
-	private void deleteCardinMiddle(NewCardCommand command, HttpSession session, List<CardEntity> cards) {
+	private void deleteCardinMiddle(AddCardsCommand command, HttpSession session, List<CardEntity> cards) {
 		
 		readNewCardCommand(command, session, command.getCurrentCardNumber());
 		command.setAllCardsCount(command.getAllCardsCount() - 1);
