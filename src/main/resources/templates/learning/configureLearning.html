@@ -28,31 +28,7 @@
 	</nav>	
 	
 	<div class="container container-margin" th:object="${command}">
-		<div class="row">
-		<form th:action="@{{base}/home(base=${basePath})}" method="post" id="form">	
-		    <div class="col-md column h-25">
-		    
-			    <div class="panel panel-default panel-main" onclick="redirect('/learning/configure')">
-					<h3 class="panel-body">Rozpocznij naukę nowych słówek.</h3>
-				</div> 
-			    
-			    <div class="panel panel-default panel-main" onclick="redirect('/cards')">
-					<h3 class="panel-body">Stwórz karty z nowymi słowami.</h3>
-				</div>
-			    
-				<div class="panel panel-default panel-main" onclick="redirect('/more')">
-					<h3 class="panel-body">Korzystaj z dodatkowych opcji tj. edycja kart czy talii. Edytuj swoje ustawienia.</h3>
-				</div>
-				
-				<div class="btn-group btn-group-justified btn-group-lg">
-				  <a href="/cards" class="btn btn-secondary"><i class="fas fa-layer-group fa-6x"></i> <br/> Karty</a>
-				  <a href="#" class="btn btn-secondary"><i class="fas fa-play fa-6x"></i> <br/> Rozpocznij naukę</a>
-				  <a href="/more" class="btn btn-secondary"><i class="fa fa-bars fa-6x"></i> <br/> Więcej</a>
-				</div>
-			    	    				
-		    </div>		    
-		</form>	
-		</div>    
+		Configure learnig
 	</div>
 
 </body>
