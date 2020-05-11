@@ -132,7 +132,8 @@ public class AddCardsController {
 			return "cards/addCards";
 		}
 		
-		DeckEntity deck = deckRepository.save(new DeckEntity(command.getDeckName()));
+		DeckEntity deck = new DeckEntity(command.getDeckName());
+		deck = deckRepository.save(deck);
 		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
 		if(command.getAllCardsCount() != cards.size()) {			
