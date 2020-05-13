@@ -28,7 +28,19 @@
 	</nav>	
 	
 	<div class="container container-margin" th:object="${command}">
-		Configure learnig
+		
+		<fieldset class="scheduler-border">
+		    <legend class="scheduler-border">Talie</legend>
+		    <div class="control-group">
+		    	<div class="form-group">
+				    <label for="deckCount">* Ilość talii:</label>
+				    <select class="form-control" th:field="*{deckCount}">
+				    	<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}" ></option>
+				    </select>
+				</div>
+		    </div>
+		</fieldset>
+		
 	</div>
 
 </body>
