@@ -28,19 +28,32 @@
 	</nav>	
 	
 	<div class="container container-margin" th:object="${command}">
-		
-		<fieldset class="scheduler-border">
-		    <legend class="scheduler-border">Talie</legend>
-		    <div class="control-group">
-		    	<div class="form-group">
-				    <label for="deckCount">* Ilość talii:</label>
-				    <select class="form-control" th:field="*{deckCount}">
-				    	<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}" ></option>
-				    </select>
-				</div>
-		    </div>
-		</fieldset>
-		
+		<div class="row">		
+		    <div class="col-md column h-25">
+		    				
+				<form id="configureLearningForm" method="post">
+				
+					<fieldset class="scheduler-border">
+					    <legend class="scheduler-border">Talie</legend>
+					    <div class="control-group">
+					    	<div class="form-group">
+							    <label for="deckCount">* Ilość talii:</label>
+							    <select class="form-control" th:field="*{deckCount}">
+							    	<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}" ></option>
+							    </select>
+							</div>
+					    </div>
+					</fieldset>
+					
+					<div>
+						<button type="button" class="btn btn-default btn-lg" onClick="submitAction('newCardForm', '/cards/save')">Uruchom</button>
+						<a class="btn btn-default btn-lg" href="/learning">Anuluj</a>						
+					</div>
+				
+				</form>
+				
+			</div>
+		</div>			
 	</div>
 
 </body>
