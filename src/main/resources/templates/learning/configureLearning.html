@@ -53,11 +53,8 @@
 					
 					<fieldset class="scheduler-border">
 					    <legend class="scheduler-border">* Tryb Nauki</legend>
-					    <div class="radio">
-						  	<label><input type="radio" name="optradio" checked>Manualny Tryb Nauki</label>
-						</div>
-						<div class="radio">
-						  	<label><input type="radio" name="optradio">Automatyczny Tryb Nauki</label>
+				    	<div class="radio" th:each="learningMode : *{learningModes}">
+					  		<label><input type="radio" th:field="*{selectedLearningMode}" th:value="${learningMode}"><span th:text="${learningMode.displayText}">Label</span></label>
 						</div>
 					</fieldset>    
 					
