@@ -36,14 +36,30 @@
 					<fieldset class="scheduler-border">
 					    <legend class="scheduler-border">Talie</legend>
 					    <div class="control-group">
+					    	
 					    	<div class="form-group">
 							    <label for="deckCount">* Ilość talii:</label>
 							    <select class="form-control" th:field="*{deckCount}">
 							    	<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}" ></option>
 							    </select>
 							</div>
+							
+							<div class="radio">
+						  		<label><input type="radio" name="optradio2" checked>Najnowsze Talie</label>
+							</div>
+							
 					    </div>
 					</fieldset>
+					
+					<fieldset class="scheduler-border">
+					    <legend class="scheduler-border">* Tryb Nauki</legend>
+					    <div class="radio">
+						  	<label><input type="radio" name="optradio" checked>Manualny Tryb Nauki</label>
+						</div>
+						<div class="radio">
+						  	<label><input type="radio" name="optradio">Automatyczny Tryb Nauki</label>
+						</div>
+					</fieldset>    
 					
 					<div>
 						<button type="button" class="btn btn-default btn-lg" onClick="submitAction('newCardForm', '/cards/save')">Uruchom</button>
