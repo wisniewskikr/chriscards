@@ -7,12 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.kwi.springboot.commands.learning.ConfigureLearningCommand;
 import pl.kwi.springboot.enums.LearningModeEnum;
 
 @Controller
-@RequestMapping(value="/learning")
+@RequestMapping(value="/configureLearning")
 public class ConfigureLearningController {
 
 	@RequestMapping(value="/configure")
@@ -27,12 +28,13 @@ public class ConfigureLearningController {
 	
 	@RequestMapping(value="/run", method = RequestMethod.POST)
 	public String run(
-			@ModelAttribute("command") ConfigureLearningCommand command) {
+			@ModelAttribute("command") ConfigureLearningCommand command,
+			RedirectAttributes attributes) {
 		
-		System.out.println(command.getDeckCount());
-		System.out.println(command.getSelectedLearningMode().getDisplayText());
+		attributes.addAttribute("deckCount", command.getDeckCount());
+		attributes.addAttribute("selectedLearningMode", command.getSelectedLearningMode());
 		
-		return "learning/configureLearning";
+		return "redirect:/runLearning/run";
 	}
 	
 }
