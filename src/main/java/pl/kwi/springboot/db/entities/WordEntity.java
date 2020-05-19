@@ -33,7 +33,7 @@ public class WordEntity {
     private String sentence;
     
     @Column
-    private String sentencePronociation;
+    private String sentencePrononciation;
     
     @Enumerated(EnumType.STRING)
     private LanguageEnum language;
@@ -45,12 +45,12 @@ public class WordEntity {
     
     public WordEntity() {
 	}
-	public WordEntity(String word, String wordPrononciation, String sentence, String sentencePronociation,
+	public WordEntity(String word, String wordPrononciation, String sentence, String sentencePrononciation,
 			LanguageEnum language) {
 		this.word = word;
 		this.wordPrononciation = wordPrononciation;
 		this.sentence = sentence;
-		this.sentencePronociation = sentencePronociation;
+		this.sentencePrononciation = sentencePrononciation;
 		this.language = language;
 	}
 
@@ -81,15 +81,15 @@ public class WordEntity {
 	}
 	public void setSentence(String sentence) {
 		this.sentence = sentence;
-	}	
-	
-	public String getSentencePronociation() {
-		return sentencePronociation;
-	}
-	public void setSentencePronociation(String sentencePronociation) {
-		this.sentencePronociation = sentencePronociation;
-	}
+	}		
 
+	public String getSentencePrononciation() {
+		return sentencePrononciation;
+	}
+	public void setSentencePrononciation(String sentencePrononciation) {
+		this.sentencePrononciation = sentencePrononciation;
+	}
+	
 	public LanguageEnum getLanguage() {
 		return language;
 	}

@@ -220,25 +220,25 @@ public class AddCardsController {
 		command.setPolishWord(polishWord.getWord());
 		command.setPolishWordPrononciation(polishWord.getWordPrononciation());
 		command.setPolishSentence(polishWord.getSentence());
-		command.setPolishSentencePrononciation(polishWord.getSentencePronociation());
+		command.setPolishSentencePrononciation(polishWord.getSentencePrononciation());
 		
 		WordEntity englishhWord = card.getWords().get(1);
 		command.setEnglishWord(englishhWord.getWord());
 		command.setEnglishWordPrononciation(englishhWord.getWordPrononciation());
 		command.setEnglishSentence(englishhWord.getSentence());
-		command.setEnglishSentencePrononciation(englishhWord.getSentencePronociation());
+		command.setEnglishSentencePrononciation(englishhWord.getSentencePrononciation());
 		
 		WordEntity russianhWord = card.getWords().get(2);
 		command.setRussianWord(russianhWord.getWord());
 		command.setRussianWordPrononciation(russianhWord.getWordPrononciation());
 		command.setRussianSentence(russianhWord.getSentence());
-		command.setRussianSentencePrononciation(russianhWord.getSentencePronociation());
+		command.setRussianSentencePrononciation(russianhWord.getSentencePrononciation());
 		
 		WordEntity spainhWord = card.getWords().get(3);
 		command.setSpainWord(spainhWord.getWord());
 		command.setSpainWordPrononciation(spainhWord.getWordPrononciation());
 		command.setSpainSentence(spainhWord.getSentence());
-		command.setSpainSentencePrononciation(spainhWord.getSentencePronociation());
+		command.setSpainSentencePrononciation(spainhWord.getSentencePrononciation());
 		
 	}
 	
