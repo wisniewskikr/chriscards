@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import pl.kwi.springboot.controllers.enums.LanguageEnum;
+import pl.kwi.springboot.enums.LanguageEnum;
 
 @Entity
 @Table(name="WORD")

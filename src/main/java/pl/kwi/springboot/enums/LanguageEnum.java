@@ -1,4 +1,4 @@
-package pl.kwi.springboot.controllers.enums;
+package pl.kwi.springboot.enums;
 
 public enum LanguageEnum {
 	

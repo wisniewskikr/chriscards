@@ -2,7 +2,11 @@ package pl.kwi.springboot.controllers.learning;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,11 +14,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.kwi.springboot.commands.learning.ConfigureLearningCommand;
+import pl.kwi.springboot.db.entities.CardEntity;
+import pl.kwi.springboot.db.entities.DeckEntity;
+import pl.kwi.springboot.db.repositories.DeckRepository;
 import pl.kwi.springboot.enums.LearningModeEnum;
 
 @Controller
 @RequestMapping(value="/configureLearning")
 public class ConfigureLearningController {
+	
+	@Autowired
+	private DeckRepository deckRepository;
 
 	@RequestMapping(value="/configure")
 	public String displayPage(
@@ -29,9 +39,17 @@ public class ConfigureLearningController {
 	@RequestMapping(value="/run", method = RequestMethod.POST)
 	public String run(
 			@ModelAttribute("command") ConfigureLearningCommand command,
-			RedirectAttributes attributes) {
+			RedirectAttributes attributes,
+			HttpSession session) {
 		
-		attributes.addAttribute("deckCount", command.getDeckCount());
+		DeckEntity deck = deckRepository.findById(1L).get();
+		List<CardEntity> cards = deck.getCards();
+		session.setAttribute("cards", cards);
+		
+		attributes.addAttribute("cardNumber", 1);
+		attributes.addAttribute("cardCount", cards.size());
+		attributes.addAttribute("wordNumber", 1);
+		attributes.addAttribute("wordCount", cards.get(0).getWords().size());
 		attributes.addAttribute("selectedLearningMode", command.getSelectedLearningMode());
 		
 		return "redirect:/runLearning/run";

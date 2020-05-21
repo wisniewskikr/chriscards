@@ -31,7 +31,24 @@
 		<div class="row">		
 		    <div class="col-md column h-25">
 		    				
-				Run learning
+				<p class="text-center">
+					<input type="hidden" th:field="*{cardCount}" th:value="${cardCount}" />    
+					<span th:text="*{cardNumber}"/> / <span th:text="*{cardCount}"/>
+				</p>
+				
+				<fieldset class="scheduler-border">
+					<legend class="scheduler-border">Język Polski</legend>
+					<div class="control-group">
+						<div th:text="*{word.word}"/>
+						<div th:text="*{word.wordPrononciation}"/>
+					   </div>
+				</fieldset>
+				
+				<div>
+					<a class="btn btn-default btn-lg" href="#">Poprzedni</a>	
+					<a class="btn btn-default btn-lg" href="/learning">Zakończ</a>
+					<a class="btn btn-default btn-lg" href="#">Następny</a>						
+				</div>				
 				
 			</div>
 		</div>			
