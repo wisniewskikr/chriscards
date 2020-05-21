@@ -37,7 +37,7 @@ public class RunLearningController {
 	}
 	
 	private WordEntity getWord(RunLearningCommand command, CardEntity card) {
-		return card.getWords().get(command.getCardNumber() - 1);
+		return card.getWords().get(command.getWordNumber() - 1);
 	}
 	
 	private void handleNavigationButtons(RunLearningCommand command, int wordsCount) {

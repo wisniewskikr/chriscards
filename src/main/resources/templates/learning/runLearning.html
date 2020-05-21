@@ -32,7 +32,6 @@
 		    <div class="col-md column h-25">
 		    				
 				<p class="text-center">
-					<input type="hidden" th:field="*{cardCount}" th:value="${cardCount}" />    
 					<span th:text="*{cardNumber}"/> / <span th:text="*{cardCount}"/>
 				</p>
 				
@@ -45,9 +44,9 @@
 				</fieldset>
 				
 				<div>
-					<a class="btn btn-default btn-lg" href="#" th:disabled="*{firstWord}">Poprzedni</a>	
+					<a class="btn btn-default btn-lg" th:href="@{/runLearning/run?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}(cardNumber=*{cardNumber},cardCount=*{cardCount},wordNumber=*{wordNumber} - 1,selectedLearningMode=*{selectedLearningMode})}" th:disabled="*{firstWord}" th:classappend="*{firstWord} ? not-active : active">Poprzedni</a>	
 					<a class="btn btn-default btn-lg" href="/learning">Zakończ</a>
-					<a class="btn btn-default btn-lg" href="#" th:disabled="*{lastWord}">Następny</a>						
+					<a class="btn btn-default btn-lg" th:href="@{/runLearning/run?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}(cardNumber=*{cardNumber},cardCount=*{cardCount},wordNumber=*{wordNumber} + 1,selectedLearningMode=*{selectedLearningMode})}" th:disabled="*{lastWord}" th:classappend="*{lastWord} ? not-active : active">Następny</a>						
 				</div>				
 				
 			</div>
