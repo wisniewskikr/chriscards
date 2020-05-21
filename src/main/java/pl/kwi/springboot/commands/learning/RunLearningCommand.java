@@ -12,6 +12,8 @@ public class RunLearningCommand {
 	private int wordCount;
 	private LearningModeEnum selectedLearningMode;
 	private WordEntity word;
+	private boolean firstWord;
+	private boolean lastWord;
 	
 	
 	public int getCardNumber() {
@@ -55,6 +57,20 @@ public class RunLearningCommand {
 	public void setWord(WordEntity word) {
 		this.word = word;
 	}
-		
+	
+	public boolean isFirstWord() {
+		return firstWord;
+	}
+	public void setFirstWord(boolean firstWord) {
+		this.firstWord = firstWord;
+	}
+	
+	public boolean isLastWord() {
+		return lastWord;
+	}
+	public void setLastWord(boolean lastWord) {
+		this.lastWord = lastWord;
+	}
+	
 
 }
