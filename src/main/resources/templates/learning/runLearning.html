@@ -47,6 +47,13 @@
 					<a class="btn btn-default btn-lg" th:href="@{/runLearning/run?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}(cardNumber=*{cardNumber},cardCount=*{cardCount},wordNumber=*{wordNumber} - 1,selectedLearningMode=*{selectedLearningMode})}" th:disabled="*{firstWord}" th:classappend="*{firstWord} ? not-active : active">Poprzedni</a>	
 					<a class="btn btn-default btn-lg" href="/learning">Zakończ</a>
 					<a class="btn btn-default btn-lg" th:href="@{/runLearning/run?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}(cardNumber=*{cardNumber},cardCount=*{cardCount},wordNumber=*{wordNumber} + 1,selectedLearningMode=*{selectedLearningMode})}" th:disabled="*{lastWord}" th:classappend="*{lastWord} ? not-active : active">Następny</a>						
+				</div>	
+				
+				<br/>
+				
+				<div th:if="*{lastWord}">
+					<a class="btn btn-default btn-lg" th:href="@{/runLearning/run?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}(cardNumber=*{cardNumber} + 1,cardCount=*{cardCount},wordNumber=1,selectedLearningMode=*{selectedLearningMode})}" >Nie całkiem</a>	
+					<a class="btn btn-default btn-lg" th:href="@{/runLearning/run?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}(cardNumber=*{cardNumber} + 1,cardCount=*{cardCount},wordNumber=1,selectedLearningMode=*{selectedLearningMode})}" >Mam to</a>						
 				</div>				
 				
 			</div>

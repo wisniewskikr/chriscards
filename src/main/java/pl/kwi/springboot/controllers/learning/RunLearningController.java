@@ -17,7 +17,7 @@ import pl.kwi.springboot.db.entities.WordEntity;
 public class RunLearningController {
 
 	@RequestMapping(value="/run")
-	public String displayPage(
+	public String run(
 			@ModelAttribute("command") RunLearningCommand command,
 			HttpSession session) {
 		
