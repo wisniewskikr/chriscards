@@ -29,7 +29,8 @@ public class CardEntity {
 	
 	@OneToMany(
 	        cascade = CascadeType.ALL,
-	        orphanRemoval = true
+	        orphanRemoval = true,
+	        fetch = FetchType.EAGER
 	 )
 	@JoinColumn(name = "card_id")
 	private List<WordEntity> words = new ArrayList<WordEntity>();
