@@ -45,6 +45,7 @@ public class ConfigureLearningController {
 		DeckEntity deck = deckRepository.findById(1L).get();
 		List<CardEntity> cards = deck.getCards();
 		session.setAttribute("cards", cards);
+		session.setAttribute("notValidCards", new ArrayList<CardEntity>());
 		
 		attributes.addAttribute("cardNumber", 1);
 		attributes.addAttribute("cardCount", cards.size());

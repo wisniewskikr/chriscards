@@ -45,12 +45,25 @@ public class RunLearningController {
 			@ModelAttribute("command") RunLearningCommand command,
 			HttpSession session) {
 		
+		handleNotValidCards(command, session);
+		
 		if (finishRun(command)) {
 			return "redirect:/resultLearning/display";
 		}
 		
 		handleRun(command, session);		
 		return "learning/runLearning";
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void handleNotValidCards(RunLearningCommand command, HttpSession session) {
+		
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute("cards");
+		List<CardEntity> notValidCards = (List<CardEntity>)session.getAttribute("notValidCards");
+		CardEntity card = cards.get(command.getCardNumber() - 2);
+		notValidCards.add(card);
+		session.setAttribute("notValidcards", notValidCards);
 		
 	}
 	

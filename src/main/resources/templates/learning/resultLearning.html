@@ -31,7 +31,10 @@
 		<div class="row">		
 		    <div class="col-md column h-25">
 		    				
-				Result learning
+				<div>Wszystkich kart: <span th:text="*{cardsCount}"/></div>
+				<div>Poprawnych kart: <span th:text="*{validCardsCount}"/></div>
+				<div>Niepoprawnych kart: <span th:text="*{notValidCardsCount}"/></div>
+				<div>Pominiętych kart: <span th:text="*{skippedCardsCount}"/></div>
 				
 				<div>
 					<a class="btn btn-default btn-lg" href="/learning">Zrobione</a>
