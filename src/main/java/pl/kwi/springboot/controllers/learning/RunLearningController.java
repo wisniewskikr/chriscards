@@ -31,6 +31,10 @@ public class RunLearningController {
 			@ModelAttribute("command") RunLearningCommand command,
 			HttpSession session) {
 		
+		if (finishRun(command)) {
+			return "redirect:/resultLearning/display";
+		}
+		
 		handleRun(command, session);		
 		return "learning/runLearning";
 		
@@ -40,6 +44,10 @@ public class RunLearningController {
 	public String notValid(
 			@ModelAttribute("command") RunLearningCommand command,
 			HttpSession session) {
+		
+		if (finishRun(command)) {
+			return "redirect:/resultLearning/display";
+		}
 		
 		handleRun(command, session);		
 		return "learning/runLearning";
@@ -51,6 +59,15 @@ public class RunLearningController {
 		CardEntity card = getCard(command, session);
 		command.setWord(getWord(command, card));
 		handleNavigationButtons(command, card.getWords().size());
+		
+	}
+	
+	private boolean finishRun(RunLearningCommand command) {
+		
+		if (command.getCardNumber() > command.getCardCount()) {
+			return true;
+		}
+		return false;
 		
 	}
 	
