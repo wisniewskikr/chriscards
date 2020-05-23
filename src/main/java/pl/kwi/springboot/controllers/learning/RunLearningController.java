@@ -21,11 +21,37 @@ public class RunLearningController {
 			@ModelAttribute("command") RunLearningCommand command,
 			HttpSession session) {
 		
+		handleRun(command, session);		
+		return "learning/runLearning";
+		
+	}
+	
+	@RequestMapping(value="/valid")
+	public String valid(
+			@ModelAttribute("command") RunLearningCommand command,
+			HttpSession session) {
+		
+		handleRun(command, session);		
+		return "learning/runLearning";
+		
+	}
+	
+	@RequestMapping(value="/notValid")
+	public String notValid(
+			@ModelAttribute("command") RunLearningCommand command,
+			HttpSession session) {
+		
+		handleRun(command, session);		
+		return "learning/runLearning";
+		
+	}
+	
+	private void handleRun(RunLearningCommand command, HttpSession session) {
+		
 		CardEntity card = getCard(command, session);
 		command.setWord(getWord(command, card));
 		handleNavigationButtons(command, card.getWords().size());
 		
-		return "learning/runLearning";
 	}
 	
 	@SuppressWarnings("unchecked")

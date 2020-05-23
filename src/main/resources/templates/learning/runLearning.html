@@ -52,8 +52,8 @@
 				<br/>
 				
 				<div th:if="*{lastWord}">
-					<a class="btn btn-default btn-lg" th:href="@{/runLearning/run?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}(cardNumber=*{cardNumber} + 1,cardCount=*{cardCount},wordNumber=1,selectedLearningMode=*{selectedLearningMode})}" >Nie całkiem</a>	
-					<a class="btn btn-default btn-lg" th:href="@{/runLearning/run?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}(cardNumber=*{cardNumber} + 1,cardCount=*{cardCount},wordNumber=1,selectedLearningMode=*{selectedLearningMode})}" >Mam to</a>						
+					<a class="btn btn-default btn-lg" th:href="@{/runLearning/notValid?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}(cardNumber=*{cardNumber} + 1,cardCount=*{cardCount},wordNumber=1,selectedLearningMode=*{selectedLearningMode})}" >Nie całkiem</a>	
+					<a class="btn btn-default btn-lg" th:href="@{/runLearning/valid?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}(cardNumber=*{cardNumber} + 1,cardCount=*{cardCount},wordNumber=1,selectedLearningMode=*{selectedLearningMode})}" >Mam to</a>						
 				</div>				
 				
 			</div>
