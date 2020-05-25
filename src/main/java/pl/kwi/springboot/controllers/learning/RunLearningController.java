@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.kwi.springboot.commands.learning.RunLearningCommand;
 import pl.kwi.springboot.db.entities.CardEntity;
@@ -53,6 +54,27 @@ public class RunLearningController {
 		
 		handleRun(command, session);		
 		return "learning/runLearning";
+		
+	}
+	
+	@RequestMapping(value="/skip")
+	public String skip(
+			@ModelAttribute("command") RunLearningCommand command,
+			HttpSession session,
+			RedirectAttributes redirectAttributes) {		
+			
+			handleSkippedCards(command, session, redirectAttributes);
+			return "redirect:/resultLearning/display";
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void handleSkippedCards(RunLearningCommand command,
+			HttpSession session,
+			RedirectAttributes redirectAttributes) {
+		
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute("cards");
+		redirectAttributes.addAttribute("skippedCardsCount", cards.size() - command.getCardNumber() + 1);
 		
 	}
 	

@@ -49,7 +49,7 @@
 				
 				<div>
 					<a class="btn btn-default btn-lg" th:href="@{/runLearning/run?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}&wordCount={wordCount}(cardNumber=*{cardNumber},cardCount=*{cardCount},wordNumber=*{wordNumber} - 1,wordCount=*{wordCount},selectedLearningMode=*{selectedLearningMode})}" th:disabled="*{firstWord}" th:classappend="*{firstWord} ? not-active : active">Poprzedni</a>	
-					<a class="btn btn-default btn-lg" href="/learning">Zakończ</a>
+					<a class="btn btn-default btn-lg" th:href="@{/runLearning/skip?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}&wordCount={wordCount}(cardNumber=*{cardNumber},cardCount=*{cardCount},wordNumber=*{wordNumber},wordCount=*{wordCount},selectedLearningMode=*{selectedLearningMode})}">Zakończ</a>
 					<a class="btn btn-default btn-lg" th:href="@{/runLearning/run?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}&wordCount={wordCount}(cardNumber=*{cardNumber},cardCount=*{cardCount},wordNumber=*{wordNumber} + 1,wordCount=*{wordCount},selectedLearningMode=*{selectedLearningMode})}" th:disabled="*{lastWord}" th:classappend="*{lastWord} ? not-active : active">Następny</a>						
 				</div>	
 				

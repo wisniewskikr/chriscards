@@ -31,9 +31,8 @@ public class ResultLearningController {
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute("cards");
 		List<CardEntity> notValidCards = (List<CardEntity>)session.getAttribute("notValidCards");
 		command.setCardsCount(cards.size());
-		command.setValidCardsCount(cards.size() - notValidCards.size());
+		command.setValidCardsCount(cards.size() - notValidCards.size() - command.getSkippedCardsCount());
 		command.setNotValidCardsCount(notValidCards.size());
-		command.setSkippedCardsCount(0);
 		
 	}
 	
