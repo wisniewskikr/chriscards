@@ -1,7 +1,6 @@
 package pl.kwi.springboot.commands.learning;
 
 import pl.kwi.springboot.db.entities.WordEntity;
-import pl.kwi.springboot.enums.LearningModeEnum;
 
 public class RunLearningCommand {
 
@@ -10,7 +9,6 @@ public class RunLearningCommand {
 	private int cardCount;
 	private int wordNumber;
 	private int wordCount;
-	private LearningModeEnum selectedLearningMode;
 	private WordEntity word;
 	private boolean firstWord;
 	private boolean lastWord;
@@ -42,13 +40,6 @@ public class RunLearningCommand {
 	}
 	public void setWordCount(int wordCount) {
 		this.wordCount = wordCount;
-	}
-	
-	public LearningModeEnum getSelectedLearningMode() {
-		return selectedLearningMode;
-	}
-	public void setSelectedLearningMode(LearningModeEnum selectedLearningMode) {
-		this.selectedLearningMode = selectedLearningMode;
 	}
 	
 	public WordEntity getWord() {

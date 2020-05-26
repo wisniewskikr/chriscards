@@ -51,12 +51,12 @@ public class ConfigureLearningController {
 		}
 		session.setAttribute("cards", cards);
 		session.setAttribute("notValidCards", new ArrayList<CardEntity>());
+		session.setAttribute("selectedLearningMode", command.getSelectedLearningMode());
 		
 		attributes.addAttribute("cardNumber", 1);
 		attributes.addAttribute("cardCount", cards.size());
 		attributes.addAttribute("wordNumber", 1);
 		attributes.addAttribute("wordCount", cards.get(0).getWords().size());
-		attributes.addAttribute("selectedLearningMode", command.getSelectedLearningMode());
 		
 		return "redirect:/runLearning/run";
 	}
