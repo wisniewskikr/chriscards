@@ -7,6 +7,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,8 +44,11 @@ public class ConfigureLearningController {
 			RedirectAttributes attributes,
 			HttpSession session) {
 		
-		DeckEntity deck = deckRepository.findById(1L).get();
-		List<CardEntity> cards = deck.getCards();
+		List<CardEntity> cards = new ArrayList<CardEntity>();
+		List<DeckEntity> decks = deckRepository.findLastDecks(PageRequest.of(0,command.getDeckCount(),Sort.by(Sort.Direction.DESC, "id"))).getContent();
+		for (DeckEntity deck : decks) {
+			cards.addAll(deck.getCards());
+		}
 		session.setAttribute("cards", cards);
 		session.setAttribute("notValidCards", new ArrayList<CardEntity>());
 		
