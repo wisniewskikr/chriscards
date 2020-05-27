@@ -44,3 +44,7 @@ fieldset.scheduler-border {
   text-decoration: none;
   color: #333;
 }
+
+.learningModeCheckbox {
+	margin-left: 20px;
+}
