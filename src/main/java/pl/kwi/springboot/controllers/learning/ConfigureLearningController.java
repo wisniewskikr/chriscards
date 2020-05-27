@@ -1,7 +1,6 @@
 package pl.kwi.springboot.controllers.learning;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -32,10 +31,9 @@ public class ConfigureLearningController {
 	public String displayPage(
 			@ModelAttribute("command") ConfigureLearningCommand command) {
 		
-		command.setLearningModes(new ArrayList<LearningModeEnum>(Arrays.asList(LearningModeEnum.values())));
-		command.setSelectedLearningMode(LearningModeEnum.MANUAL);
-		
+		command.setSelectedLearningMode(LearningModeEnum.MANUAL);		
 		return "learning/configureLearning";
+		
 	}
 	
 	@RequestMapping(value="/run", method = RequestMethod.POST)

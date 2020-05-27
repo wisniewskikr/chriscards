@@ -38,7 +38,7 @@
 					    <div class="control-group">
 					    	
 					    	<div class="form-group">
-							    <label for="deckCount">* Ilość talii:</label>
+							    <label for="deckCount">* Ilość Talii:</label>
 							    <select class="form-control" th:field="*{deckCount}">
 							    	<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}" ></option>
 							    </select>
@@ -53,9 +53,12 @@
 					
 					<fieldset class="scheduler-border">
 					    <legend class="scheduler-border">* Tryb Nauki</legend>
-				    	<div class="radio" th:each="learningMode : *{learningModes}">
-					  		<label><input type="radio" th:field="*{selectedLearningMode}" th:value="${learningMode}"><span th:text="${learningMode.displayText}">Label</span></label>
-						</div>
+					    <div class="radio">
+				    		<label><input type="radio" th:field="*{selectedLearningMode}" value="MANUAL">Manualny Tryb Nauki</label>
+				    	</div>	
+				    	<div class="radio">	
+				    		<label><input type="radio" th:field="*{selectedLearningMode}" value="AUTHOMATIC">Automatyczny Tryb Nauki</label>
+				    	</div>	
 					</fieldset>    
 					
 					<div>
