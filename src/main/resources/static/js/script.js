@@ -9,3 +9,17 @@ function redirect(target) {
 function submitAction(formId, action) {
 	$('#' + formId).attr('action', action).submit();
 }
+
+function showLearnigRepeat(learningMode) {
+
+	if ("MANUAL" == learningMode) {
+		$(".manualCheckboxes").show();
+		$(".authomaticCheckboxes").hide();
+	}	
+	
+	if ("AUTHOMATIC" == learningMode) {
+		$(".manualCheckboxes").hide();
+		$(".authomaticCheckboxes").show();
+	}
+	
+}
