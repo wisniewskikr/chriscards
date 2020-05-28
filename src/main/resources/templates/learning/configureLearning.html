@@ -57,14 +57,14 @@
 				    		<label><input type="radio" th:field="*{selectedLearningMode}" value="MANUAL" onclick="showLearnigRepeat('MANUAL');">Manualny Tryb Nauki</label>
 				    	</div>	
 				    	<div class="checkbox manualCheckboxes">
-				    		<label class="learningModeCheckbox"><input type="checkbox" value="">Powtarzaj do skutku</label>
+				    		<label class="learningModeCheckbox"><input type="checkbox" th:field="*{manualLearningModeRepeat}" value="true">Powtarzaj do skutku</label>
 				    	</div>
 				    	
 				    	<div class="radio">	
 				    		<label><input type="radio" th:field="*{selectedLearningMode}" value="AUTHOMATIC" onclick="showLearnigRepeat('AUTHOMATIC');">Automatyczny Tryb Nauki</label>
 				    	</div>	
 				    	<div class="checkbox authomaticCheckboxes">
-				    		<label class="learningModeCheckbox"><input type="checkbox" value="">Zapętlaj</label>
+				    		<label class="learningModeCheckbox"><input type="checkbox" th:field="*{authomaticLearningModeRepeat}" value="true">Zapętlaj</label>
 				    	</div>
 					</fieldset>    
 					

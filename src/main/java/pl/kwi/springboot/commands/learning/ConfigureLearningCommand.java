@@ -7,6 +7,8 @@ public class ConfigureLearningCommand {
 	
 	private int deckCount;
 	private LearningModeEnum selectedLearningMode;
+	private boolean manualLearningModeRepeat;
+	private boolean authomaticLearningModeRepeat;
 	
 	
 	public int getDeckCount() {
@@ -22,6 +24,20 @@ public class ConfigureLearningCommand {
 	public void setSelectedLearningMode(LearningModeEnum selectedLearningMode) {
 		this.selectedLearningMode = selectedLearningMode;
 	}
-		
-
+	
+	public boolean isManualLearningModeRepeat() {
+		return manualLearningModeRepeat;
+	}
+	public void setManualLearningModeRepeat(boolean manualLearningModeRepeat) {
+		this.manualLearningModeRepeat = manualLearningModeRepeat;
+	}
+	
+	public boolean isAuthomaticLearningModeRepeat() {
+		return authomaticLearningModeRepeat;
+	}
+	public void setAuthomaticLearningModeRepeat(boolean authomaticLearningModeRepeat) {
+		this.authomaticLearningModeRepeat = authomaticLearningModeRepeat;
+	}	
+	
+	
 }
