@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.kwi.springboot.commands.learning.RunLearningCommand;
 import pl.kwi.springboot.db.entities.CardEntity;
 import pl.kwi.springboot.db.entities.WordEntity;
+import pl.kwi.springboot.enums.LearningModeEnum;
 
 @Controller
 @RequestMapping(value="/runLearning")
@@ -32,7 +33,11 @@ public class RunLearningController {
 			@ModelAttribute("command") RunLearningCommand command,
 			HttpSession session) {
 		
-		if (finishRun(command)) {
+		if (finishRun(command) && isManualRepeat(session)) {
+			return "redirect:/resultLearning/display";
+		} else if (finishRun(command) && isAuthomaticRepeat(session)) {
+			return "redirect:/resultLearning/repeat";
+		} else if (finishRun(command)) {			
 			return "redirect:/resultLearning/display";
 		}
 		
@@ -48,7 +53,11 @@ public class RunLearningController {
 		
 		handleNotValidCards(command, session);
 		
-		if (finishRun(command)) {
+		if (finishRun(command) && isManualRepeat(session)) {
+			return "redirect:/resultLearning/display";
+		} else if (finishRun(command) && isAuthomaticRepeat(session)) {
+			return "redirect:/resultLearning/repeat";
+		} else if (finishRun(command)) {			
 			return "redirect:/resultLearning/display";
 		}
 		
@@ -132,6 +141,28 @@ public class RunLearningController {
 			command.setLastWord(false);
 		}
 		
+	}
+	
+	private boolean isManualRepeat(HttpSession session) {
+		boolean result = false;
+		
+		LearningModeEnum learningMode = (LearningModeEnum)session.getAttribute("selectedLearningMode");
+		if (LearningModeEnum.MANUAL.equals(learningMode) && (Boolean)session.getAttribute("manualLearningModeRepeat")) {
+			result = true;
+		}
+		
+		return result;
+	}
+	
+	private boolean isAuthomaticRepeat(HttpSession session) {
+		boolean result = false;
+		
+		LearningModeEnum learningMode = (LearningModeEnum)session.getAttribute("selectedLearningMode");
+		if (LearningModeEnum.AUTHOMATIC.equals(learningMode) && (Boolean)session.getAttribute("authomaticLearningModeRepeat")) {
+			result = true;
+		}
+		
+		return result;
 	}
 	
 }

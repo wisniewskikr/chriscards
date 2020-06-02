@@ -50,6 +50,11 @@ public class ConfigureLearningController {
 		session.setAttribute("cards", cards);
 		session.setAttribute("notValidCards", new ArrayList<CardEntity>());
 		session.setAttribute("selectedLearningMode", command.getSelectedLearningMode());
+		if (LearningModeEnum.MANUAL.equals(command.getSelectedLearningMode())) {
+			session.setAttribute("manualLearningModeRepeat", Boolean.valueOf(command.isManualLearningModeRepeat()));
+		} else {
+			session.setAttribute("authomaticLearningModeRepeat", Boolean.valueOf(command.isAuthomaticLearningModeRepeat()));
+		}
 		
 		attributes.addAttribute("cardNumber", 1);
 		attributes.addAttribute("cardCount", cards.size());
