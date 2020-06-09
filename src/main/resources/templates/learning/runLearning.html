@@ -48,14 +48,14 @@
 				</fieldset>
 				
 				<div>
-					<a class="btn btn-default btn-lg" th:href="@{/runLearning/run?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}&wordCount={wordCount}(cardNumber=*{cardNumber},cardCount=*{cardCount},wordNumber=*{wordNumber} - 1,wordCount=*{wordCount})}" th:disabled="*{firstWord}" th:classappend="*{firstWord} ? not-active : active">Poprzedni</a>	
+					<a class="btn btn-default btn-lg" th:href="@{/runLearning/run?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}&wordCount={wordCount}(cardNumber=*{cardNumber},cardCount=*{cardCount},wordNumber=*{wordNumber} - 1,wordCount=*{wordCount})}" th:disabled="*{firstWord}" th:classappend="*{firstWord} ? not-active : active" th:if="*{manualLeartingMode}">Poprzedni</a>	
 					<a class="btn btn-default btn-lg" th:href="@{/runLearning/skip?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}&wordCount={wordCount}(cardNumber=*{cardNumber},cardCount=*{cardCount},wordNumber=*{wordNumber},wordCount=*{wordCount})}">Zakończ</a>
-					<a class="btn btn-default btn-lg" th:href="@{/runLearning/run?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}&wordCount={wordCount}(cardNumber=*{cardNumber},cardCount=*{cardCount},wordNumber=*{wordNumber} + 1,wordCount=*{wordCount})}" th:disabled="*{lastWord}" th:classappend="*{lastWord} ? not-active : active">Następny</a>						
+					<a class="btn btn-default btn-lg" th:href="@{/runLearning/run?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}&wordCount={wordCount}(cardNumber=*{cardNumber},cardCount=*{cardCount},wordNumber=*{wordNumber} + 1,wordCount=*{wordCount})}" th:disabled="*{lastWord}" th:classappend="*{lastWord} ? not-active : active" th:if="*{manualLeartingMode}">Następny</a>						
 				</div>	
 				
 				<br/>
 				
-				<div th:if="*{lastWord}">
+				<div th:if="*{lastWord && manualLeartingMode}">
 					<a class="btn btn-default btn-lg" th:href="@{/runLearning/notValid?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}&wordCount={wordCount}(cardNumber=*{cardNumber} + 1,cardCount=*{cardCount},wordNumber=1,wordCount=*{wordCount})}" >Nie całkiem</a>	
 					<a class="btn btn-default btn-lg" th:href="@{/runLearning/valid?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}&wordCount={wordCount}(cardNumber=*{cardNumber} + 1,cardCount=*{cardCount},wordNumber=1,wordCount=*{wordCount})}" >Mam to</a>						
 				</div>				

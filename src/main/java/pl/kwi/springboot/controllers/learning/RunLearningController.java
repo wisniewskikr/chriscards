@@ -103,6 +103,20 @@ public class RunLearningController {
 		CardEntity card = getCard(command, session);
 		command.setWord(getWord(command, card));
 		handleNavigationButtons(command, card.getWords().size());
+		handleLearningMode(command, session);
+		
+	}
+	
+	private void handleLearningMode(RunLearningCommand command, HttpSession session) {
+		
+		LearningModeEnum learningMode = (LearningModeEnum)session.getAttribute("selectedLearningMode");
+		if (LearningModeEnum.MANUAL.equals(learningMode)) {
+			command.setManualLeartingMode(true);
+			command.setRepeat((Boolean)session.getAttribute("manualLearningModeRepeat"));
+		} else {
+			command.setManualLeartingMode(false);
+			command.setRepeat((Boolean)session.getAttribute("authomaticLearningModeRepeat"));
+		}
 		
 	}
 	

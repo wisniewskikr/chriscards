@@ -12,6 +12,8 @@ public class RunLearningCommand {
 	private WordEntity word;
 	private boolean firstWord;
 	private boolean lastWord;
+	private boolean manualLeartingMode;
+	private boolean repeat;
 	
 	
 	public int getCardNumber() {
@@ -63,5 +65,19 @@ public class RunLearningCommand {
 		this.lastWord = lastWord;
 	}
 	
-
+	public boolean isManualLeartingMode() {
+		return manualLeartingMode;
+	}
+	public void setManualLeartingMode(boolean manualLeartingMode) {
+		this.manualLeartingMode = manualLeartingMode;
+	}
+	
+	public boolean isRepeat() {
+		return repeat;
+	}
+	public void setRepeat(boolean repeat) {
+		this.repeat = repeat;
+	}	
+	
+	
 }
