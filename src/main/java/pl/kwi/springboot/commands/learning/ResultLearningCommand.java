@@ -7,6 +7,8 @@ public class ResultLearningCommand {
 	private int validCardsCount;
 	private int notValidCardsCount;
 	private int skippedCardsCount;
+	private boolean manualLeartingMode;
+	private boolean repeat;
 	
 	
 	public int getCardsCount() {
@@ -36,6 +38,20 @@ public class ResultLearningCommand {
 	public void setSkippedCardsCount(int skippedCardsCount) {
 		this.skippedCardsCount = skippedCardsCount;
 	}
+	
+	public boolean isManualLeartingMode() {
+		return manualLeartingMode;
+	}
+	public void setManualLeartingMode(boolean manualLeartingMode) {
+		this.manualLeartingMode = manualLeartingMode;
+	}
+	
+	public boolean isRepeat() {
+		return repeat;
+	}
+	public void setRepeat(boolean repeat) {
+		this.repeat = repeat;
+	}	
 	
 	
 }

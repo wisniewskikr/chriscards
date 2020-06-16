@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.kwi.springboot.commands.learning.ResultLearningCommand;
 import pl.kwi.springboot.db.entities.CardEntity;
+import pl.kwi.springboot.enums.LearningModeEnum;
 
 @Controller
 @RequestMapping(value="/resultLearning")
@@ -23,6 +24,7 @@ public class ResultLearningController {
 			HttpSession session) {
 		
 		handleResult(command, session);
+		handleLearningMode(command, session);
 		return "learning/resultLearning";
 		
 	}
@@ -43,6 +45,14 @@ public class ResultLearningController {
 		attributes.addAttribute("cardCount", cards.size());
 		attributes.addAttribute("wordNumber", 1);
 		attributes.addAttribute("wordCount", cards.get(0).getWords().size());
+		LearningModeEnum learningMode = (LearningModeEnum)session.getAttribute("selectedLearningMode");
+		if (LearningModeEnum.MANUAL.equals(learningMode)) {
+			attributes.addAttribute("selectedLearningMode", LearningModeEnum.MANUAL);
+			attributes.addAttribute("manualLearningModeRepeat", session.getAttribute("manualLearningModeRepeat"));
+		} else {
+			attributes.addAttribute("selectedLearningMode", LearningModeEnum.AUTHOMATIC);
+			attributes.addAttribute("authomaticLearningModeRepeat", session.getAttribute("authomaticlLearningModeRepeat"));
+		}
 		
 		return "redirect:/runLearning/run";
 		
@@ -56,6 +66,19 @@ public class ResultLearningController {
 		command.setCardsCount(cards.size());
 		command.setValidCardsCount(cards.size() - notValidCards.size() - command.getSkippedCardsCount());
 		command.setNotValidCardsCount(notValidCards.size());
+		
+	}
+	
+	private void handleLearningMode(ResultLearningCommand command, HttpSession session) {
+		
+		LearningModeEnum learningMode = (LearningModeEnum)session.getAttribute("selectedLearningMode");
+		if (LearningModeEnum.MANUAL.equals(learningMode)) {
+			command.setManualLeartingMode(true);
+			command.setRepeat((Boolean)session.getAttribute("manualLearningModeRepeat"));
+		} else {
+			command.setManualLeartingMode(false);
+			command.setRepeat((Boolean)session.getAttribute("authomaticLearningModeRepeat"));
+		}
 		
 	}
 	
