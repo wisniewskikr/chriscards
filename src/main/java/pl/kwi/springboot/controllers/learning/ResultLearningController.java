@@ -63,9 +63,17 @@ public class ResultLearningController {
 		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute("cards");
 		List<CardEntity> notValidCards = (List<CardEntity>)session.getAttribute("notValidCards");
-		command.setCardsCount(cards.size());
-		command.setValidCardsCount(cards.size() - notValidCards.size() - command.getSkippedCardsCount());
-		command.setNotValidCardsCount(notValidCards.size());
+		LearningModeEnum learningMode = (LearningModeEnum)session.getAttribute("selectedLearningMode");
+		boolean manualLearningModeRepeat = (Boolean)session.getAttribute("manualLearningModeRepeat");
+		if (LearningModeEnum.MANUAL.equals(learningMode) && manualLearningModeRepeat) {
+			command.setCardsCount((Integer)session.getAttribute("cardsCount"));
+			command.setValidCardsCount((Integer)session.getAttribute("validCardsCount"));
+			command.setNotValidCardsCount((Integer)session.getAttribute("notValidCardsCount"));
+		} else {
+			command.setCardsCount(cards.size());
+			command.setValidCardsCount(cards.size() - notValidCards.size() - command.getSkippedCardsCount());
+			command.setNotValidCardsCount(notValidCards.size());
+		}		
 		
 	}
 	

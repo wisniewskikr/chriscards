@@ -204,8 +204,12 @@ public class RunLearningController {
 	@SuppressWarnings("unchecked")
 	private void handleManualRepeat(HttpSession session) {
 		
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute("cards");
 		List<CardEntity> notValidCards = (List<CardEntity>)session.getAttribute("notValidCards");
-		session.setAttribute("cards", notValidCards);
+		session.setAttribute("cardsCount", Integer.valueOf(cards.size()));
+		session.setAttribute("validCardsCount", Integer.valueOf(cards.size() - notValidCards.size()));
+		session.setAttribute("notValidCardsCount", Integer.valueOf(notValidCards.size()));
+		session.setAttribute("cards", notValidCards);		
 		
 	}
 	
