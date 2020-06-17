@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,14 +34,10 @@ public class RunLearningController {
 			@ModelAttribute("command") RunLearningCommand command,
 			HttpSession session) {
 		
-		if (finishRun(command) && isManualRepeat(session)) {
-			return "redirect:/resultLearning/display";
-		} else if (finishRun(command) && isAuthomaticRepeat(session)) {
-			return "redirect:/resultLearning/repeat";
-		} else if (finishRun(command)) {			
-			return "redirect:/resultLearning/display";
-		}
-		
+		String finishUrl = handleFinishRun(command, session);
+		if (StringUtils.isNoneBlank(finishUrl)) {
+			return finishUrl;
+		}		
 		handleRun(command, session);		
 		return "learning/runLearning";
 		
@@ -52,19 +49,14 @@ public class RunLearningController {
 			HttpSession session) {
 		
 		handleNotValidCards(command, session);
-		
-		if (finishRun(command) && isManualRepeat(session)) {
-			return "redirect:/resultLearning/display";
-		} else if (finishRun(command) && isAuthomaticRepeat(session)) {
-			return "redirect:/resultLearning/repeat";
-		} else if (finishRun(command)) {			
-			return "redirect:/resultLearning/display";
-		}
-		
+		String finishUrl = handleFinishRun(command, session);
+		if (StringUtils.isNoneBlank(finishUrl)) {
+			return finishUrl;
+		}		
 		handleRun(command, session);		
 		return "learning/runLearning";
 		
-	}
+	}	
 	
 	@RequestMapping(value="/skip")
 	public String skip(
@@ -157,6 +149,24 @@ public class RunLearningController {
 		
 	}
 	
+	private String handleFinishRun(RunLearningCommand command,
+			HttpSession session) {
+		
+		if (finishRun(command) && isManualRepeat(session) && nothingToManualRepeat(session)) {
+			return "redirect:/resultLearning/display";
+		} else if (finishRun(command) && isManualRepeat(session) && !nothingToManualRepeat(session)) {
+			handleManualRepeat(session);
+			return "redirect:/resultLearning/repeat";
+		} else if (finishRun(command) && isAuthomaticRepeat(session)) {
+			return "redirect:/resultLearning/repeat";
+		} else if (finishRun(command)) {			
+			return "redirect:/resultLearning/display";
+		}
+		
+		return null;
+		
+	}
+	
 	private boolean isManualRepeat(HttpSession session) {
 		boolean result = false;
 		
@@ -177,6 +187,26 @@ public class RunLearningController {
 		}
 		
 		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private boolean nothingToManualRepeat(HttpSession session) {
+		
+		List<CardEntity> notValidCards = (List<CardEntity>)session.getAttribute("notValidCards");
+		if (notValidCards.isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void handleManualRepeat(HttpSession session) {
+		
+		List<CardEntity> notValidCards = (List<CardEntity>)session.getAttribute("notValidCards");
+		session.setAttribute("cards", notValidCards);
+		
 	}
 	
 }
