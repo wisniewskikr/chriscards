@@ -60,22 +60,7 @@
 					<a id="valid" class="btn btn-default btn-lg" th:href="@{/runLearning/valid?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}&wordCount={wordCount}(cardNumber=*{cardNumber} + 1,cardCount=*{cardCount},wordNumber=1,wordCount=*{wordCount})}" >Mam to</a>						
 				</div>	
 				
-				<script type="text/javascript" th:unless="*{manualLeartingMode}">
-					var seconds = 3;
-					$("#previous").hide();
-					$("#next").hide();
-					$("#nextCard").hide();
-					var disabled = $('#next').attr('disabled') == "disabled";							
-					(function countdown() {
-						if(seconds == 0 && !disabled) {							
-							$("#next")[0].click();
-						}
-						if(seconds == 0 && disabled) {							
-							$("#valid")[0].click();
-						}
-					    if(seconds --> 0) setTimeout(countdown, 1000)
-					})();	
-				</script>			
+				<authomaticAction th:replace="common/authomaticAction"></authomaticAction>		
 				
 			</div>
 		</div>			
