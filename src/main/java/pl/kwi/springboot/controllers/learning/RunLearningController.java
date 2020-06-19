@@ -208,10 +208,16 @@ public class RunLearningController {
 		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(SessionAttributesEnum.CARDS.name());
 		List<CardEntity> notValidCards = (List<CardEntity>)session.getAttribute(SessionAttributesEnum.NOT_VALID_CARDS.name());
+		session.setAttribute(SessionAttributesEnum.CARDS.name(), notValidCards);
+		
+		Integer cardsCount = (Integer)session.getAttribute(SessionAttributesEnum.CARDS_COUNT.name());
+		if (cardsCount != null) {
+			return;
+		}
+		
 		session.setAttribute(SessionAttributesEnum.CARDS_COUNT.name(), Integer.valueOf(cards.size()));
 		session.setAttribute(SessionAttributesEnum.VALID_CARDS_COUNT.name(), Integer.valueOf(cards.size() - notValidCards.size()));
-		session.setAttribute(SessionAttributesEnum.NOT_VALID_CARDS_COUNT.name(), Integer.valueOf(notValidCards.size()));
-		session.setAttribute(SessionAttributesEnum.CARDS.name(), notValidCards);		
+		session.setAttribute(SessionAttributesEnum.NOT_VALID_CARDS_COUNT.name(), Integer.valueOf(notValidCards.size()));				
 		
 	}
 	
