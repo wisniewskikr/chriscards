@@ -19,6 +19,8 @@ import pl.kwi.springboot.db.entities.CardEntity;
 import pl.kwi.springboot.db.entities.DeckEntity;
 import pl.kwi.springboot.db.repositories.DeckRepository;
 import pl.kwi.springboot.enums.LearningModeEnum;
+import pl.kwi.springboot.enums.RedirectAttributesEnum;
+import pl.kwi.springboot.enums.SessionAttributesEnum;
 
 @Controller
 @RequestMapping(value="/configureLearning")
@@ -42,26 +44,45 @@ public class ConfigureLearningController {
 			RedirectAttributes attributes,
 			HttpSession session) {
 		
+		List<CardEntity> cards = getCards(command);
+		handleSession(session, command, cards);
+		handleRedirectAttributes(attributes, cards);
+		
+		return "redirect:/runLearning/run";
+		
+	}
+	
+	private List<CardEntity> getCards(ConfigureLearningCommand command) {
+		
 		List<CardEntity> cards = new ArrayList<CardEntity>();
 		List<DeckEntity> decks = deckRepository.findLastDecks(PageRequest.of(0,command.getDeckCount(),Sort.by(Sort.Direction.DESC, "id"))).getContent();
 		for (DeckEntity deck : decks) {
 			cards.addAll(deck.getCards());
 		}
-		session.setAttribute("cards", cards);
-		session.setAttribute("notValidCards", new ArrayList<CardEntity>());
-		session.setAttribute("selectedLearningMode", command.getSelectedLearningMode());
+		return cards;
+				
+	}
+	
+	private void handleSession(HttpSession session, ConfigureLearningCommand command, List<CardEntity> cards) {
+		
+		session.setAttribute(SessionAttributesEnum.CARDS.name(), cards);
+		session.setAttribute(SessionAttributesEnum.NOT_VALID_CARDS.name(), new ArrayList<CardEntity>());
+		session.setAttribute(SessionAttributesEnum.SELECTED_LEARNING_MODE.name(), command.getSelectedLearningMode());
 		if (LearningModeEnum.MANUAL.equals(command.getSelectedLearningMode())) {
-			session.setAttribute("manualLearningModeRepeat", Boolean.valueOf(command.isManualLearningModeRepeat()));
+			session.setAttribute(SessionAttributesEnum.MANUAL_REPEAT.name(), Boolean.valueOf(command.isManualLearningModeRepeat()));
 		} else {
-			session.setAttribute("authomaticLearningModeRepeat", Boolean.valueOf(command.isAuthomaticLearningModeRepeat()));
+			session.setAttribute(SessionAttributesEnum.AUTHOMATIC_REPEAT.name(), Boolean.valueOf(command.isAuthomaticLearningModeRepeat()));
 		}
 		
-		attributes.addAttribute("cardNumber", 1);
-		attributes.addAttribute("cardCount", cards.size());
-		attributes.addAttribute("wordNumber", 1);
-		attributes.addAttribute("wordCount", cards.get(0).getWords().size());
+	}
+	
+	private void handleRedirectAttributes(RedirectAttributes attributes, List<CardEntity> cards) {
 		
-		return "redirect:/runLearning/run";
+		attributes.addAttribute(RedirectAttributesEnum.CARD_NUMBER.getValue(), 1);
+		attributes.addAttribute(RedirectAttributesEnum.CARD_COUNT.getValue(), cards.size());
+		attributes.addAttribute(RedirectAttributesEnum.WORD_NUMBER.getValue(), 1);
+		attributes.addAttribute(RedirectAttributesEnum.WORD_COUNT.getValue(), cards.get(0).getWords().size());
+		
 	}
 	
 }

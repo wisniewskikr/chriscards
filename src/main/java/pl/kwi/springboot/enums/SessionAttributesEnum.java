@@ -1,0 +1,7 @@
+package pl.kwi.springboot.enums;
+
+public enum SessionAttributesEnum {
+	
+	CARDS, NOT_VALID_CARDS, SELECTED_LEARNING_MODE, MANUAL_REPEAT, AUTHOMATIC_REPEAT, CARDS_COUNT, VALID_CARDS_COUNT, NOT_VALID_CARDS_COUNT;
+
+}

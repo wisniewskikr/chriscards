@@ -14,6 +14,8 @@ import pl.kwi.springboot.commands.learning.RunLearningCommand;
 import pl.kwi.springboot.db.entities.CardEntity;
 import pl.kwi.springboot.db.entities.WordEntity;
 import pl.kwi.springboot.enums.LearningModeEnum;
+import pl.kwi.springboot.enums.RedirectAttributesEnum;
+import pl.kwi.springboot.enums.SessionAttributesEnum;
 
 @Controller
 @RequestMapping(value="/runLearning")
@@ -74,19 +76,19 @@ public class RunLearningController {
 			HttpSession session,
 			RedirectAttributes redirectAttributes) {
 		
-		List<CardEntity> cards = (List<CardEntity>)session.getAttribute("cards");
-		redirectAttributes.addAttribute("skippedCardsCount", cards.size() - command.getCardNumber() + 1);
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(SessionAttributesEnum.CARDS.name());
+		redirectAttributes.addAttribute(RedirectAttributesEnum.SKIPPED_CARDS_COUNT.getValue(), cards.size() - command.getCardNumber() + 1);
 		
 	}
 	
 	@SuppressWarnings("unchecked")
 	private void handleNotValidCards(RunLearningCommand command, HttpSession session) {
 		
-		List<CardEntity> cards = (List<CardEntity>)session.getAttribute("cards");
-		List<CardEntity> notValidCards = (List<CardEntity>)session.getAttribute("notValidCards");
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(SessionAttributesEnum.CARDS.name());
+		List<CardEntity> notValidCards = (List<CardEntity>)session.getAttribute(SessionAttributesEnum.NOT_VALID_CARDS.name());
 		CardEntity card = cards.get(command.getCardNumber() - 2);
 		notValidCards.add(card);
-		session.setAttribute("notValidcards", notValidCards);
+		session.setAttribute(SessionAttributesEnum.NOT_VALID_CARDS.name(), notValidCards);
 		
 	}
 	
@@ -101,13 +103,13 @@ public class RunLearningController {
 	
 	private void handleLearningMode(RunLearningCommand command, HttpSession session) {
 		
-		LearningModeEnum learningMode = (LearningModeEnum)session.getAttribute("selectedLearningMode");
+		LearningModeEnum learningMode = (LearningModeEnum)session.getAttribute(SessionAttributesEnum.SELECTED_LEARNING_MODE.name());
 		if (LearningModeEnum.MANUAL.equals(learningMode)) {
 			command.setManualLeartingMode(true);
-			command.setRepeat((Boolean)session.getAttribute("manualLearningModeRepeat"));
+			command.setRepeat((Boolean)session.getAttribute(SessionAttributesEnum.MANUAL_REPEAT.name()));
 		} else {
 			command.setManualLeartingMode(false);
-			command.setRepeat((Boolean)session.getAttribute("authomaticLearningModeRepeat"));
+			command.setRepeat((Boolean)session.getAttribute(SessionAttributesEnum.AUTHOMATIC_REPEAT.name()));
 		}
 		
 	}
@@ -124,7 +126,7 @@ public class RunLearningController {
 	@SuppressWarnings("unchecked")
 	private CardEntity getCard(RunLearningCommand command, HttpSession session) {
 		
-		List<CardEntity> cards = (List<CardEntity>)session.getAttribute("cards");
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(SessionAttributesEnum.CARDS.name());
 		return cards.get(command.getCardNumber() - 1);
 		
 	}
@@ -170,8 +172,8 @@ public class RunLearningController {
 	private boolean isManualRepeat(HttpSession session) {
 		boolean result = false;
 		
-		LearningModeEnum learningMode = (LearningModeEnum)session.getAttribute("selectedLearningMode");
-		if (LearningModeEnum.MANUAL.equals(learningMode) && (Boolean)session.getAttribute("manualLearningModeRepeat")) {
+		LearningModeEnum learningMode = (LearningModeEnum)session.getAttribute(SessionAttributesEnum.SELECTED_LEARNING_MODE.name());
+		if (LearningModeEnum.MANUAL.equals(learningMode) && (Boolean)session.getAttribute(SessionAttributesEnum.MANUAL_REPEAT.name())) {
 			result = true;
 		}
 		
@@ -181,8 +183,8 @@ public class RunLearningController {
 	private boolean isAuthomaticRepeat(HttpSession session) {
 		boolean result = false;
 		
-		LearningModeEnum learningMode = (LearningModeEnum)session.getAttribute("selectedLearningMode");
-		if (LearningModeEnum.AUTHOMATIC.equals(learningMode) && (Boolean)session.getAttribute("authomaticLearningModeRepeat")) {
+		LearningModeEnum learningMode = (LearningModeEnum)session.getAttribute(SessionAttributesEnum.SELECTED_LEARNING_MODE.name());
+		if (LearningModeEnum.AUTHOMATIC.equals(learningMode) && (Boolean)session.getAttribute(SessionAttributesEnum.AUTHOMATIC_REPEAT.name())) {
 			result = true;
 		}
 		
@@ -192,7 +194,7 @@ public class RunLearningController {
 	@SuppressWarnings("unchecked")
 	private boolean nothingToManualRepeat(HttpSession session) {
 		
-		List<CardEntity> notValidCards = (List<CardEntity>)session.getAttribute("notValidCards");
+		List<CardEntity> notValidCards = (List<CardEntity>)session.getAttribute(SessionAttributesEnum.NOT_VALID_CARDS.name());
 		if (notValidCards.isEmpty()) {
 			return true;
 		} else {
@@ -204,12 +206,12 @@ public class RunLearningController {
 	@SuppressWarnings("unchecked")
 	private void handleManualRepeat(HttpSession session) {
 		
-		List<CardEntity> cards = (List<CardEntity>)session.getAttribute("cards");
-		List<CardEntity> notValidCards = (List<CardEntity>)session.getAttribute("notValidCards");
-		session.setAttribute("cardsCount", Integer.valueOf(cards.size()));
-		session.setAttribute("validCardsCount", Integer.valueOf(cards.size() - notValidCards.size()));
-		session.setAttribute("notValidCardsCount", Integer.valueOf(notValidCards.size()));
-		session.setAttribute("cards", notValidCards);		
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(SessionAttributesEnum.CARDS.name());
+		List<CardEntity> notValidCards = (List<CardEntity>)session.getAttribute(SessionAttributesEnum.NOT_VALID_CARDS.name());
+		session.setAttribute(SessionAttributesEnum.CARDS_COUNT.name(), Integer.valueOf(cards.size()));
+		session.setAttribute(SessionAttributesEnum.VALID_CARDS_COUNT.name(), Integer.valueOf(cards.size() - notValidCards.size()));
+		session.setAttribute(SessionAttributesEnum.NOT_VALID_CARDS_COUNT.name(), Integer.valueOf(notValidCards.size()));
+		session.setAttribute(SessionAttributesEnum.CARDS.name(), notValidCards);		
 		
 	}
 	
