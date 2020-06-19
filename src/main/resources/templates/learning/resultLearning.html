@@ -32,20 +32,14 @@
 		    <div class="col-md column h-25">
 		    				
 				<div>Wszystkich kart: <span th:text="*{cardsCount}"/></div>
-				<div id="validCardsCount">Poprawnych kart: <span th:text="*{validCardsCount}"/></div>
-				<div id="notValidCardsCount">Niepoprawnych kart: <span th:text="*{notValidCardsCount}"/></div>
-				<div id="skippedCardsCount">Pominiętych kart: <span th:text="*{skippedCardsCount}"/></div>
+				<div th:if="*{manualLeartingMode}">Poprawnych kart: <span th:text="*{validCardsCount}"/></div>
+				<div th:if="*{manualLeartingMode}">Niepoprawnych kart: <span th:text="*{notValidCardsCount}"/></div>
+				<div th:if="*{manualLeartingMode}">Pominiętych kart: <span th:text="*{skippedCardsCount}"/></div>
 				
 				<div>
 					<a class="btn btn-default btn-lg" href="/learning">Zakończ</a>
 					<a id="repeat" class="btn btn-default btn-lg" href="/resultLearning/repeat">Powtórz</a>
 				</div>
-				
-				<script type="text/javascript" th:unless="*{manualLeartingMode}">
-					$("#validCardsCount").hide();
-					$("#notValidCardsCount").hide();
-					$("#skippedCardsCount").hide();
-				</script>			
 							
 			</div>
 		</div>			
