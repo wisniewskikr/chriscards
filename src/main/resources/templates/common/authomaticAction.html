@@ -1,16 +1,18 @@
 <script type="text/javascript" th:unless="*{manualLeartingMode}">
-	var seconds = 3;
-	$("#previous").hide();
-	$("#next").hide();
-	$("#nextCard").hide();
-	var disabled = $('#next').attr('disabled') == "disabled";							
-	(function countdown() {
-		if(seconds == 0 && !disabled) {							
-			$("#next")[0].click();
-		}
-		if(seconds == 0 && disabled) {							
-			$("#valid")[0].click();
-		}
-	    if(seconds --> 0) setTimeout(countdown, 1000)
-	})();	
+	
+var seconds = '[[${@environment.getProperty('authomaticLearingMode.time')}]]';	
+$("#previous").hide();
+$("#next").hide();
+$("#nextCard").hide();
+var disabled = $('#next').attr('disabled') == "disabled";							
+(function countdown() {
+	if(seconds == 0 && !disabled) {							
+		$("#next")[0].click();
+	}
+	if(seconds == 0 && disabled) {							
+		$("#valid")[0].click();
+	}
+    if(seconds --> 0) setTimeout(countdown, 1000)
+})();
+
 </script>	
