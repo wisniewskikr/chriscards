@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import pl.kwi.springboot.commands.cards.AddCardsCommand;
 import pl.kwi.springboot.db.entities.CardEntity;
@@ -20,6 +23,8 @@ import pl.kwi.springboot.db.entities.WordEntity;
 import pl.kwi.springboot.db.repositories.CardRepository;
 import pl.kwi.springboot.db.repositories.DeckRepository;
 import pl.kwi.springboot.enums.LanguageEnum;
+import pl.kwi.springboot.googleTranslate.GoogleTranslateResponse;
+import pl.kwi.springboot.googleTranslate.GoogleTranslateRequest;
 
 @Controller
 @RequestMapping(value="/cards")
@@ -151,6 +156,24 @@ public class AddCardsController {
 		return "redirect:/cards";
 		
 	}		
+	
+	@RequestMapping(value="/translate", method=RequestMethod.POST)
+	public @ResponseBody GoogleTranslateResponse ajax(@Valid @RequestBody GoogleTranslateRequest command, BindingResult result) {
+		
+		GoogleTranslateResponse response = new GoogleTranslateResponse();
+		
+		if(result.hasErrors()) {
+			response.setStatus("FAIL");
+			response.setMessage(result.getAllErrors().get(0).getDefaultMessage());
+			return response;
+		}
+		
+		response.setStatus("SUCCESS");
+		response.setEnglishWord("English Word");
+		response.setEnglishSentence("English Sentence");
+		return response;
+		
+	}
 	
 	private CardEntity createCard(AddCardsCommand command) {
 		

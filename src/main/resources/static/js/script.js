@@ -23,3 +23,31 @@ function showLearnigRepeat(learningMode) {
 	}
 	
 }
+
+function translateViaGoogle() {
+	
+	var json = {
+			polishWord: $('#polishWord').val(),
+			polishSentence: $('#polishSentence').val()
+	};
+			    
+   $.ajax({
+        type: "POST",
+        contentType : 'application/json',
+        url: "/cards/translate",
+        data: JSON.stringify(json),
+        success: function(response){
+        	
+        	if(response.status == "SUCCESS") {
+        		$("#englishWord").val(response.englishWord);
+		    	$("#englishSentence").val(response.englishSentence);
+        	}
+        	
+        	if(response.status == "FAIL") {
+        		alert("Fail");
+        	}
+	    	
+        }
+   });
+	
+}
