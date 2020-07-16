@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
+import com.google.cloud.translate.Translate.TranslateOption;
+
 import pl.kwi.springboot.commands.cards.AddCardsCommand;
 import pl.kwi.springboot.db.entities.CardEntity;
 import pl.kwi.springboot.db.entities.DeckEntity;
@@ -31,6 +36,10 @@ import pl.kwi.springboot.googleTranslate.GoogleTranslateRequest;
 public class AddCardsController {
 	
 	
+	private static final String SPAIN_LANGUAGE_CODE = "es";
+	private static final String RUSSIAN_LANGUAGE_CODE = "ru";
+	private static final String ENGLISH_LANGUAGE_CODE = "en";
+	private static final String POLISH_LANGUAGE_CODE = "pl";
 	private static final String DEFAULT_DECK_NAME = "Talia numer ";
 	private static final String CARDS_ATTRIBUTE = "cards";
 	private static final int DEFAULT_CARDS_COUNT = 1;
@@ -158,7 +167,7 @@ public class AddCardsController {
 	}		
 	
 	@RequestMapping(value="/translate", method=RequestMethod.POST)
-	public @ResponseBody GoogleTranslateResponse ajax(@Valid @RequestBody GoogleTranslateRequest command, BindingResult result) {
+	public @ResponseBody GoogleTranslateResponse ajax(@Valid @RequestBody GoogleTranslateRequest request, BindingResult result) {
 		
 		GoogleTranslateResponse response = new GoogleTranslateResponse();
 		
@@ -166,15 +175,15 @@ public class AddCardsController {
 			response.setStatus("FAIL");
 			response.setMessage(result.getAllErrors().get(0).getDefaultMessage());
 			return response;
-		}
+		}		
 		
-		response.setStatus("SUCCESS");
-		response.setEnglishWord("English Word");
-		response.setEnglishSentence("English Sentence");
-		response.setRussianWord("Russian Word");
-		response.setRussianSentence("Russian Sentence");
-		response.setSpainWord("Spain Word");
-		response.setSpainSentence("Spain Sentence");
+		response.setStatus("SUCCESS");		
+		response.setEnglishWord(getTranslation(request.getPolishWord(), POLISH_LANGUAGE_CODE, ENGLISH_LANGUAGE_CODE));
+		response.setEnglishSentence(getTranslation(request.getPolishSentence(), POLISH_LANGUAGE_CODE, ENGLISH_LANGUAGE_CODE));
+		response.setRussianWord(getTranslation(request.getPolishWord(), POLISH_LANGUAGE_CODE, RUSSIAN_LANGUAGE_CODE));
+		response.setRussianSentence(getTranslation(request.getPolishSentence(), POLISH_LANGUAGE_CODE, RUSSIAN_LANGUAGE_CODE));
+		response.setSpainWord(getTranslation(request.getPolishWord(), POLISH_LANGUAGE_CODE, SPAIN_LANGUAGE_CODE));
+		response.setSpainSentence(getTranslation(request.getPolishSentence(), POLISH_LANGUAGE_CODE, SPAIN_LANGUAGE_CODE));
 		return response;
 		
 	}
@@ -338,6 +347,16 @@ public class AddCardsController {
 		maxId++;
 		
 		return maxId;
+		
+	}
+	
+	private String getTranslation(String text, String sourceLanguage, String targetLanguage) {
+		
+		Translate translate = TranslateOptions.getDefaultInstance().getService();
+		Translation translation =
+		        translate.translate(
+				           text, TranslateOption.sourceLanguage(sourceLanguage), TranslateOption.targetLanguage(targetLanguage));
+		return translation.getTranslatedText();
 		
 	}
 	
