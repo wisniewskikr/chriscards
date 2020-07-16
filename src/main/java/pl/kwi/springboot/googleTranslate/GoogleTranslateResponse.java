@@ -11,6 +11,10 @@ public class GoogleTranslateResponse implements Serializable {
 	private String message;
 	private String englishWord;
 	private String englishSentence;
+	private String russianWord;
+	private String russianSentence;
+	private String spainWord;
+	private String spainSentence;
 	
 	
 	public String getStatus() {
@@ -39,6 +43,34 @@ public class GoogleTranslateResponse implements Serializable {
 	}
 	public void setEnglishSentence(String englishSentence) {
 		this.englishSentence = englishSentence;
+	}
+	
+	public String getRussianWord() {
+		return russianWord;
+	}
+	public void setRussianWord(String russianWord) {
+		this.russianWord = russianWord;
+	}
+	
+	public String getRussianSentence() {
+		return russianSentence;
+	}
+	public void setRussianSentence(String russianSentence) {
+		this.russianSentence = russianSentence;
+	}
+	
+	public String getSpainWord() {
+		return spainWord;
+	}
+	public void setSpainWord(String spainWord) {
+		this.spainWord = spainWord;
+	}
+	
+	public String getSpainSentence() {
+		return spainSentence;
+	}
+	public void setSpainSentence(String spainSentence) {
+		this.spainSentence = spainSentence;
 	}
 	
 

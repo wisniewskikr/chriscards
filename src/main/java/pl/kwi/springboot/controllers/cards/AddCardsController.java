@@ -171,6 +171,10 @@ public class AddCardsController {
 		response.setStatus("SUCCESS");
 		response.setEnglishWord("English Word");
 		response.setEnglishSentence("English Sentence");
+		response.setRussianWord("Russian Word");
+		response.setRussianSentence("Russian Sentence");
+		response.setSpainWord("Spain Word");
+		response.setSpainSentence("Spain Sentence");
 		return response;
 		
 	}

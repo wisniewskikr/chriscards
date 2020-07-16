@@ -41,6 +41,10 @@ function translateViaGoogle() {
         	if(response.status == "SUCCESS") {
         		$("#englishWord").val(response.englishWord);
 		    	$("#englishSentence").val(response.englishSentence);
+		    	$("#russianWord").val(response.russianWord);
+		    	$("#russianSentence").val(response.russianSentence);
+		    	$("#spainWord").val(response.spainWord);
+		    	$("#spainSentence").val(response.spainSentence);
         	}
         	
         	if(response.status == "FAIL") {
