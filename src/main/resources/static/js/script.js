@@ -26,6 +26,8 @@ function showLearnigRepeat(learningMode) {
 
 function translateViaGoogle() {
 	
+	$('#cover-spin').show(0);
+	
 	var json = {
 			polishWord: $('#polishWord').val(),
 			polishSentence: $('#polishSentence').val()
@@ -50,6 +52,8 @@ function translateViaGoogle() {
         	if(response.status == "FAIL") {
         		alert("Fail");
         	}
+        	
+        	$('#cover-spin').hide(0);
 	    	
         }
    });
