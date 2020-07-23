@@ -31,3 +31,5 @@ https://console.developers.google.com
 GOOGLE_API_KEY environment variable
 
 key=KLUCZ_API
+
+Text to speech

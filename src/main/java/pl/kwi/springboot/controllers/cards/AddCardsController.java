@@ -192,13 +192,13 @@ public class AddCardsController {
 		
 		List<WordEntity> words = new ArrayList<WordEntity>();
 		WordEntity word;
-		word = new WordEntity(command.getPolishWord(), command.getPolishWordPrononciation(), command.getPolishSentence(), command.getPolishSentencePrononciation(), LanguageEnum.POLISH);
+		word = new WordEntity(command.getPolishWord(), command.getPolishSentence(), LanguageEnum.POLISH);
 		words.add(word);
-		word = new WordEntity(command.getEnglishWord(), command.getEnglishWordPrononciation(), command.getEnglishSentence(), command.getEnglishSentencePrononciation(), LanguageEnum.ENGLISH);
+		word = new WordEntity(command.getEnglishWord(), command.getEnglishSentence(), LanguageEnum.ENGLISH);
 		words.add(word);
-		word = new WordEntity(command.getRussianWord(), command.getRussianWordPrononciation(), command.getRussianSentence(), command.getRussianSentencePrononciation(), LanguageEnum.RUSSIAN);
+		word = new WordEntity(command.getRussianWord(), command.getRussianSentence(), LanguageEnum.RUSSIAN);
 		words.add(word);
-		word = new WordEntity(command.getSpainWord(), command.getSpainWordPrononciation(), command.getSpainSentence(), command.getSpainSentencePrononciation(), LanguageEnum.SPAIN);
+		word = new WordEntity(command.getSpainWord(), command.getSpainSentence(), LanguageEnum.SPAIN);
 		words.add(word);
 		return new CardEntity(words);
 		
@@ -225,24 +225,16 @@ public class AddCardsController {
 	private void cleanNewCardCommand(AddCardsCommand command) {
 		
 		command.setPolishWord(null);
-		command.setPolishWordPrononciation(null);
 		command.setPolishSentence(null);
-		command.setPolishSentencePrononciation(null);
 		
 		command.setEnglishWord(null);
-		command.setEnglishWordPrononciation(null);
 		command.setEnglishSentence(null);
-		command.setEnglishSentencePrononciation(null);
 		
 		command.setRussianWord(null);
-		command.setRussianWordPrononciation(null);
 		command.setRussianSentence(null);
-		command.setRussianSentencePrononciation(null);
 		
 		command.setSpainWord(null);
-		command.setSpainWordPrononciation(null);
 		command.setSpainSentence(null);
-		command.setSpainSentencePrononciation(null);
 		
 	}
 	
@@ -254,27 +246,19 @@ public class AddCardsController {
 		
 		WordEntity polishWord = card.getWords().get(0);		
 		command.setPolishWord(polishWord.getWord());
-		command.setPolishWordPrononciation(polishWord.getWordPrononciation());
 		command.setPolishSentence(polishWord.getSentence());
-		command.setPolishSentencePrononciation(polishWord.getSentencePrononciation());
 		
 		WordEntity englishhWord = card.getWords().get(1);
 		command.setEnglishWord(englishhWord.getWord());
-		command.setEnglishWordPrononciation(englishhWord.getWordPrononciation());
 		command.setEnglishSentence(englishhWord.getSentence());
-		command.setEnglishSentencePrononciation(englishhWord.getSentencePrononciation());
 		
 		WordEntity russianhWord = card.getWords().get(2);
 		command.setRussianWord(russianhWord.getWord());
-		command.setRussianWordPrononciation(russianhWord.getWordPrononciation());
 		command.setRussianSentence(russianhWord.getSentence());
-		command.setRussianSentencePrononciation(russianhWord.getSentencePrononciation());
 		
 		WordEntity spainhWord = card.getWords().get(3);
 		command.setSpainWord(spainhWord.getWord());
-		command.setSpainWordPrononciation(spainhWord.getWordPrononciation());
 		command.setSpainSentence(spainhWord.getSentence());
-		command.setSpainSentencePrononciation(spainhWord.getSentencePrononciation());
 		
 	}
 	

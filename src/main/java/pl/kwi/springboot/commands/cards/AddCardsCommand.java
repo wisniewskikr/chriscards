@@ -1,33 +1,27 @@
 package pl.kwi.springboot.commands.cards;
 
+import org.hibernate.validator.constraints.NotBlank;
 
 public class AddCardsCommand {
 	
 	
-	//@NotBlank(message = "To pole nie może być puste")
+	@NotBlank(message = "To pole nie może być puste")
 	private String deckName;
-	//@NotBlank(message = "To pole nie może być puste")
+	@NotBlank(message = "To pole nie może być puste")
 	private String polishWord;
-	private String polishWordPrononciation;
-	//@NotBlank(message = "To pole nie może być puste")
+	@NotBlank(message = "To pole nie może być puste")
 	private String polishSentence;
-	private String polishSentencePrononciation;
-	//@NotBlank(message = "To pole nie może być puste")
+	@NotBlank(message = "To pole nie może być puste")
 	private String englishWord;
-	private String englishWordPrononciation;
-	//@NotBlank(message = "To pole nie może być puste")
+	@NotBlank(message = "To pole nie może być puste")
 	private String englishSentence;
-	private String englishSentencePrononciation;
-	//@NotBlank(message = "To pole nie może być puste")
+	@NotBlank(message = "To pole nie może być puste")
 	private String russianWord;
-	private String russianWordPrononciation;
-	//@NotBlank(message = "To pole nie może być puste")
+	@NotBlank(message = "To pole nie może być puste")
 	private String russianSentence;
-	private String russianSentencePrononciation;
-	//@NotBlank(message = "To pole nie może być puste")
+	@NotBlank(message = "To pole nie może być puste")
 	private String spainWord;
-	private String spainWordPrononciation;
-	//@NotBlank(message = "To pole nie może być puste")
+	@NotBlank(message = "To pole nie może być puste")
 	private String spainSentence;
 	private String spainSentencePrononciation;
 	private int currentCardNumber;
@@ -50,25 +44,11 @@ public class AddCardsCommand {
 		this.polishWord = polishWord;
 	}
 	
-	public String getPolishWordPrononciation() {
-		return polishWordPrononciation;
-	}
-	public void setPolishWordPrononciation(String polishWordPrononciation) {
-		this.polishWordPrononciation = polishWordPrononciation;
-	}
-	
 	public String getPolishSentence() {
 		return polishSentence;
 	}
 	public void setPolishSentence(String polishSentence) {
 		this.polishSentence = polishSentence;
-	}
-	
-	public String getPolishSentencePrononciation() {
-		return polishSentencePrononciation;
-	}
-	public void setPolishSentencePrononciation(String polishSentencePrononciation) {
-		this.polishSentencePrononciation = polishSentencePrononciation;
 	}
 	
 	public String getEnglishWord() {
@@ -77,25 +57,12 @@ public class AddCardsCommand {
 	public void setEnglishWord(String englishWord) {
 		this.englishWord = englishWord;
 	}
-	public String getEnglishWordPrononciation() {
-		return englishWordPrononciation;
-	}
-	
-	public void setEnglishWordPrononciation(String englishWordPrononciation) {
-		this.englishWordPrononciation = englishWordPrononciation;
-	}
+
 	public String getEnglishSentence() {
 		return englishSentence;
 	}
 	public void setEnglishSentence(String englishSentence) {
 		this.englishSentence = englishSentence;
-	}
-	
-	public String getEnglishSentencePrononciation() {
-		return englishSentencePrononciation;
-	}
-	public void setEnglishSentencePrononciation(String englishSentencePrononciation) {
-		this.englishSentencePrononciation = englishSentencePrononciation;
 	}
 	
 	public String getRussianWord() {
@@ -105,13 +72,6 @@ public class AddCardsCommand {
 		this.russianWord = russianWord;
 	}
 	
-	public String getRussianWordPrononciation() {
-		return russianWordPrononciation;
-	}
-	public void setRussianWordPrononciation(String russianWordPrononciation) {
-		this.russianWordPrononciation = russianWordPrononciation;
-	}
-	
 	public String getRussianSentence() {
 		return russianSentence;
 	}
@@ -119,25 +79,11 @@ public class AddCardsCommand {
 		this.russianSentence = russianSentence;
 	}
 	
-	public String getRussianSentencePrononciation() {
-		return russianSentencePrononciation;
-	}
-	public void setRussianSentencePrononciation(String russianSentencePrononciation) {
-		this.russianSentencePrononciation = russianSentencePrononciation;
-	}
-	
 	public String getSpainWord() {
 		return spainWord;
 	}
 	public void setSpainWord(String spainWord) {
 		this.spainWord = spainWord;
-	}
-	
-	public String getSpainWordPrononciation() {
-		return spainWordPrononciation;
-	}
-	public void setSpainWordPrononciation(String spainWordPrononciation) {
-		this.spainWordPrononciation = spainWordPrononciation;
 	}
 	
 	public String getSpainSentence() {
