@@ -59,3 +59,26 @@ function translateViaGoogle() {
    });
 	
 }
+
+function play() {
+	
+	var json = {
+			polishWord: $('#polishWord').val(),
+			polishSentence: $('#polishSentence').val()
+	};
+			    
+   $.ajax({
+        type: "POST",
+        contentType : 'application/json',
+        url: "/cards/play",
+        data: JSON.stringify(json),
+        success: function(response){
+                	
+        	if(response.status == "FAIL") {
+        		alert("Fail");
+        	}
+        	
+        }
+   });
+	
+}

@@ -29,6 +29,7 @@ import pl.kwi.springboot.db.repositories.CardRepository;
 import pl.kwi.springboot.db.repositories.DeckRepository;
 import pl.kwi.springboot.enums.LanguageEnum;
 import pl.kwi.springboot.googleTranslate.GoogleTranslateResponse;
+import pl.kwi.springboot.services.intf.Mp3Service;
 import pl.kwi.springboot.googleTranslate.GoogleTranslateRequest;
 
 @Controller
@@ -50,6 +51,9 @@ public class AddCardsController {
 	
 	@Autowired
 	private DeckRepository deckRepository;
+	
+	@Autowired
+	private Mp3Service mp3Service;
 	
 
 	@RequestMapping(value="/add")
@@ -167,7 +171,7 @@ public class AddCardsController {
 	}		
 	
 	@RequestMapping(value="/translate", method=RequestMethod.POST)
-	public @ResponseBody GoogleTranslateResponse ajax(@Valid @RequestBody GoogleTranslateRequest request, BindingResult result) {
+	public @ResponseBody GoogleTranslateResponse translateAjax(@Valid @RequestBody GoogleTranslateRequest request, BindingResult result) {
 		
 		GoogleTranslateResponse response = new GoogleTranslateResponse();
 		
@@ -184,6 +188,23 @@ public class AddCardsController {
 		response.setRussianSentence(getTranslation(request.getPolishSentence(), POLISH_LANGUAGE_CODE, RUSSIAN_LANGUAGE_CODE));
 		response.setSpainWord(getTranslation(request.getPolishWord(), POLISH_LANGUAGE_CODE, SPAIN_LANGUAGE_CODE));
 		response.setSpainSentence(getTranslation(request.getPolishSentence(), POLISH_LANGUAGE_CODE, SPAIN_LANGUAGE_CODE));
+		return response;
+		
+	}
+	
+	@RequestMapping(value="/play", method=RequestMethod.POST)
+	public @ResponseBody GoogleTranslateResponse playAjax(@Valid @RequestBody GoogleTranslateRequest request, BindingResult result) {
+		
+		GoogleTranslateResponse response = new GoogleTranslateResponse();
+		
+		if(result.hasErrors()) {
+			response.setStatus("FAIL");
+			response.setMessage(result.getAllErrors().get(0).getDefaultMessage());
+			return response;
+		}		
+		
+		mp3Service.play("output.mp3");
+		
 		return response;
 		
 	}
