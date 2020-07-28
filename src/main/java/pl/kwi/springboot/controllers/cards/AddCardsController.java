@@ -28,6 +28,7 @@ import pl.kwi.springboot.db.repositories.CardRepository;
 import pl.kwi.springboot.db.repositories.DeckRepository;
 import pl.kwi.springboot.enums.LanguageEnum;
 import pl.kwi.springboot.services.intf.Mp3Service;
+import pl.kwi.springboot.services.intf.SpeechService;
 import pl.kwi.springboot.services.intf.TranslationService;
 
 @Controller
@@ -55,6 +56,9 @@ public class AddCardsController {
 	
 	@Autowired
 	private Mp3Service mp3Service;
+	
+	@Autowired
+	private SpeechService speechService;
 	
 
 	@RequestMapping(value="/add")
@@ -194,7 +198,7 @@ public class AddCardsController {
 	}
 	
 	@RequestMapping(value="/play", method=RequestMethod.POST)
-	public @ResponseBody GooglePlayResponse playAjax(@Valid @RequestBody GooglePlayRequest request, BindingResult result) {
+	public @ResponseBody GooglePlayResponse playAjax(@Valid @RequestBody GooglePlayRequest request, BindingResult result) throws Exception {
 		
 		GooglePlayResponse response = new GooglePlayResponse();
 		
@@ -204,7 +208,8 @@ public class AddCardsController {
 			return response;
 		}		
 		
-		mp3Service.play("output.mp3");
+		speechService.createSpeechMp3(request.getText(), "en-US");
+		mp3Service.play("tmp.mp3");
 		
 		return response;
 		
