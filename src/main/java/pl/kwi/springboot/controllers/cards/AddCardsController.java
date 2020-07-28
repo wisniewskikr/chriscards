@@ -16,11 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.cloud.translate.Translate;
-import com.google.cloud.translate.TranslateOptions;
-import com.google.cloud.translate.Translation;
-import com.google.cloud.translate.Translate.TranslateOption;
-
 import pl.kwi.springboot.ajax.googlePlay.GooglePlayRequest;
 import pl.kwi.springboot.ajax.googlePlay.GooglePlayResponse;
 import pl.kwi.springboot.ajax.googleTranslate.GoogleTranslateRequest;
@@ -33,6 +28,7 @@ import pl.kwi.springboot.db.repositories.CardRepository;
 import pl.kwi.springboot.db.repositories.DeckRepository;
 import pl.kwi.springboot.enums.LanguageEnum;
 import pl.kwi.springboot.services.intf.Mp3Service;
+import pl.kwi.springboot.services.intf.TranslationService;
 
 @Controller
 @RequestMapping(value="/cards")
@@ -53,6 +49,9 @@ public class AddCardsController {
 	
 	@Autowired
 	private DeckRepository deckRepository;
+	
+	@Autowired
+	private TranslationService translationService;
 	
 	@Autowired
 	private Mp3Service mp3Service;
@@ -184,12 +183,12 @@ public class AddCardsController {
 		}		
 		
 		response.setStatus("SUCCESS");		
-		response.setEnglishWord(getTranslation(request.getPolishWord(), POLISH_LANGUAGE_CODE, ENGLISH_LANGUAGE_CODE));
-		response.setEnglishSentence(getTranslation(request.getPolishSentence(), POLISH_LANGUAGE_CODE, ENGLISH_LANGUAGE_CODE));
-		response.setRussianWord(getTranslation(request.getPolishWord(), POLISH_LANGUAGE_CODE, RUSSIAN_LANGUAGE_CODE));
-		response.setRussianSentence(getTranslation(request.getPolishSentence(), POLISH_LANGUAGE_CODE, RUSSIAN_LANGUAGE_CODE));
-		response.setSpainWord(getTranslation(request.getPolishWord(), POLISH_LANGUAGE_CODE, SPAIN_LANGUAGE_CODE));
-		response.setSpainSentence(getTranslation(request.getPolishSentence(), POLISH_LANGUAGE_CODE, SPAIN_LANGUAGE_CODE));
+		response.setEnglishWord(translationService.getTranslation(request.getPolishWord(), POLISH_LANGUAGE_CODE, ENGLISH_LANGUAGE_CODE));
+		response.setEnglishSentence(translationService.getTranslation(request.getPolishSentence(), POLISH_LANGUAGE_CODE, ENGLISH_LANGUAGE_CODE));
+		response.setRussianWord(translationService.getTranslation(request.getPolishWord(), POLISH_LANGUAGE_CODE, RUSSIAN_LANGUAGE_CODE));
+		response.setRussianSentence(translationService.getTranslation(request.getPolishSentence(), POLISH_LANGUAGE_CODE, RUSSIAN_LANGUAGE_CODE));
+		response.setSpainWord(translationService.getTranslation(request.getPolishWord(), POLISH_LANGUAGE_CODE, SPAIN_LANGUAGE_CODE));
+		response.setSpainSentence(translationService.getTranslation(request.getPolishSentence(), POLISH_LANGUAGE_CODE, SPAIN_LANGUAGE_CODE));
 		return response;
 		
 	}
@@ -354,16 +353,6 @@ public class AddCardsController {
 		maxId++;
 		
 		return maxId;
-		
-	}
-	
-	private String getTranslation(String text, String sourceLanguage, String targetLanguage) {
-		
-		Translate translate = TranslateOptions.getDefaultInstance().getService();
-		Translation translation =
-		        translate.translate(
-				           text, TranslateOption.sourceLanguage(sourceLanguage), TranslateOption.targetLanguage(targetLanguage));
-		return translation.getTranslatedText();
 		
 	}
 	
