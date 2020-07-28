@@ -208,7 +208,7 @@ public class AddCardsController {
 			return response;
 		}		
 		
-		speechService.createSpeechMp3(request.getText(), "en-US");
+		speechService.createSpeechMp3(request.getText(), request.getLanguageCode());
 		mp3Service.play("tmp.mp3");
 		
 		return response;

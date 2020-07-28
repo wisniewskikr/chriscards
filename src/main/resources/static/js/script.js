@@ -60,10 +60,11 @@ function translateViaGoogle() {
 	
 }
 
-function playViaGoogle(textId) {
+function playViaGoogle(textId, languageCode) {
 	
 	var json = {
 			text: $('#' + textId).val(),
+			languageCode: languageCode
 	};
 			    
    $.ajax({
