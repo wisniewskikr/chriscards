@@ -81,7 +81,7 @@
 	      						<input class="form-control input-lg" id="englishWord" type="text" th:field="*{englishWord}">
 	      						<p th:if="${#fields.hasErrors('englishWord')}" th:errors="*{englishWord}" class="error">Error</p>
 					    	</div>
-					    	<a href="javascript:play();">Odtwórz</a>					    	
+					    	<a href="javascript:playViaGoogle('englishWord');">Odtwórz</a>					    	
 					    	<div class="form-group">
 					    		<label for="englishSentence">* Zdanie:</label>
 	      						<input class="form-control input-lg" id="englishSentence" type="text" th:field="*{englishSentence}">

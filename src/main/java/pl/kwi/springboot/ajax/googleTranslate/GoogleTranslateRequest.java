@@ -1,4 +1,4 @@
-package pl.kwi.springboot.googleTranslate;
+package pl.kwi.springboot.ajax.googleTranslate;
 
 import java.io.Serializable;
 

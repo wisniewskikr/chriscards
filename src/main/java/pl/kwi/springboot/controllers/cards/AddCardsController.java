@@ -21,6 +21,10 @@ import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
 import com.google.cloud.translate.Translate.TranslateOption;
 
+import pl.kwi.springboot.ajax.googlePlay.GooglePlayRequest;
+import pl.kwi.springboot.ajax.googlePlay.GooglePlayResponse;
+import pl.kwi.springboot.ajax.googleTranslate.GoogleTranslateRequest;
+import pl.kwi.springboot.ajax.googleTranslate.GoogleTranslateResponse;
 import pl.kwi.springboot.commands.cards.AddCardsCommand;
 import pl.kwi.springboot.db.entities.CardEntity;
 import pl.kwi.springboot.db.entities.DeckEntity;
@@ -28,9 +32,7 @@ import pl.kwi.springboot.db.entities.WordEntity;
 import pl.kwi.springboot.db.repositories.CardRepository;
 import pl.kwi.springboot.db.repositories.DeckRepository;
 import pl.kwi.springboot.enums.LanguageEnum;
-import pl.kwi.springboot.googleTranslate.GoogleTranslateResponse;
 import pl.kwi.springboot.services.intf.Mp3Service;
-import pl.kwi.springboot.googleTranslate.GoogleTranslateRequest;
 
 @Controller
 @RequestMapping(value="/cards")
@@ -193,9 +195,9 @@ public class AddCardsController {
 	}
 	
 	@RequestMapping(value="/play", method=RequestMethod.POST)
-	public @ResponseBody GoogleTranslateResponse playAjax(@Valid @RequestBody GoogleTranslateRequest request, BindingResult result) {
+	public @ResponseBody GooglePlayResponse playAjax(@Valid @RequestBody GooglePlayRequest request, BindingResult result) {
 		
-		GoogleTranslateResponse response = new GoogleTranslateResponse();
+		GooglePlayResponse response = new GooglePlayResponse();
 		
 		if(result.hasErrors()) {
 			response.setStatus("FAIL");

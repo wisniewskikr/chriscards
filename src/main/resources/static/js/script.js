@@ -60,11 +60,10 @@ function translateViaGoogle() {
 	
 }
 
-function play() {
+function playViaGoogle(textId) {
 	
 	var json = {
-			polishWord: $('#polishWord').val(),
-			polishSentence: $('#polishSentence').val()
+			text: $('#' + textId).val(),
 	};
 			    
    $.ajax({
