@@ -36,7 +36,7 @@ function translateViaGoogle() {
    $.ajax({
         type: "POST",
         contentType : 'application/json',
-        url: "/cards/translate",
+        url: "/ajax/translate",
         data: JSON.stringify(json),
         success: function(response){
         	
@@ -70,7 +70,7 @@ function playViaGoogle(textId, languageCode) {
    $.ajax({
         type: "POST",
         contentType : 'application/json',
-        url: "/cards/play",
+        url: "/ajax/play",
         data: JSON.stringify(json),
         success: function(response){
                 	
