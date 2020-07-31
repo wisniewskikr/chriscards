@@ -80,14 +80,16 @@
 					    		<label for="englishWord">* Słowo:</label>
 	      						<input class="form-control input-lg" id="englishWord" type="text" th:field="*{englishWord}">
 	      						<p th:if="${#fields.hasErrors('englishWord')}" th:errors="*{englishWord}" class="error">Error</p>
+	      						<input id="englishWordLanguageCode" type="hidden" th:value="${T(pl.kwi.springboot.enums.LanguageEnum).ENGLISH.languageCode}">
 					    	</div>
-					    	<a href="javascript:playViaGoogle('englishWord', 'en-US');">Odtwórz</a>					    	
+					    	<a href="javascript:playViaGoogle('englishWord', 'englishWordLanguageCode');">Odtwórz</a>					    	
 					    	<div class="form-group">
 					    		<label for="englishSentence">* Zdanie:</label>
 	      						<input class="form-control input-lg" id="englishSentence" type="text" th:field="*{englishSentence}">
 	      						<p th:if="${#fields.hasErrors('englishSentence')}" th:errors="*{englishSentence}" class="error">Error</p>
+	      						<input id="englishSentenceLanguageCode" type="hidden" th:value="${T(pl.kwi.springboot.enums.LanguageEnum).ENGLISH.languageCode}">
 					    	</div>	
-					    	<a href="javascript:playViaGoogle('englishSentence', 'en-US');">Odtwórz</a>					    	
+					    	<a href="javascript:playViaGoogle('englishSentence', 'englishSentenceLanguageCode');">Odtwórz</a>					    	
 					    </div>
 					</fieldset>
 					
@@ -98,14 +100,16 @@
 					    		<label for="russianWord">* Słowo:</label>
 	      						<input class="form-control input-lg" id="russianWord" type="text" th:field="*{russianWord}">
 	      						<p th:if="${#fields.hasErrors('russianWord')}" th:errors="*{russianWord}" class="error">Error</p>
+	      						<input id="russianWordLanguageCode" type="hidden" th:value="${T(pl.kwi.springboot.enums.LanguageEnum).RUSSIAN.languageCode}">
 					    	</div>
-					    	<a href="javascript:playViaGoogle('russianWord', 'ru');">Odtwórz</a>					    	
+					    	<a href="javascript:playViaGoogle('russianWord', 'russianWordLanguageCode');">Odtwórz</a>					    	
 					    	<div class="form-group">
 					    		<label for="russianSentence">* Zdanie:</label>
 	      						<input class="form-control input-lg" id="russianSentence" type="text" th:field="*{russianSentence}">
 	      						<p th:if="${#fields.hasErrors('russianSentence')}" th:errors="*{russianSentence}" class="error">Error</p>
+	      						<input id="russianSentenceLanguageCode" type="hidden" th:value="${T(pl.kwi.springboot.enums.LanguageEnum).RUSSIAN.languageCode}">
 					    	</div>	
-					    	<a href="javascript:playViaGoogle('russianSentence', 'ru');">Odtwórz</a>				    	
+					    	<a href="javascript:playViaGoogle('russianSentence', 'russianSentenceLanguageCode');">Odtwórz</a>				    	
 					    </div>
 					</fieldset>
 					
@@ -116,14 +120,16 @@
 					    		<label for="spainWord">* Słowo:</label>
 	      						<input class="form-control input-lg" id="spainWord" type="text" th:field="*{spainWord}">
 	      						<p th:if="${#fields.hasErrors('spainWord')}" th:errors="*{spainWord}" class="error">Error</p>
+	      						<input id="spainWordLanguageCode" type="hidden" th:value="${T(pl.kwi.springboot.enums.LanguageEnum).SPAIN.languageCode}">
 					    	</div>	
-					    	<a href="javascript:playViaGoogle('spainWord', 'es');">Odtwórz</a>				    	
+					    	<a href="javascript:playViaGoogle('spainWord', 'spainWordLanguageCode');">Odtwórz</a>				    	
 					    	<div class="form-group">
 					    		<label for="spainSentence">* Zdanie:</label>
 	      						<input class="form-control input-lg" id="spainSentence" type="text" th:field="*{spainSentence}">
 	      						<p th:if="${#fields.hasErrors('spainSentence')}" th:errors="*{spainSentence}" class="error">Error</p>
+	      						<input id="spainSentenceLanguageCode" type="hidden" th:value="${T(pl.kwi.springboot.enums.LanguageEnum).SPAIN.languageCode}">
 					    	</div>
-					    	<a href="javascript:playViaGoogle('spainSentence', 'es');">Odtwórz</a>						    	
+					    	<a href="javascript:playViaGoogle('spainSentence', 'spainSentenceLanguageCode');">Odtwórz</a>						    	
 					    </div>
 					</fieldset>
 					

@@ -64,7 +64,7 @@ function playViaGoogle(textId, languageCode) {
 	
 	var json = {
 			text: $('#' + textId).val(),
-			languageCode: languageCode
+			languageCode: $('#' + languageCode).val()
 	};
 			    
    $.ajax({
