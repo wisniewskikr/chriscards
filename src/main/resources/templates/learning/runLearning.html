@@ -43,9 +43,13 @@
 					<legend class="scheduler-border"><span th:text="*{word.language.displayText}"/></legend>
 					<div class="control-group">
 						<div th:text="*{word.word}"/>
+						<input id="word" type="hidden" th:field="*{word.word}">
+						<a href="javascript:playViaGoogle('word', 'en-US');">Odtwórz</a>	
 					</div>
 					<div class="control-group">
 						<div th:text="*{word.sentence}"/>
+						<input id="sentence" type="hidden" th:field="*{word.sentence}">
+						<a href="javascript:playViaGoogle('sentence', 'en-US');">Odtwórz</a>
 					</div>
 				</fieldset>
 				
