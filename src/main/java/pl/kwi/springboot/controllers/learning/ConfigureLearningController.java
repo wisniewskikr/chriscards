@@ -72,6 +72,7 @@ public class ConfigureLearningController {
 			session.setAttribute(SessionAttributesEnum.MANUAL_REPEAT.name(), Boolean.valueOf(command.isManualLearningModeRepeat()));
 		} else {
 			session.setAttribute(SessionAttributesEnum.AUTHOMATIC_REPEAT.name(), Boolean.valueOf(command.isAuthomaticLearningModeRepeat()));
+			session.setAttribute(SessionAttributesEnum.AUTHOMATIC_PLAY_SPEECH.name(), Boolean.valueOf(command.isPlaySpeech()));
 		}
 		
 	}

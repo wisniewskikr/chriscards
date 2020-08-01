@@ -14,6 +14,7 @@ public class RunLearningCommand {
 	private boolean lastWord;
 	private boolean manualLeartingMode;
 	private boolean repeat;
+	private boolean playSpeech;
 	
 	
 	public int getCardNumber() {
@@ -77,7 +78,14 @@ public class RunLearningCommand {
 	}
 	public void setRepeat(boolean repeat) {
 		this.repeat = repeat;
-	}	
+	}
+	
+	public boolean isPlaySpeech() {
+		return playSpeech;
+	}
+	public void setPlaySpeech(boolean playSpeech) {
+		this.playSpeech = playSpeech;
+	}
 	
 	
 }

@@ -9,6 +9,7 @@ public class ConfigureLearningCommand {
 	private LearningModeEnum selectedLearningMode;
 	private boolean manualLearningModeRepeat;
 	private boolean authomaticLearningModeRepeat;
+	private boolean playSpeech;
 	
 	
 	public int getDeckCount() {
@@ -37,6 +38,13 @@ public class ConfigureLearningCommand {
 	}
 	public void setAuthomaticLearningModeRepeat(boolean authomaticLearningModeRepeat) {
 		this.authomaticLearningModeRepeat = authomaticLearningModeRepeat;
+	}
+	
+	public boolean isPlaySpeech() {
+		return playSpeech;
+	}
+	public void setPlaySpeech(boolean playSpeech) {
+		this.playSpeech = playSpeech;
 	}	
 	
 	

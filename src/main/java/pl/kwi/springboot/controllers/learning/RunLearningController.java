@@ -110,6 +110,7 @@ public class RunLearningController {
 		} else {
 			command.setManualLeartingMode(false);
 			command.setRepeat((Boolean)session.getAttribute(SessionAttributesEnum.AUTHOMATIC_REPEAT.name()));
+			command.setPlaySpeech((Boolean)session.getAttribute(SessionAttributesEnum.AUTHOMATIC_PLAY_SPEECH.name()));
 		}
 		
 	}

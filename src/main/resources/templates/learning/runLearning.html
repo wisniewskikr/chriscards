@@ -45,13 +45,13 @@
 						<div th:text="*{word.word}"/>
 						<input id="word" type="hidden" th:field="*{word.word}">
 						<input id="wordLanguageCode" type="hidden" th:field="*{word.language.languageCode}">
-						<a href="javascript:playViaGoogle('word', 'wordLanguageCode');">Odtwórz</a>	
+						<a id="playWord" href="javascript:playViaGoogle('word', 'wordLanguageCode');">Odtwórz</a>	
 					</div>
 					<div class="control-group">
 						<div th:text="*{word.sentence}"/>
 						<input id="sentence" type="hidden" th:field="*{word.sentence}">
 						<input id="sentenceLanguageCode" type="hidden" th:field="*{word.language.languageCode}">
-						<a href="javascript:playViaGoogle('sentence', 'sentenceLanguageCode');">Odtwórz</a>
+						<a id="playSentence" href="javascript:playViaGoogle('sentence', 'sentenceLanguageCode');">Odtwórz</a>
 					</div>
 				</fieldset>
 				
