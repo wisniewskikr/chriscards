@@ -66,7 +66,7 @@ public class ResultLearningController {
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(SessionAttributesEnum.CARDS.name());
 		List<CardEntity> notValidCards = (List<CardEntity>)session.getAttribute(SessionAttributesEnum.NOT_VALID_CARDS.name());
 		LearningModeEnum learningMode = (LearningModeEnum)session.getAttribute(SessionAttributesEnum.SELECTED_LEARNING_MODE.name());
-		boolean manualLearningModeRepeat = (Boolean)session.getAttribute(SessionAttributesEnum.MANUAL_REPEAT.name());
+		boolean manualLearningModeRepeat = (session.getAttribute(SessionAttributesEnum.MANUAL_REPEAT.name()) != null) ? (Boolean)session.getAttribute(SessionAttributesEnum.MANUAL_REPEAT.name()) : false;
 		if (LearningModeEnum.MANUAL.equals(learningMode) && manualLearningModeRepeat) {
 			command.setCardsCount((Integer)session.getAttribute(SessionAttributesEnum.CARDS_COUNT.name()));
 			command.setValidCardsCount((Integer)session.getAttribute(SessionAttributesEnum.VALID_CARDS_COUNT.name()));
