@@ -33,3 +33,9 @@ GOOGLE_API_KEY environment variable
 key=KLUCZ_API
 
 Text to speech
+
+spring.datasource.url=jdbc:h2:file:~/db;DB_CLOSE_ON_EXIT=FALSE;IFEXISTS=TRUE;DB_CLOSE_DELAY=-1;
+ 
+spring.jpa.hibernate.ddl-auto = update
+
+spring.datasource.url=jdbc:h2:file:C:/data/sample
