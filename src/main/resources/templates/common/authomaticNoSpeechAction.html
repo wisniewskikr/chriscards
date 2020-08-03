@@ -1,16 +1,18 @@
 <script type="text/javascript" th:unless="*{manualLeartingMode || playSpeech}">
 	
+
 $("#previous").hide();
 $("#next").hide();
 $("#nextCard").hide();
 $("#playWord").hide();
 $("#playSentence").hide();
-
-
-var seconds = '[[${@environment.getProperty('authomaticNoSpeechAction.time')}]]' * 1000;
-setTimeout(function() {
-	clickNext();
-}, seconds)
+   
+async function AuthomaticNoSpeechAction() {
+   var ms = '[[${@environment.getProperty('authomaticNoSpeechAction.time')}]]' * 1000;
+   await sleep(ms);
+   clickNext();    
+}   
+AuthomaticNoSpeechAction()
 
 
 </script>	

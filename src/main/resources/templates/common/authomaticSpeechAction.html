@@ -9,19 +9,15 @@ $("#nextCard").hide();
 $("#playWord").hide();
 $("#playSentence").hide();
 
-
-var seconds = '[[${@environment.getProperty('authomaticSpeechAction.time')}]]' * 1000;
-setTimeout(function() {
+async function AuthomaticSpeechAction() {
+	var ms = '[[${@environment.getProperty('authomaticSpeechAction.time')}]]' * 1000;
 	playViaGoogle("word", "wordLanguageCode");
-}, seconds * 0)
-
-setTimeout(function() {
+	await sleep(ms);
 	playViaGoogle("sentence", "sentenceLanguageCode");
-}, seconds * 1)
-
-setTimeout(function() {
-	clickNext();
-}, seconds * 2)
+	await sleep(ms);
+	clickNext();    
+}   
+AuthomaticSpeechAction()
 
 
 </script>	
