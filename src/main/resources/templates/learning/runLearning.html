@@ -68,7 +68,8 @@
 					<a id="valid" class="btn btn-default btn-lg" th:href="@{/runLearning/valid?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}&wordCount={wordCount}(cardNumber=*{cardNumber} + 1,cardCount=*{cardCount},wordNumber=1,wordCount=*{wordCount})}" >Mam to</a>						
 				</div>	
 				
-				<authomaticAction th:replace="common/authomaticAction"></authomaticAction>		
+				<authomaticNoSpeechAction th:replace="common/authomaticNoSpeechAction"></authomaticNoSpeechAction>	
+				<authomaticSpeechAction th:replace="common/authomaticSpeechAction"></authomaticSpeechAction>	
 				
 			</div>
 		</div>			

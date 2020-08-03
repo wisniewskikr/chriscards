@@ -1,0 +1,27 @@
+<input type="hidden" id="playSpeech" th:value="*{playSpeech}" />
+
+<script type="text/javascript" th:unless="*{manualLeartingMode}" th:if="*{playSpeech}">
+
+
+$("#previous").hide();
+$("#next").hide();
+$("#nextCard").hide();
+$("#playWord").hide();
+$("#playSentence").hide();
+
+
+var seconds = '[[${@environment.getProperty('authomaticSpeechAction.time')}]]' * 1000;
+setTimeout(function() {
+	playViaGoogle("word", "wordLanguageCode");
+}, seconds * 0)
+
+setTimeout(function() {
+	playViaGoogle("sentence", "sentenceLanguageCode");
+}, seconds * 1)
+
+setTimeout(function() {
+	clickNext();
+}, seconds * 2)
+
+
+</script>	

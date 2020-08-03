@@ -82,3 +82,15 @@ function playViaGoogle(textId, languageCode) {
    });
 	
 }
+
+function clickNext() {
+	
+	var disabled = $('#next').attr('disabled') == "disabled";
+	
+	if (disabled) {							
+		$("#valid")[0].click();
+	} else {
+		$("#next")[0].click();	
+	}
+	
+}
