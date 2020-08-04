@@ -36,7 +36,7 @@
 				<div th:if="*{manualLeartingMode}">Niepoprawnych kart: <span th:text="*{notValidCardsCount}"/></div>
 				<div th:if="*{manualLeartingMode}">Pominiętych kart: <span th:text="*{skippedCardsCount}"/></div>
 				
-				<div>
+				<div class="btn-group btn-group-justified btn-group-lg">
 					<a class="btn btn-default btn-lg" href="/learning">Zakończ</a>
 					<a id="repeat" class="btn btn-default btn-lg" href="/resultLearning/repeat">Powtórz</a>
 				</div>

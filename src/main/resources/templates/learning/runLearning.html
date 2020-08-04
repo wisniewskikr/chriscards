@@ -55,7 +55,7 @@
 					</div>
 				</fieldset>
 				
-				<div>
+				<div class="btn-group btn-group-justified btn-group-lg">
 					<a id="previous" class="btn btn-default btn-lg" th:href="@{/runLearning/run?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}&wordCount={wordCount}(cardNumber=*{cardNumber},cardCount=*{cardCount},wordNumber=*{wordNumber} - 1,wordCount=*{wordCount})}" th:disabled="*{firstWord}" th:classappend="*{firstWord} ? not-active : active">Poprzedni</a>	
 					<a id="skip" class="btn btn-default btn-lg" th:href="@{/runLearning/skip?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}&wordCount={wordCount}(cardNumber=*{cardNumber},cardCount=*{cardCount},wordNumber=*{wordNumber},wordCount=*{wordCount})}">Zakończ</a>
 					<a id="next" class="btn btn-default btn-lg" th:href="@{/runLearning/run?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}&wordCount={wordCount}(cardNumber=*{cardNumber},cardCount=*{cardCount},wordNumber=*{wordNumber} + 1,wordCount=*{wordCount})}" th:disabled="*{lastWord}" th:classappend="*{lastWord} ? not-active : active">Następny</a>						
@@ -63,7 +63,7 @@
 				
 				<br/>
 				
-				<div id="nextCard" th:if="*{lastWord}">
+				<div id="nextCard" th:if="*{lastWord}" class="btn-group btn-group-justified btn-group-lg">
 					<a id="notValid" class="btn btn-default btn-lg" th:href="@{/runLearning/notValid?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}&wordCount={wordCount}(cardNumber=*{cardNumber} + 1,cardCount=*{cardCount},wordNumber=1,wordCount=*{wordCount})}" >Nie całkiem</a>	
 					<a id="valid" class="btn btn-default btn-lg" th:href="@{/runLearning/valid?cardNumber={cardNumber}&cardCount={cardCount}&wordNumber={wordNumber}&wordCount={wordCount}(cardNumber=*{cardNumber} + 1,cardCount=*{cardCount},wordNumber=1,wordCount=*{wordCount})}" >Mam to</a>						
 				</div>	
