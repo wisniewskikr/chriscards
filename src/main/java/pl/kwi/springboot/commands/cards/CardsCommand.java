@@ -2,7 +2,7 @@ package pl.kwi.springboot.commands.cards;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-public class AddCardsCommand {
+public class CardsCommand {
 	
 	
 	@NotBlank(message = "To pole nie może być puste")
