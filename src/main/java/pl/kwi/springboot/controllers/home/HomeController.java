@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.kwi.springboot.commands.home.HomeCommand;
 
 @Controller
+@RequestMapping(value="/home")
 public class HomeController {
 
-	@RequestMapping(value="/home")
+	@RequestMapping
 	public String cards(
 			@ModelAttribute("command") HomeCommand command) {
 		return "home/home";
