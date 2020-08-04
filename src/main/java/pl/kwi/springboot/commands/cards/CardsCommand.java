@@ -27,7 +27,6 @@ public class CardsCommand {
 	private int currentCardNumber;
 	private int allCardsCount;
 	private boolean disablePrevious;
-	private boolean visibleNext;
 		
 	
 	public String getDeckName() {
@@ -119,13 +118,6 @@ public class CardsCommand {
 	}
 	public void setDisablePrevious(boolean disablePrevious) {
 		this.disablePrevious = disablePrevious;
-	}
-	
-	public boolean isVisibleNext() {
-		return visibleNext;
-	}
-	public void setVisibleNext(boolean visibleNext) {
-		this.visibleNext = visibleNext;
 	}
 	
 	

@@ -244,12 +244,6 @@ public class CardsController {
 			command.setDisablePrevious(false);
 		}
 		
-		if(command.getCurrentCardNumber() == command.getAllCardsCount()) {
-			command.setVisibleNext(false);
-		} else {
-			command.setVisibleNext(true);
-		}
-		
 	}
 	
 	private void handleExistingCard(CardsCommand command, HttpSession session, int nextCardNumber) {

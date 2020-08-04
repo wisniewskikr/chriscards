@@ -136,8 +136,7 @@
 					<div class="btn-group btn-group-justified btn-group-lg">
 						<a href="#" class="btn btn-default btn-lg" th:classappend="*{disablePrevious} ? not-active : active" onClick="submitAction('newCardForm', '/cards/previous')"> Poprzednia</a>
 						<a href="#" class="btn btn-default btn-lg" onClick="submitAction('newCardForm', '/cards/delete')">Usuń</a>
-						<a href="#" class="btn btn-default btn-lg" onClick="submitAction('newCardForm', '/cards/next')" th:unless="*{visibleNext}">Dodaj</a>
-						<a href="#" class="btn btn-default btn-lg" onClick="submitAction('newCardForm', '/cards/next')" th:if="*{visibleNext}">Następna</a>
+						<a href="#" class="btn btn-default btn-lg" onClick="submitAction('newCardForm', '/cards/next')">Następna</a>
 					</div>
 					
 					<div class="btn-group btn-group-justified btn-group-lg">
