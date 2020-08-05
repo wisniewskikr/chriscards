@@ -2,30 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Nauka</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	
-	<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
-	<script type="text/javascript" th:inline="javascript" th:src="@{/js/jquery-1.9.1.js}"></script>
-	<script type="text/javascript" th:inline="javascript" th:src="@{/js/script.js}"></script>
-	
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"></link>
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  	
-  	<!-- Add icon library -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">				
+	<header th:replace="common/header"/>
 </head>
 
 <body class="bg" onload="showLearnigRepeat('MANUAL');">
 
-	<nav class="navbar navbar-fixed-top navbar-color">
-	  <div class="container-fluid">
-	    <div class="navbar-header">
-	      <a class="navbar-brand" href="#">Chris Cards</a>
-	    </div>
-	  </div>
-	</nav>	
+	<navbar th:replace="common/navbar"/>	
 	
 	<div class="container container-margin" th:object="${command}">
 		<div class="row">		
@@ -71,7 +54,7 @@
 					
 					<div class="btn-group btn-group-justified btn-group-lg">
 						<a href="#" class="btn btn-default btn-lg" onClick="submitAction('learningForm', '/learning/run')">Uruchom</button>
-						<a class="btn btn-default btn-lg" href="/learning">Anuluj</a>						
+						<a class="btn btn-default btn-lg" href="/home">Anuluj</a>						
 					</div>
 				
 				</form>
@@ -80,5 +63,6 @@
 		</div>			
 	</div>
 
+<footer th:replace="common/footer"/>
 </body>
 </html>
