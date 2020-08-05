@@ -39,3 +39,12 @@ spring.datasource.url=jdbc:h2:file:~/db;DB_CLOSE_ON_EXIT=FALSE;IFEXISTS=TRUE;DB_
 spring.jpa.hibernate.ddl-auto = update
 
 spring.datasource.url=jdbc:h2:file:C:/data/sample
+
+
+header
+footer
+modificationTimestmap
+checkbox decks
+moreListCards
+moreEditCards
+moreDeleteCards
