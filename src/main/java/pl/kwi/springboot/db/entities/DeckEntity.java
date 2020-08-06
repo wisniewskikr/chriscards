@@ -1,6 +1,7 @@
 package pl.kwi.springboot.db.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="DECK")
@@ -23,6 +26,9 @@ public class DeckEntity {
  
     @Column(nullable = false, unique = true)
     private String name;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modificationTimestamp;
 
     @OneToMany(
             mappedBy = "deck",
@@ -53,12 +59,19 @@ public class DeckEntity {
 		this.name = name;
 	}
 	
+	public Date getModificationTimestamp() {
+		return modificationTimestamp;
+	}
+	public void setModificationTimestamp(Date modificationTimestamp) {
+		this.modificationTimestamp = modificationTimestamp;
+	}
+	
 	public List<CardEntity> getCards() {
 		return cards;
 	}
 	public void setCards(List<CardEntity> cards) {
 		this.cards = cards;
-	}	
-		
+	}
+	
 
 }

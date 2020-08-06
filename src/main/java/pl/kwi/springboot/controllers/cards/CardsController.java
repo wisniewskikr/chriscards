@@ -1,6 +1,7 @@
 package pl.kwi.springboot.controllers.cards;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -135,6 +136,7 @@ public class CardsController {
 		}
 		
 		DeckEntity deck = new DeckEntity(command.getDeckName());
+		deck.setModificationTimestamp(Calendar.getInstance().getTime());
 		deck = deckRepository.save(deck);
 		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
