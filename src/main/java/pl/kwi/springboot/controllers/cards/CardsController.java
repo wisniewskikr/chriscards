@@ -1,7 +1,6 @@
 package pl.kwi.springboot.controllers.cards;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -17,28 +16,26 @@ import pl.kwi.springboot.commands.cards.CardsCommand;
 import pl.kwi.springboot.db.entities.CardEntity;
 import pl.kwi.springboot.db.entities.DeckEntity;
 import pl.kwi.springboot.db.entities.WordEntity;
-import pl.kwi.springboot.db.repositories.CardRepository;
-import pl.kwi.springboot.db.repositories.DeckRepository;
 import pl.kwi.springboot.enums.LanguageEnum;
+import pl.kwi.springboot.services.intf.CardService;
+import pl.kwi.springboot.services.intf.DeckService;
 
 @Controller
 @RequestMapping(value="/cards")
 public class CardsController {
 	
 	
-	
 	private static final String DEFAULT_DECK_NAME = "Talia numer ";
 	private static final String CARDS_ATTRIBUTE = "cards";
 	private static final int DEFAULT_CARDS_COUNT = 1;
 	private static final int DEFAULT_CARD_NUMBER = 1;
+
 	
 	@Autowired
-	private CardRepository cardRepository;
+	private CardService cardService;
 	
 	@Autowired
-	private DeckRepository deckRepository;
-	
-	
+	private DeckService deckService;
 	
 
 	@RequestMapping
@@ -135,9 +132,8 @@ public class CardsController {
 			return "cards/cards";
 		}
 		
-		DeckEntity deck = new DeckEntity(command.getDeckName());
-		deck.setModificationTimestamp(Calendar.getInstance().getTime());
-		deck = deckRepository.save(deck);
+		DeckEntity deck = new DeckEntity(command.getDeckName());		
+		deck = deckService.save(deck);
 		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
 		if(command.getAllCardsCount() != cards.size()) {			
@@ -149,7 +145,7 @@ public class CardsController {
 		cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
 		for (CardEntity card : cards) {
 			card.setDeck(deck);
-			cardRepository.save(card);
+			cardService.save(card);
 		}		
 		
 		return "redirect:/home";
@@ -286,7 +282,7 @@ public class CardsController {
 	
 	private long getDeckDefaultId() {
 		
-		Long maxId = deckRepository.getMaxId();
+		Long maxId = deckService.getMaxId();
 		if(maxId == null) {
 			maxId = 0L;
 		}

@@ -17,17 +17,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.kwi.springboot.commands.learning.LearningCommand;
 import pl.kwi.springboot.db.entities.CardEntity;
 import pl.kwi.springboot.db.entities.DeckEntity;
-import pl.kwi.springboot.db.repositories.DeckRepository;
 import pl.kwi.springboot.enums.LearningModeEnum;
 import pl.kwi.springboot.enums.RedirectAttributesEnum;
 import pl.kwi.springboot.enums.SessionAttributesEnum;
+import pl.kwi.springboot.services.intf.DeckService;
 
 @Controller
 @RequestMapping(value="/learning")
 public class LearningController {
 	
+	
 	@Autowired
-	private DeckRepository deckRepository;
+	private DeckService deckService;
+	
 
 	@RequestMapping
 	public String displayPage(
@@ -55,7 +57,7 @@ public class LearningController {
 	private List<CardEntity> getCards(LearningCommand command) {
 		
 		List<CardEntity> cards = new ArrayList<CardEntity>();
-		List<DeckEntity> decks = deckRepository.findLastDecks(PageRequest.of(0,command.getDeckCount(),Sort.by(Sort.Direction.DESC, "id"))).getContent();
+		List<DeckEntity> decks = deckService.findLastDecks(PageRequest.of(0,command.getDeckCount(),Sort.by(Sort.Direction.DESC, "id"))).getContent();
 		for (DeckEntity deck : decks) {
 			cards.addAll(deck.getCards());
 		}

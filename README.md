@@ -41,7 +41,6 @@ spring.jpa.hibernate.ddl-auto = update
 spring.datasource.url=jdbc:h2:file:C:/data/sample
 
 
-Move repositories to services
 checkbox decks
 moreListCards
 moreEditCards
