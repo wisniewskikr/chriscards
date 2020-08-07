@@ -13,6 +13,6 @@ public interface DeckRepository extends PagingAndSortingRepository<DeckEntity, L
 	public Long getMaxId();
 	
 	@Query("SELECT d FROM DeckEntity d")
-    public Page<DeckEntity> findLastDecks(Pageable pageable);
+    public Page<DeckEntity> find(Pageable pageable);
 	
 }

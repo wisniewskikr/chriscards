@@ -11,6 +11,6 @@ public interface DeckService {
 
 	Long getMaxId();
 
-	Page<DeckEntity> findLastDecks(Pageable pageable);
+	Page<DeckEntity> find(Pageable pageable);
 
 }

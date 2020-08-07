@@ -31,8 +31,8 @@ public class DeckServiceImpl implements DeckService {
 	}
 	
 	@Override
-	public Page<DeckEntity> findLastDecks(Pageable pageable) {
-		return deckRepository.findLastDecks(pageable);
+	public Page<DeckEntity> find(Pageable pageable) {
+		return deckRepository.find(pageable);
 	}
 	
 
