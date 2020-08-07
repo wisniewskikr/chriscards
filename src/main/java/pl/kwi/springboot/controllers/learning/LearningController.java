@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -30,12 +31,15 @@ public class LearningController {
 	@Autowired
 	private DeckService deckService;
 	
+	@Value("${cards.count.learning}")
+    private int cartsCount;
+	
 
 	@RequestMapping
 	public String displayPage(
 			@ModelAttribute("command") LearningCommand command) {
 		
-		List<DeckEntity> decks = deckService.find(PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "modificationTimestamp"))).getContent();
+		List<DeckEntity> decks = deckService.find(PageRequest.of(0, cartsCount, Sort.by(Sort.Direction.DESC, "modificationTimestamp"))).getContent();
 		for (DeckEntity deckEntity : decks) {
 			System.out.println(deckEntity.getName());
 		}
