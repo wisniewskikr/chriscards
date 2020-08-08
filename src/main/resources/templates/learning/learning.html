@@ -25,7 +25,22 @@
 						    	<input type="checkbox" th:value="${deck.id}"/>
 						    	<label th:text="${deck.name}"></label>
 						    </div>
-					    </div>												 
+					    </div>
+					    
+					    <div class="container-pagination">
+							<ul class="pager">
+							    <li th:if="*{disablePrevious}" class="previous disabled"><a href="#">Previous</a></li>
+							    <li th:unless="*{disablePrevious}" class="previous"><a th:href="@{/learning?currentPage={page}(page=*{currentPage} - 1)}">Previous</a></li>
+							</ul>
+							<ul class="pagination" th:each="page : *{pages}">					
+							    <li th:if="${#strings.equals(page, #strings.toString(command.currentPage))}" class="active"><a href="#" th:text="${page}"></a></li>
+								<li th:unless="${#strings.equals(page, #strings.toString(command.currentPage))}"><a th:href="@{/learning?currentPage={page}(page=${page})}" th:text="${page}"></a></li>
+						    </ul>
+						    <ul class="pager">
+						      <li th:if="*{disableNext}" class="next disabled"><a href="#">Next</a></li>
+						      <li th:unless="*{disableNext}" class="next"><a th:href="@{/learning?currentPage={page}(page=*{currentPage} + 1)}">Next</a></li>
+					 	    </ul>
+						</div>												 
 					</fieldset>
 					
 					<fieldset class="scheduler-border">
