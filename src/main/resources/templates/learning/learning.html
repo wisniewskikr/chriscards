@@ -19,20 +19,13 @@
 				
 					<fieldset class="scheduler-border">
 					    <legend class="scheduler-border">Talie</legend>
-					    <div class="control-group">
-					    	
-					    	<div class="form-group">
-							    <label for="deckCount">* Ilość Talii:</label>
-							    <select class="form-control" th:field="*{deckCount}">
-							    	<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}" ></option>
-							    </select>
-							</div>
-							
-							<div class="radio">
-						  		<label><input type="radio" name="optradio2" checked>Najnowsze Talie</label>
-							</div>
-							
-					    </div>
+					    <label for="deckCount">* Wybór Talii:</label>
+					    <div th:each="deck : *{decks}">
+							<div class="checkbox">					    	
+						    	<input type="checkbox" th:value="${deck.id}"/>
+						    	<label th:text="${deck.name}"></label>
+						    </div>
+					    </div>												 
 					</fieldset>
 					
 					<fieldset class="scheduler-border">

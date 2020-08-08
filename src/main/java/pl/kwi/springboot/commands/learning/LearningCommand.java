@@ -1,22 +1,23 @@
 package pl.kwi.springboot.commands.learning;
 
+import pl.kwi.springboot.db.entities.DeckEntity;
 import pl.kwi.springboot.enums.LearningModeEnum;
 
 public class LearningCommand {
 
 	
-	private int deckCount;
+	private Iterable<DeckEntity> decks;
 	private LearningModeEnum selectedLearningMode;
 	private boolean manualLearningModeRepeat;
 	private boolean authomaticLearningModeRepeat;
 	private boolean playSpeech;
+		
 	
-	
-	public int getDeckCount() {
-		return deckCount;
+	public Iterable<DeckEntity> getDecks() {
+		return decks;
 	}
-	public void setDeckCount(int deckCount) {
-		this.deckCount = deckCount;
+	public void setDecks(Iterable<DeckEntity> decks) {
+		this.decks = decks;
 	}
 	
 	public LearningModeEnum getSelectedLearningMode() {

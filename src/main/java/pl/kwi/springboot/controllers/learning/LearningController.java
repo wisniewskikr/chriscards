@@ -40,10 +40,7 @@ public class LearningController {
 			@ModelAttribute("command") LearningCommand command) {
 		
 		List<DeckEntity> decks = deckService.find(PageRequest.of(0, cartsCount, Sort.by(Sort.Direction.DESC, "modificationTimestamp"))).getContent();
-		for (DeckEntity deckEntity : decks) {
-			System.out.println(deckEntity.getName());
-		}
-		
+		command.setDecks(decks);		
 		command.setSelectedLearningMode(LearningModeEnum.MANUAL);		
 		return "learning/learning";
 		
@@ -66,7 +63,8 @@ public class LearningController {
 	private List<CardEntity> getCards(LearningCommand command) {
 		
 		List<CardEntity> cards = new ArrayList<CardEntity>();
-		List<DeckEntity> decks = deckService.find(PageRequest.of(0,command.getDeckCount(),Sort.by(Sort.Direction.DESC, "id"))).getContent();
+		// TODO: fix 1 as count
+		List<DeckEntity> decks = deckService.find(PageRequest.of(0,1,Sort.by(Sort.Direction.DESC, "id"))).getContent();
 		for (DeckEntity deck : decks) {
 			cards.addAll(deck.getCards());
 		}
