@@ -1,5 +1,6 @@
 package pl.kwi.springboot.commands.learning;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pl.kwi.springboot.db.entities.DeckEntity;
@@ -18,6 +19,7 @@ public class LearningCommand {
 	private int currentPage = 1;
 	private boolean disablePrevious;
 	private boolean disableNext;
+	private List<Long> selectedItems  = new ArrayList<Long>();
 		
 	
 	public Iterable<DeckEntity> getDecks() {
@@ -81,7 +83,14 @@ public class LearningCommand {
 	}
 	public void setDisableNext(boolean disableNext) {
 		this.disableNext = disableNext;
+	}
+	
+	public List<Long> getSelectedItems() {
+		return selectedItems;
+	}
+	public void setSelectedItems(List<Long> selectedItems) {
+		this.selectedItems = selectedItems;
 	}	
 	
-	
+		
 }

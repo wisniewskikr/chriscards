@@ -22,7 +22,7 @@
 					    <label for="deckCount">* Wybór Talii:</label>
 					    <div th:each="deck : *{decks}">
 							<div class="checkbox">					    	
-						    	<input type="checkbox" th:value="${deck.id}"/>
+						    	<input type="checkbox" th:value="${deck.id}" th:field="*{selectedItems}"/>
 						    	<label th:text="${deck.name}"></label>
 						    </div>
 					    </div>

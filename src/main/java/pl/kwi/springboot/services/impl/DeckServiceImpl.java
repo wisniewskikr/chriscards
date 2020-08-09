@@ -35,5 +35,10 @@ public class DeckServiceImpl implements DeckService {
 		return deckRepository.find(pageable);
 	}
 	
+	@Override
+	public DeckEntity findById(Long id) {
+		return deckRepository.findById(id).get();
+	}
+	
 
 }

@@ -65,11 +65,10 @@ public class LearningController {
 	private List<CardEntity> getCards(LearningCommand command) {
 		
 		List<CardEntity> cards = new ArrayList<CardEntity>();
-		// TODO: fix 1 as count
-		List<DeckEntity> decks = deckService.find(PageRequest.of(0,1,Sort.by(Sort.Direction.DESC, "id"))).getContent();
-		for (DeckEntity deck : decks) {
-			cards.addAll(deck.getCards());
-		}
+		List<Long> ids = command.getSelectedItems();
+		for (Long id : ids) {
+			cards.addAll(deckService.findById(id).getCards());
+		}		
 		return cards;
 				
 	}

@@ -13,4 +13,6 @@ public interface DeckService {
 
 	Page<DeckEntity> find(Pageable pageable);
 
+	DeckEntity findById(Long id);
+
 }
