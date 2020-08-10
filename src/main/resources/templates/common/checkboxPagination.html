@@ -1,0 +1,50 @@
+<div class="container-pagination">
+   	<input type="hidden" id="tmpSelectedItems" name="tmpSelectedItems" th:value="*{tmpSelectedItems}"/>
+   	<input type="hidden" id="currentPage" name="currentPage" th:value="*{currentPage}"/>
+	<ul class="pager">
+	    <li th:if="*{disablePrevious}" class="previous disabled"><a href="#">Previous</a></li>
+	    <li th:unless="*{disablePrevious}" class="previous"><a href="#" th:onclick="|handleCurrentPage(*{currentPage} - 1);submitAction('learningForm', '/learning');|">Previous</a></li>
+	</ul>
+	<ul class="pagination" th:each="page : *{pages}">					
+	    <li th:if="${#strings.equals(page, #strings.toString(command.currentPage))}" class="active"><a href="#" th:text="${page}"></a></li>
+		<li th:unless="${#strings.equals(page, #strings.toString(command.currentPage))}"><a href="#" th:onclick="|handleCurrentPage(${page});submitAction('learningForm', '/learning');|" th:text="${page}"></a></li>
+    </ul>
+    <ul class="pager">
+      <li th:if="*{disableNext}" class="next disabled"><a href="#">Next</a></li>
+      <li th:unless="*{disableNext}" class="next"><a href="#" th:onclick="|handleCurrentPage(*{currentPage} + 1);submitAction('learningForm', '/learning');|">Next</a></li>
+	    </ul>
+</div>
+
+<script type="text/javascript">
+	function handleCurrentPage(value) {
+		$("#currentPage").val(value);
+	}	
+	
+	function handleSelectedItems(checkbox) {
+		
+		var tmpSelectedItems = $("#tmpSelectedItems").val();
+		var value = checkbox.value + ",";
+		if (checkbox.checked == true) {
+			tmpSelectedItems = tmpSelectedItems.concat(value);
+		} else {
+			tmpSelectedItems = tmpSelectedItems.replace(value, "");
+		}
+		
+		$("#tmpSelectedItems").val(tmpSelectedItems);
+		
+	}
+</script>
+
+<style>						
+	.container-pagination {
+		text-align: center;
+	}
+	
+	.pager {
+		display: inline-block;
+	}
+	
+	.pagination {
+		display: inline-block;
+	}						
+</style>

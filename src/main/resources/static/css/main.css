@@ -79,15 +79,3 @@ fieldset.scheduler-border {
     -webkit-animation: spin .8s linear infinite;
     animation: spin .8s linear infinite;
 }
-
-.container-pagination {
-	text-align: center;
-}
-
-.pager {
-	display: inline-block;
-}
-
-.pagination {
-	display: inline-block;
-}
