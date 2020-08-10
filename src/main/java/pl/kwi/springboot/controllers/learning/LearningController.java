@@ -1,10 +1,12 @@
 package pl.kwi.springboot.controllers.learning;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -41,7 +43,8 @@ public class LearningController {
 			@ModelAttribute("command") LearningCommand command) {
 		
 		Page<DeckEntity> deckPage = deckService.find(PageRequest.of(command.getCurrentPage() - 1, cartsCount, Sort.by(Sort.Direction.DESC, "modificationTimestamp")));
-		command.setDecks(deckPage.getContent());		
+		command.setDecks(deckPage.getContent());
+		handleSelectedItems(command);
 		handlePagination(command, deckPage);
 		return "learning/learning";
 		
@@ -63,6 +66,7 @@ public class LearningController {
 	
 	private List<CardEntity> getCards(LearningCommand command) {
 		
+		handleSelectedItems(command);
 		List<CardEntity> cards = new ArrayList<CardEntity>();
 		List<Long> ids = command.getSelectedItems();
 		for (Long id : ids) {
@@ -172,6 +176,20 @@ public class LearningController {
 		}		
 		
 		return result;
+		
+	}
+	
+	private void handleSelectedItems(LearningCommand command) {
+		
+		if (StringUtils.isBlank(command.getTmpSelectedItems())) {
+			return;
+		}
+		
+		List<String> list = Arrays.asList(command.getTmpSelectedItems().split(","));
+		command.setSelectedItems(new ArrayList<Long>());
+		for (String id : list) {
+			command.getSelectedItems().add(Long.valueOf(id));
+		}
 		
 	}
 	

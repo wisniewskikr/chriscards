@@ -19,6 +19,7 @@ public class LearningCommand {
 	private int currentPage = 1;
 	private boolean disablePrevious;
 	private boolean disableNext;
+	private String tmpSelectedItems;
 	private List<Long> selectedItems  = new ArrayList<Long>();
 		
 	
@@ -83,6 +84,13 @@ public class LearningCommand {
 	}
 	public void setDisableNext(boolean disableNext) {
 		this.disableNext = disableNext;
+	}	
+	
+	public String getTmpSelectedItems() {
+		return tmpSelectedItems;
+	}
+	public void setTmpSelectedItems(String tmpSelectedItems) {
+		this.tmpSelectedItems = tmpSelectedItems;
 	}
 	
 	public List<Long> getSelectedItems() {

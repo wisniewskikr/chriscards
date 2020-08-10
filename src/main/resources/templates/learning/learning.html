@@ -19,15 +19,16 @@
 				
 					<fieldset class="scheduler-border">
 					    <legend class="scheduler-border">Talie</legend>
-					    <label for="deckCount">* Wybór Talii:</label>
+					    <label for="deckCount">* Wybór Talii:</label>					    
 					    <div th:each="deck : *{decks}">
 							<div class="checkbox">					    	
-						    	<input type="checkbox" th:value="${deck.id}" th:field="*{selectedItems}"/>
+						    	<input type="checkbox" th:value="${deck.id}" th:field="*{selectedItems}" th:onclick="|handleSelectedItems(this);|"/>
 						    	<label th:text="${deck.name}"></label>
 						    </div>
 					    </div>
 					    
 					    <div class="container-pagination">
+					    	<input type="hidden" id="tmpSelectedItems" name="tmpSelectedItems" th:value="*{tmpSelectedItems}"/>
 					    	<input type="hidden" id="currentPage" name="currentPage" th:value="*{currentPage}"/>
 							<ul class="pager">
 							    <li th:if="*{disablePrevious}" class="previous disabled"><a href="#">Previous</a></li>
@@ -45,7 +46,21 @@
 						<script type="text/javascript">
 							function handleCurrentPage(value) {
 								$("#currentPage").val(value);
-							}						
+							}	
+							
+							function handleSelectedItems(checkbox) {
+								
+								var tmpSelectedItems = $("#tmpSelectedItems").val();
+								var value = checkbox.value + ",";
+								if (checkbox.checked == true) {
+									tmpSelectedItems = tmpSelectedItems.concat(value);
+								} else {
+									tmpSelectedItems = tmpSelectedItems.replace(value, "");
+								}
+								
+								$("#tmpSelectedItems").val(tmpSelectedItems);
+								
+							}
 						</script>
 																		 
 					</fieldset>
