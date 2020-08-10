@@ -1,12 +1,10 @@
 package pl.kwi.springboot.commands.learning;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import pl.kwi.springboot.db.entities.DeckEntity;
 import pl.kwi.springboot.enums.LearningModeEnum;
+import pl.kwi.springboot.pagination.checkboxPagination.commands.AbstrCheckboxPagiantionCommand;
 
-public class LearningCommand {
+public class LearningCommand extends AbstrCheckboxPagiantionCommand {
 
 	
 	private Iterable<DeckEntity> decks;
@@ -14,13 +12,6 @@ public class LearningCommand {
 	private boolean manualLearningModeRepeat;
 	private boolean authomaticLearningModeRepeat;
 	private boolean playSpeech;
-	// Pagination
-	private List<Integer> pages;
-	private int currentPage = 1;
-	private boolean disablePrevious;
-	private boolean disableNext;
-	private String tmpSelectedItems;
-	private List<Long> selectedItems  = new ArrayList<Long>();
 		
 	
 	public Iterable<DeckEntity> getDecks() {
@@ -57,48 +48,6 @@ public class LearningCommand {
 	public void setPlaySpeech(boolean playSpeech) {
 		this.playSpeech = playSpeech;
 	}
-	
-	public List<Integer> getPages() {
-		return pages;
-	}
-	public void setPages(List<Integer> pages) {
-		this.pages = pages;
-	}
-	
-	public int getCurrentPage() {
-		return currentPage;
-	}
-	public void setCurrentPage(int currentPage) {
-		this.currentPage = currentPage;
-	}
-	
-	public boolean isDisablePrevious() {
-		return disablePrevious;
-	}
-	public void setDisablePrevious(boolean disablePrevious) {
-		this.disablePrevious = disablePrevious;
-	}
-	
-	public boolean isDisableNext() {
-		return disableNext;
-	}
-	public void setDisableNext(boolean disableNext) {
-		this.disableNext = disableNext;
-	}	
-	
-	public String getTmpSelectedItems() {
-		return tmpSelectedItems;
-	}
-	public void setTmpSelectedItems(String tmpSelectedItems) {
-		this.tmpSelectedItems = tmpSelectedItems;
-	}
-	
-	public List<Long> getSelectedItems() {
-		return selectedItems;
-	}
-	public void setSelectedItems(List<Long> selectedItems) {
-		this.selectedItems = selectedItems;
-	}	
 	
 		
 }

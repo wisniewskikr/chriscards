@@ -1,12 +1,10 @@
 package pl.kwi.springboot.controllers.learning;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -24,11 +22,12 @@ import pl.kwi.springboot.db.entities.DeckEntity;
 import pl.kwi.springboot.enums.LearningModeEnum;
 import pl.kwi.springboot.enums.RedirectAttributesEnum;
 import pl.kwi.springboot.enums.SessionAttributesEnum;
+import pl.kwi.springboot.pagination.checkboxPagination.controllers.AbstrCheckboxPaginationController;
 import pl.kwi.springboot.services.intf.DeckService;
 
 @Controller
 @RequestMapping(value="/learning")
-public class LearningController {
+public class LearningController extends AbstrCheckboxPaginationController {
 	
 	
 	@Autowired
@@ -44,7 +43,7 @@ public class LearningController {
 		
 		Page<DeckEntity> deckPage = deckService.find(PageRequest.of(command.getCurrentPage() - 1, cartsCount, Sort.by(Sort.Direction.DESC, "modificationTimestamp")));
 		command.setDecks(deckPage.getContent());
-		handleSelectedItems(command);
+		handlePaginationSelectedItems(command);
 		handlePagination(command, deckPage);
 		return "learning/learning";
 		
@@ -66,7 +65,7 @@ public class LearningController {
 	
 	private List<CardEntity> getCards(LearningCommand command) {
 		
-		handleSelectedItems(command);
+		handlePaginationSelectedItems(command);
 		List<CardEntity> cards = new ArrayList<CardEntity>();
 		List<Long> ids = command.getSelectedItems();
 		for (Long id : ids) {
@@ -97,100 +96,7 @@ public class LearningController {
 		attributes.addAttribute(RedirectAttributesEnum.WORD_NUMBER.getValue(), 1);
 		attributes.addAttribute(RedirectAttributesEnum.WORD_COUNT.getValue(), cards.get(0).getWords().size());
 		
-	}
+	}	
 	
-	private void handlePagination(LearningCommand command, Page<DeckEntity> page) {
-		
-		List<Integer> pages = new ArrayList<Integer>();
-		int first = getFirst(command.getCurrentPage(), page.getTotalPages());
-		int last = getLast(command.getCurrentPage(), page.getTotalPages());
-		for (int i = first; i <= last; i++) {
-			pages.add(i);
-		}
-		command.setPages(pages);
-		
-		if (command.getCurrentPage() == 1) {
-			command.setDisablePrevious(true);
-		} else {
-			command.setDisablePrevious(false);
-		}
-		
-		if (command.getCurrentPage() == page.getTotalPages()) {
-			command.setDisableNext(true);
-		} else {
-			command.setDisableNext(false);
-		}
-		
-	}
-	
-	private int getFirst(int currentPage, int totalPages) {
-		
-		int result = 1;
-		
-		if (totalPages <= 5) {
-			return result;
-		}
-		
-		if ((currentPage - 1 ) > 0) {
-			result = currentPage - 1;
-		}
-		
-		if ((currentPage - 2) > 0) {
-			result = currentPage - 2;
-		}
-		
-		if ((currentPage - 3) > 0 && (currentPage + 2) > totalPages) {
-			result = currentPage - 3;
-		}
-		
-		if ((currentPage - 4) > 0 && (currentPage + 1) > totalPages) {
-			result = currentPage - 4;
-		}
-		
-		return result;
-		
-	}
-	
-	private int getLast(int currentPage, int totalPages) {
-		
-		int result = totalPages;
-		
-		if (totalPages <= 5) {
-			return result;
-		}
-		
-		if ((currentPage + 1) <= totalPages) {
-			result = currentPage + 1;
-		}
-		
-		if ((currentPage + 2) <= totalPages) {
-			result = currentPage + 2;
-		}
-		
-		if ((currentPage + 3 ) < totalPages  && (currentPage - 2) <= 0) {
-			result = currentPage + 3;
-		}
-		
-		if ((currentPage + 4) < totalPages  && (currentPage - 1) <= 0) {
-			result = currentPage + 4;
-		}		
-		
-		return result;
-		
-	}
-	
-	private void handleSelectedItems(LearningCommand command) {
-		
-		if (StringUtils.isBlank(command.getTmpSelectedItems())) {
-			return;
-		}
-		
-		List<String> list = Arrays.asList(command.getTmpSelectedItems().split(","));
-		command.setSelectedItems(new ArrayList<Long>());
-		for (String id : list) {
-			command.getSelectedItems().add(Long.valueOf(id));
-		}
-		
-	}
 	
 }
