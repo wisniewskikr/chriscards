@@ -42,7 +42,6 @@ public class LearningController {
 		
 		Page<DeckEntity> deckPage = deckService.find(PageRequest.of(command.getCurrentPage() - 1, cartsCount, Sort.by(Sort.Direction.DESC, "modificationTimestamp")));
 		command.setDecks(deckPage.getContent());		
-		command.setSelectedLearningMode(LearningModeEnum.MANUAL);	
 		handlePagination(command, deckPage);
 		return "learning/learning";
 		

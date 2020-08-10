@@ -98,3 +98,13 @@ function clickNext() {
 function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+function learningOnLoad() {
+	
+	if ($("#selectedLearningMode1").attr('checked') == "checked") {
+		showLearnigRepeat('MANUAL');
+	} else {
+		showLearnigRepeat('AUTHOMATIC');
+	}
+		
+}

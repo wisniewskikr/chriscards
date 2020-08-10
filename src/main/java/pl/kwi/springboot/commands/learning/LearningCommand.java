@@ -10,7 +10,7 @@ public class LearningCommand {
 
 	
 	private Iterable<DeckEntity> decks;
-	private LearningModeEnum selectedLearningMode;
+	private LearningModeEnum selectedLearningMode = LearningModeEnum.MANUAL;
 	private boolean manualLearningModeRepeat;
 	private boolean authomaticLearningModeRepeat;
 	private boolean playSpeech;

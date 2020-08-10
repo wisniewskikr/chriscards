@@ -6,7 +6,7 @@
 	<header th:replace="common/header"/>
 </head>
 
-<body class="bg" onload="showLearnigRepeat('MANUAL');">
+<body class="bg" onload="learningOnLoad();">
 
 	<navbar th:replace="common/navbar"/>	
 	
@@ -28,19 +28,26 @@
 					    </div>
 					    
 					    <div class="container-pagination">
+					    	<input type="hidden" id="currentPage" name="currentPage" th:value="*{currentPage}"/>
 							<ul class="pager">
 							    <li th:if="*{disablePrevious}" class="previous disabled"><a href="#">Previous</a></li>
-							    <li th:unless="*{disablePrevious}" class="previous"><a th:href="@{/learning?currentPage={page}(page=*{currentPage} - 1)}">Previous</a></li>
+							    <li th:unless="*{disablePrevious}" class="previous"><a href="#" th:onclick="|handleCurrentPage(*{currentPage} - 1);submitAction('learningForm', '/learning');|">Previous</a></li>
 							</ul>
 							<ul class="pagination" th:each="page : *{pages}">					
 							    <li th:if="${#strings.equals(page, #strings.toString(command.currentPage))}" class="active"><a href="#" th:text="${page}"></a></li>
-								<li th:unless="${#strings.equals(page, #strings.toString(command.currentPage))}"><a th:href="@{/learning?currentPage={page}(page=${page})}" th:text="${page}"></a></li>
+								<li th:unless="${#strings.equals(page, #strings.toString(command.currentPage))}"><a href="#" th:onclick="|handleCurrentPage(${page});submitAction('learningForm', '/learning');|" th:text="${page}"></a></li>
 						    </ul>
 						    <ul class="pager">
 						      <li th:if="*{disableNext}" class="next disabled"><a href="#">Next</a></li>
-						      <li th:unless="*{disableNext}" class="next"><a th:href="@{/learning?currentPage={page}(page=*{currentPage} + 1)}">Next</a></li>
+						      <li th:unless="*{disableNext}" class="next"><a href="#" th:onclick="|handleCurrentPage(*{currentPage} + 1);submitAction('learningForm', '/learning');|">Next</a></li>
 					 	    </ul>
-						</div>												 
+						</div>
+						<script type="text/javascript">
+							function handleCurrentPage(value) {
+								$("#currentPage").val(value);
+							}						
+						</script>
+																		 
 					</fieldset>
 					
 					<fieldset class="scheduler-border">
