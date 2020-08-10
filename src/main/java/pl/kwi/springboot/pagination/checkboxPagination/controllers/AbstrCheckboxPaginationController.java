@@ -7,12 +7,15 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 
-import pl.kwi.springboot.commands.learning.LearningCommand;
-import pl.kwi.springboot.db.entities.DeckEntity;
+import pl.kwi.springboot.pagination.checkboxPagination.commands.AbstrCheckboxPagiantionCommand;
 
 public abstract class AbstrCheckboxPaginationController {
 	
-	protected void handlePagination(LearningCommand command, Page<DeckEntity> page) {
+	
+	private static final int PAGES_IN_PAGINATION = 5;
+	
+
+	protected void handlePagination(AbstrCheckboxPagiantionCommand command, Page<?> page) {
 		
 		List<Integer> pages = new ArrayList<Integer>();
 		int first = getFirst(command.getCurrentPage(), page.getTotalPages());
@@ -36,7 +39,7 @@ public abstract class AbstrCheckboxPaginationController {
 		
 	}
 	
-	protected void handlePaginationSelectedItems(LearningCommand command) {
+	protected void handlePaginationSelectedItems(AbstrCheckboxPagiantionCommand command) {
 		
 		if (StringUtils.isBlank(command.getTmpSelectedItems())) {
 			return;
@@ -54,7 +57,7 @@ public abstract class AbstrCheckboxPaginationController {
 		
 		int result = 1;
 		
-		if (totalPages <= 5) {
+		if (totalPages <= PAGES_IN_PAGINATION) {
 			return result;
 		}
 		
@@ -82,7 +85,7 @@ public abstract class AbstrCheckboxPaginationController {
 		
 		int result = totalPages;
 		
-		if (totalPages <= 5) {
+		if (totalPages <= PAGES_IN_PAGINATION) {
 			return result;
 		}
 		
