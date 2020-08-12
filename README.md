@@ -41,7 +41,7 @@ spring.jpa.hibernate.ddl-auto = update
 spring.datasource.url=jdbc:h2:file:C:/data/sample
 
 
-checkbox decks pagination
-moreListCards
-moreEditCards
-moreDeleteCards
+listEditMore
+runEditMore
+listDeleteMore
+listDeleteConfirmation
