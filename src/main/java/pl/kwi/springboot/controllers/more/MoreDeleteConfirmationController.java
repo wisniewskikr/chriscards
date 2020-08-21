@@ -39,8 +39,8 @@ public class MoreDeleteConfirmationController extends AbstrCheckboxPaginationCon
 			@ModelAttribute("command") MoreDeleteConfirmationCommand command) {
 		
 		List<Long> selectedItems = command.getSelectedItems();
-		for (Long long1 : selectedItems) {
-			System.out.println(long1);
+		for (Long id : selectedItems) {
+			deckService.deleteById(id);
 		}
 				
 		return "redirect:/home";
