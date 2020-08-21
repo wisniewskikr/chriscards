@@ -20,6 +20,10 @@
 				
 					<fieldset class="scheduler-border">
 					    <legend class="scheduler-border">Potwierdzenie</legend>
+					    <div>Czy na pewno chcesz usunąć następujące karty:</div>
+					    <ul>
+					    	<li th:each="name : *{names}" th:text=${name} />
+					    </ul>
 					    
 																		 
 					</fieldset>
