@@ -3,7 +3,7 @@ package pl.kwi.springboot.commands.more;
 import pl.kwi.springboot.db.entities.DeckEntity;
 import pl.kwi.springboot.pagination.checkboxPagination.commands.AbstrCheckboxPagiantionCommand;
 
-public class ListDeleteMoreCommand extends AbstrCheckboxPagiantionCommand {
+public class MoreListDeleteCommand extends AbstrCheckboxPagiantionCommand {
 	
 	
 	private Iterable<DeckEntity> decks;

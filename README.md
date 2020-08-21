@@ -44,4 +44,4 @@ spring.datasource.url=jdbc:h2:file:C:/data/sample
 listEditMore
 runEditMore
 listDeleteMore
-listDeleteConfirmation
+confirmationDeleteMore

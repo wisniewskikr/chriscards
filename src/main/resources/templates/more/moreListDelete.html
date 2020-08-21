@@ -13,13 +13,13 @@
 	<div class="container container-margin" th:object="${command}">
 		<div class="row">
 			<div class="col-md column h-25">
-				<h1>Lista Talii Do Usunięcia</h1>
+				<h1>Usuń talie</h1>
 				
 				<form id="listDeleteMoreForm" method="post">
 				
 					<fieldset class="scheduler-border">
 					    <legend class="scheduler-border">Talie</legend>
-					    <label for="deckCount">* Wybór Talii Do Usunięcia:</label>					    
+					    <label for="deckCount">* Talie Do Usunięcia:</label>					    
 					    <div th:each="deck : *{decks}">
 							<div class="checkbox">					    	
 						    	<input type="checkbox" th:value="${deck.id}" th:field="*{selectedItems}" th:onclick="|handleSelectedItems(this);|"/>
