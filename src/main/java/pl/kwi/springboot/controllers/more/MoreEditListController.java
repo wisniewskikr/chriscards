@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.kwi.springboot.commands.more.MoreEditListCommand;
 import pl.kwi.springboot.db.entities.DeckEntity;
+import pl.kwi.springboot.enums.RedirectAttributesEnum;
 import pl.kwi.springboot.pagination.radioPagination.controllers.AbstrRadioPaginationController;
 import pl.kwi.springboot.services.intf.DeckService;
 
@@ -45,8 +46,9 @@ public class MoreEditListController extends AbstrRadioPaginationController {
 			RedirectAttributes attributes) {
 		
 		handlePaginationSelectedItems(command);	
+		attributes.addAttribute(RedirectAttributesEnum.SELECTED_ITEM.getValue(), command.getSelectedItem());
 		
-		return "redirect:/more/edit/confirmation";
+		return "redirect:/more/edit/run";
 		
 	}
 	

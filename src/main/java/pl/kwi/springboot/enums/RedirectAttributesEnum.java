@@ -4,7 +4,7 @@ public enum RedirectAttributesEnum {
 	
 	
 	CARD_NUMBER("cardNumber"), CARD_COUNT("cardCount"), WORD_NUMBER("wordNumber"), WORD_COUNT("wordCount"), SELECTED_LEARNING_MODE("selectedLearningMode"), 
-	MANUAL_REPEAT("manualLearningModeRepeat"), AUTHOMATIC_REPEAT("authomaticLearningModeRepeat"), SKIPPED_CARDS_COUNT("skippedCardsCount"), SELECTED_ITEMS("selectedItems");
+	MANUAL_REPEAT("manualLearningModeRepeat"), AUTHOMATIC_REPEAT("authomaticLearningModeRepeat"), SKIPPED_CARDS_COUNT("skippedCardsCount"), SELECTED_ITEMS("selectedItems"), SELECTED_ITEM("selectedItem");
 	
 	private String value;
 	
