@@ -4,18 +4,23 @@
    	<input type="hidden" id="currentPage" name="currentPage" th:value="*{currentPage}"/>
 	<ul class="pager">
 	    <li th:if="*{disablePrevious}" class="previous disabled"><a href="#">Previous</a></li>
-	    <li th:unless="*{disablePrevious}" class="previous"><a href="#" th:formId="${formId}" th:action="${action}" th:onclick="|handleCurrentPage(*{currentPage} - 1);submitAction(this.getAttribute('formId'), this.getAttribute('action'));|">Previous</a></li>
+	    <li th:unless="*{disablePrevious}" class="previous"><a href="#" th:formId="${formId}" th:action="${action}" th:onclick="|handleCurrentPage(*{currentPage} - 1);submitPagination(this.getAttribute('formId'), this.getAttribute('action'));|">Previous</a></li>
 	</ul>
 	<ul class="pagination" th:each="page : *{pages}">					
 	    <li th:if="${#strings.equals(page, #strings.toString(command.currentPage))}" class="active"><a href="#" th:text="${page}"></a></li>
-		<li th:unless="${#strings.equals(page, #strings.toString(command.currentPage))}"><a href="#" th:formId="${formId}" th:action="${action}" th:onclick="|handleCurrentPage(${page});submitAction(this.getAttribute('formId'), this.getAttribute('action'));|" th:text="${page}"></a></li>
+		<li th:unless="${#strings.equals(page, #strings.toString(command.currentPage))}"><a href="#" th:formId="${formId}" th:action="${action}" th:onclick="|handleCurrentPage(${page});submitPagination(this.getAttribute('formId'), this.getAttribute('action'));|" th:text="${page}"></a></li>
     </ul>
     <ul class="pager">
       <li th:if="*{disableNext}" class="next disabled"><a href="#">Next</a></li>
-      <li th:unless="*{disableNext}" class="next"><a href="#" th:formId="${formId}" th:action="${action}" th:onclick="|handleCurrentPage(*{currentPage} + 1);submitAction(this.getAttribute('formId'), this.getAttribute('action'));|">Next</a></li>
+      <li th:unless="*{disableNext}" class="next"><a href="#" th:formId="${formId}" th:action="${action}" th:onclick="|handleCurrentPage(*{currentPage} + 1);submitPagination(this.getAttribute('formId'), this.getAttribute('action'));|">Next</a></li>
 	 </ul>
 	 
 	<script type="text/javascript">
+	
+		function submitPagination(formId, action) {
+			$('#' + formId).attr('action', action).submit();
+		}
+		
 		function handleCurrentPage(value) {
 			$("#currentPage").val(value);
 		}	
