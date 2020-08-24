@@ -23,7 +23,6 @@ public class CardsCommand {
 	private String spainWord;
 	@NotBlank(message = "To pole nie może być puste")
 	private String spainSentence;
-	private String spainSentencePrononciation;
 	private int currentCardNumber;
 	private int allCardsCount;
 	private boolean disablePrevious;
@@ -90,13 +89,6 @@ public class CardsCommand {
 	}
 	public void setSpainSentence(String spainSentence) {
 		this.spainSentence = spainSentence;
-	}
-	
-	public String getSpainSentencePrononciation() {
-		return spainSentencePrononciation;
-	}
-	public void setSpainSentencePrononciation(String spainSentencePrononciation) {
-		this.spainSentencePrononciation = spainSentencePrononciation;
 	}
 	
 	public int getCurrentCardNumber() {

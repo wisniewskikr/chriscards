@@ -13,7 +13,117 @@
 	<div class="container container-margin" th:object="${command}">
 		<div class="row">
 			<div class="col-md column h-25">
-				<h1>Edytuj talie</h1>		
+				<h1>Edytuj talie</h1>
+				
+				<form id="moreEditRunForm" method="post">						
+					
+					<p class="text-center">
+						<input type="hidden" th:field="*{currentCardNumber}" th:value="${currentCardNumber}" />
+						<input type="hidden" th:field="*{allCardsCount}" th:value="${allCardsCount}" />    
+						<span th:text="*{currentCardNumber}"/> / <span th:text="*{allCardsCount}"/>
+					</p>	
+					
+					<fieldset class="scheduler-border">
+					    <legend class="scheduler-border">Talia</legend>
+					    <div class="control-group">
+					    	<div class="form-group">
+							    <label for="deckName">* Nazwa talii:</label>
+							    <input class="form-control input-lg" id="deckName" type="text" th:field="*{deckName}">
+								<p th:if="${#fields.hasErrors('deckName')}" th:errors="*{deckName}" class="error">Error</p>
+							</div>
+					    </div>
+					</fieldset>
+					
+					<fieldset class="scheduler-border">
+					    <legend class="scheduler-border">Język Polski</legend>
+					    <div class="control-group">
+					    	<div class="form-group">
+					    		<label for="polishWord">* Słowo:</label>
+	      						<input class="form-control input-lg" id="polishWord" type="text" th:field="*{polishWord}">
+	      						<p th:if="${#fields.hasErrors('polishWord')}" th:errors="*{polishWord}" class="error">Error</p>
+					    	</div>					    	
+					    	<div class="form-group">
+					    		<label for="polishSentence">* Zdanie:</label>
+	      						<input class="form-control input-lg" id="polishSentence" type="text" th:field="*{polishSentence}">
+	      						<p th:if="${#fields.hasErrors('polishSentence')}" th:errors="*{polishSentence}" class="error">Error</p>
+					    	</div>					    	
+					    </div>
+					    <a href="javascript:translateViaGoogle();">Tłumacz przez Google</a>
+					</fieldset>
+					
+					<fieldset class="scheduler-border">
+					    <legend class="scheduler-border">Język Angielski</legend>
+					    <div class="control-group">
+					    	<div class="form-group">
+					    		<label for="englishWord">* Słowo:</label>
+	      						<input class="form-control input-lg" id="englishWord" type="text" th:field="*{englishWord}">
+	      						<p th:if="${#fields.hasErrors('englishWord')}" th:errors="*{englishWord}" class="error">Error</p>
+	      						<input id="englishWordLanguageCode" type="hidden" th:value="${T(pl.kwi.springboot.enums.LanguageEnum).ENGLISH.languageCode}">
+					    	</div>
+					    	<a href="javascript:playViaGoogle('englishWord', 'englishWordLanguageCode');">Odtwórz</a>					    	
+					    	<div class="form-group">
+					    		<label for="englishSentence">* Zdanie:</label>
+	      						<input class="form-control input-lg" id="englishSentence" type="text" th:field="*{englishSentence}">
+	      						<p th:if="${#fields.hasErrors('englishSentence')}" th:errors="*{englishSentence}" class="error">Error</p>
+	      						<input id="englishSentenceLanguageCode" type="hidden" th:value="${T(pl.kwi.springboot.enums.LanguageEnum).ENGLISH.languageCode}">
+					    	</div>	
+					    	<a href="javascript:playViaGoogle('englishSentence', 'englishSentenceLanguageCode');">Odtwórz</a>					    	
+					    </div>
+					</fieldset>
+					
+					<fieldset class="scheduler-border">
+					    <legend class="scheduler-border">Język Rosyjski</legend>
+					    <div class="control-group">
+					    	<div class="form-group">
+					    		<label for="russianWord">* Słowo:</label>
+	      						<input class="form-control input-lg" id="russianWord" type="text" th:field="*{russianWord}">
+	      						<p th:if="${#fields.hasErrors('russianWord')}" th:errors="*{russianWord}" class="error">Error</p>
+	      						<input id="russianWordLanguageCode" type="hidden" th:value="${T(pl.kwi.springboot.enums.LanguageEnum).RUSSIAN.languageCode}">
+					    	</div>
+					    	<a href="javascript:playViaGoogle('russianWord', 'russianWordLanguageCode');">Odtwórz</a>					    	
+					    	<div class="form-group">
+					    		<label for="russianSentence">* Zdanie:</label>
+	      						<input class="form-control input-lg" id="russianSentence" type="text" th:field="*{russianSentence}">
+	      						<p th:if="${#fields.hasErrors('russianSentence')}" th:errors="*{russianSentence}" class="error">Error</p>
+	      						<input id="russianSentenceLanguageCode" type="hidden" th:value="${T(pl.kwi.springboot.enums.LanguageEnum).RUSSIAN.languageCode}">
+					    	</div>	
+					    	<a href="javascript:playViaGoogle('russianSentence', 'russianSentenceLanguageCode');">Odtwórz</a>				    	
+					    </div>
+					</fieldset>
+					
+					<fieldset class="scheduler-border">
+					    <legend class="scheduler-border">Język Hiszpański</legend>
+					    <div class="control-group">
+					    	<div class="form-group">
+					    		<label for="spainWord">* Słowo:</label>
+	      						<input class="form-control input-lg" id="spainWord" type="text" th:field="*{spainWord}">
+	      						<p th:if="${#fields.hasErrors('spainWord')}" th:errors="*{spainWord}" class="error">Error</p>
+	      						<input id="spainWordLanguageCode" type="hidden" th:value="${T(pl.kwi.springboot.enums.LanguageEnum).SPAIN.languageCode}">
+					    	</div>	
+					    	<a href="javascript:playViaGoogle('spainWord', 'spainWordLanguageCode');">Odtwórz</a>				    	
+					    	<div class="form-group">
+					    		<label for="spainSentence">* Zdanie:</label>
+	      						<input class="form-control input-lg" id="spainSentence" type="text" th:field="*{spainSentence}">
+	      						<p th:if="${#fields.hasErrors('spainSentence')}" th:errors="*{spainSentence}" class="error">Error</p>
+	      						<input id="spainSentenceLanguageCode" type="hidden" th:value="${T(pl.kwi.springboot.enums.LanguageEnum).SPAIN.languageCode}">
+					    	</div>
+					    	<a href="javascript:playViaGoogle('spainSentence', 'spainSentenceLanguageCode');">Odtwórz</a>						    	
+					    </div>
+					</fieldset>
+					
+					<div class="btn-group btn-group-justified btn-group-lg">
+						<a href="#" class="btn btn-default btn-lg" th:classappend="*{disablePrevious} ? not-active : active" onClick="submitAction('moreEditRunForm', '/more/edit/run/previous')"> Poprzednia</a>
+						<a href="#" class="btn btn-default btn-lg" onClick="submitAction('moreEditRunForm', '/more/edit/run/delete')">Usuń</a>
+						<a href="#" class="btn btn-default btn-lg" onClick="submitAction('moreEditRunForm', '/more/edit/run/next')">Następna</a>
+					</div>
+					
+					<div class="btn-group btn-group-justified btn-group-lg">
+						<a href="#" class="btn btn-default btn-lg" onClick="submitAction('moreEditRunForm', '/more/edit/run/save')">Zapisz</button>
+						<a class="btn btn-default btn-lg" href="/home">Anuluj</a>						
+					</div>
+					
+				</form>
+						
 			</div>
 		</div>    
 	</div>
