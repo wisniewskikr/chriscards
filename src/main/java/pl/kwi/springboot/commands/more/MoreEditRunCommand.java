@@ -9,27 +9,22 @@ public class MoreEditRunCommand {
 	
 	@NotBlank(message = "To pole nie może być puste")
 	private String deckName;
-	private long polishWordId;
 	@NotBlank(message = "To pole nie może być puste")
 	private String polishWord;
 	@NotBlank(message = "To pole nie może być puste")
 	private String polishSentence;
-	private long englishWordId;
 	@NotBlank(message = "To pole nie może być puste")
 	private String englishWord;
 	@NotBlank(message = "To pole nie może być puste")
 	private String englishSentence;
-	private long russianWordId;
 	@NotBlank(message = "To pole nie może być puste")
 	private String russianWord;
 	@NotBlank(message = "To pole nie może być puste")
 	private String russianSentence;
-	private long spainWordId;
 	@NotBlank(message = "To pole nie może być puste")
 	private String spainWord;
 	@NotBlank(message = "To pole nie może być puste")	
 	private String spainSentence;
-	private long cardId;
 	private int currentCardNumber;
 	private int allCardsCount;
 	private boolean disablePrevious;
@@ -49,13 +44,6 @@ public class MoreEditRunCommand {
 		this.deckName = deckName;
 	}	
 	
-	public long getPolishWordId() {
-		return polishWordId;
-	}
-	public void setPolishWordId(long polishWordId) {
-		this.polishWordId = polishWordId;
-	}
-	
 	public String getPolishWord() {
 		return polishWord;
 	}
@@ -69,13 +57,6 @@ public class MoreEditRunCommand {
 	public void setPolishSentence(String polishSentence) {
 		this.polishSentence = polishSentence;
 	}	
-	
-	public long getEnglishWordId() {
-		return englishWordId;
-	}
-	public void setEnglishWordId(long englishWordId) {
-		this.englishWordId = englishWordId;
-	}
 	
 	public String getEnglishWord() {
 		return englishWord;
@@ -91,13 +72,6 @@ public class MoreEditRunCommand {
 		this.englishSentence = englishSentence;
 	}	
 	
-	public long getRussianWordId() {
-		return russianWordId;
-	}
-	public void setRussianWordId(long russianWordId) {
-		this.russianWordId = russianWordId;
-	}
-	
 	public String getRussianWord() {
 		return russianWord;
 	}
@@ -112,13 +86,6 @@ public class MoreEditRunCommand {
 		this.russianSentence = russianSentence;
 	}	
 	
-	public long getSpainWordId() {
-		return spainWordId;
-	}
-	public void setSpainWordId(long spainWordId) {
-		this.spainWordId = spainWordId;
-	}
-	
 	public String getSpainWord() {
 		return spainWord;
 	}
@@ -132,13 +99,6 @@ public class MoreEditRunCommand {
 	public void setSpainSentence(String spainSentence) {
 		this.spainSentence = spainSentence;
 	}	
-	
-	public long getCardId() {
-		return cardId;
-	}
-	public void setCardId(long cardId) {
-		this.cardId = cardId;
-	}
 	
 	public int getCurrentCardNumber() {
 		return currentCardNumber;

@@ -167,21 +167,15 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 	
 	private void cleanNewCardCommand(MoreEditRunCommand command) {
 		
-		command.setCardId(0);
-		
-		command.setPolishWordId(0);
 		command.setPolishWord(null);
 		command.setPolishSentence(null);
 		
-		command.setEnglishWordId(0);
 		command.setEnglishWord(null);
 		command.setEnglishSentence(null);
 		
-		command.setRussianWordId(0);
 		command.setRussianWord(null);
 		command.setRussianSentence(null);
 		
-		command.setSpainWordId(0);
 		command.setSpainWord(null);
 		command.setSpainSentence(null);
 		
@@ -208,15 +202,15 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 		
 		List<WordEntity> words = new ArrayList<WordEntity>();
 		WordEntity word;
-		word = new WordEntity(command.getPolishWordId(), command.getPolishWord(), command.getPolishSentence(), LanguageEnum.POLISH);
+		word = new WordEntity(command.getPolishWord(), command.getPolishSentence(), LanguageEnum.POLISH);
 		words.add(word);
-		word = new WordEntity(command.getEnglishWordId(), command.getEnglishWord(), command.getEnglishSentence(), LanguageEnum.ENGLISH);
+		word = new WordEntity(command.getEnglishWord(), command.getEnglishSentence(), LanguageEnum.ENGLISH);
 		words.add(word);
-		word = new WordEntity(command.getRussianWordId(), command.getRussianWord(), command.getRussianSentence(), LanguageEnum.RUSSIAN);
+		word = new WordEntity(command.getRussianWord(), command.getRussianSentence(), LanguageEnum.RUSSIAN);
 		words.add(word);
-		word = new WordEntity(command.getSpainWordId(), command.getSpainWord(), command.getSpainSentence(), LanguageEnum.SPAIN);
+		word = new WordEntity( command.getSpainWord(), command.getSpainSentence(), LanguageEnum.SPAIN);
 		words.add(word);
-		return new CardEntity(command.getCardId(), words);
+		return new CardEntity(words);
 		
 	}
 	
@@ -261,25 +255,19 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
 		CardEntity card = cards.get(index);
 		
-		command.setCardId(card.getId());
-		
 		WordEntity polishWord = card.getWords().get(0);
-		command.setPolishWordId(polishWord.getId());
 		command.setPolishWord(polishWord.getWord());
 		command.setPolishSentence(polishWord.getSentence());
 		
 		WordEntity englishhWord = card.getWords().get(1);
-		command.setEnglishWordId(englishhWord.getId());
 		command.setEnglishWord(englishhWord.getWord());
 		command.setEnglishSentence(englishhWord.getSentence());
 		
 		WordEntity russianhWord = card.getWords().get(2);
-		command.setRussianWordId(russianhWord.getId());
 		command.setRussianWord(russianhWord.getWord());
 		command.setRussianSentence(russianhWord.getSentence());
 		
 		WordEntity spainhWord = card.getWords().get(3);
-		command.setSpainWordId(spainhWord.getId());
 		command.setSpainWord(spainhWord.getWord());
 		command.setSpainSentence(spainhWord.getSentence());
 		

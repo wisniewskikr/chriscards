@@ -45,10 +45,6 @@ public class CardEntity {
 	public CardEntity(List<WordEntity> words) {
 		this.words = words;
 	}
-	public CardEntity(long id, List<WordEntity> words) {
-		this.id = id;
-		this.words = words;
-	}
 
 
 	public long getId() {
