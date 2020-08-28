@@ -19,15 +19,19 @@ import pl.kwi.springboot.db.entities.DeckEntity;
 import pl.kwi.springboot.db.entities.WordEntity;
 import pl.kwi.springboot.enums.LanguageEnum;
 import pl.kwi.springboot.pagination.checkboxPagination.controllers.AbstrCheckboxPaginationController;
+import pl.kwi.springboot.services.intf.CardService;
 import pl.kwi.springboot.services.intf.DeckService;
 
 @Controller
 @RequestMapping(value="/more/edit/run")
 public class MoreEditRunController extends AbstrCheckboxPaginationController {
 	
-	
+	// TODO
 	private static final String CARDS_ATTRIBUTE = "cards";
 	private static final int DEFAULT_CARD_NUMBER = 1;	
+	
+	@Autowired
+	private CardService cardService;
 	
 	@Autowired
 	private DeckService deckService;
@@ -97,6 +101,61 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 		
 	}
 	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/delete", method = RequestMethod.POST)
+	public String deleteCurrentCard(
+			@Validated @ModelAttribute("command") MoreEditRunCommand command,
+			BindingResult bindingResult,
+			HttpSession session) {
+		
+		if(DEFAULT_CARD_NUMBER == command.getAllCardsCount()) {
+			// TODO
+			return "redirect:more/edit/list";
+		}
+		
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);		
+		adjustCardsInSession(command, session, cards);		
+		if(command.getCurrentCardNumber() == command.getAllCardsCount()) {
+			deleteCardLast(command, session, cards);
+		} else {
+			deleteCardinMiddle(command, session, cards);
+		}
+		handlePreviousAndNext(command);
+		
+		return "more/moreEditRun";
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/save", method = RequestMethod.POST)
+	public String save(
+			@Validated @ModelAttribute("command") MoreEditRunCommand command,
+			BindingResult bindingResult,
+			HttpSession session) {
+		
+		if (bindingResult.hasErrors()) {
+			return "more/moreEditRun";
+		}
+		
+		DeckEntity deck = deckService.findById(command.getSelectedItem());
+		
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
+		if(command.getAllCardsCount() != cards.size()) {			
+			addNewCardToSessionAttribute(session, command);
+		} else {
+			updateCardInSessionAttribute(session, command, command.getCurrentCardNumber() - 1);
+		}
+			
+		cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
+		for (CardEntity card : cards) {
+			card.setDeck(deck);
+			cardService.save(card);
+		}		
+		
+		return "redirect:/more/edit/list";
+		
+	}
+	
 	private void handleNewCard(MoreEditRunCommand command, HttpSession session) {
 		
 		updateCardInSessionAttribute(session, command, command.getCurrentCardNumber() - 1);
@@ -108,15 +167,21 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 	
 	private void cleanNewCardCommand(MoreEditRunCommand command) {
 		
+		command.setCardId(0);
+		
+		command.setPolishWordId(0);
 		command.setPolishWord(null);
 		command.setPolishSentence(null);
 		
+		command.setEnglishWordId(0);
 		command.setEnglishWord(null);
 		command.setEnglishSentence(null);
 		
+		command.setRussianWordId(0);
 		command.setRussianWord(null);
 		command.setRussianSentence(null);
 		
+		command.setSpainWordId(0);
 		command.setSpainWord(null);
 		command.setSpainSentence(null);
 		
@@ -143,15 +208,15 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 		
 		List<WordEntity> words = new ArrayList<WordEntity>();
 		WordEntity word;
-		word = new WordEntity(command.getPolishWord(), command.getPolishSentence(), LanguageEnum.POLISH);
+		word = new WordEntity(command.getPolishWordId(), command.getPolishWord(), command.getPolishSentence(), LanguageEnum.POLISH);
 		words.add(word);
-		word = new WordEntity(command.getEnglishWord(), command.getEnglishSentence(), LanguageEnum.ENGLISH);
+		word = new WordEntity(command.getEnglishWordId(), command.getEnglishWord(), command.getEnglishSentence(), LanguageEnum.ENGLISH);
 		words.add(word);
-		word = new WordEntity(command.getRussianWord(), command.getRussianSentence(), LanguageEnum.RUSSIAN);
+		word = new WordEntity(command.getRussianWordId(), command.getRussianWord(), command.getRussianSentence(), LanguageEnum.RUSSIAN);
 		words.add(word);
-		word = new WordEntity(command.getSpainWord(), command.getSpainSentence(), LanguageEnum.SPAIN);
+		word = new WordEntity(command.getSpainWordId(), command.getSpainWord(), command.getSpainSentence(), LanguageEnum.SPAIN);
 		words.add(word);
-		return new CardEntity(words);
+		return new CardEntity(command.getCardId(), words);
 		
 	}
 	
@@ -167,8 +232,26 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 	private void updateCardInSessionAttribute(HttpSession session, MoreEditRunCommand command, int index) {
 		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
-		cards.set(index, createCard(command));	
+		cards.set(index, updateCard(cards.get(index), command));	
 		session.setAttribute(CARDS_ATTRIBUTE, cards);
+		
+	}
+	
+	private CardEntity updateCard(CardEntity card, MoreEditRunCommand command) {
+		
+		card.getWords().get(0).setWord(command.getPolishWord());
+		card.getWords().get(0).setWord(command.getPolishSentence());
+		
+		card.getWords().get(1).setWord(command.getEnglishWord());
+		card.getWords().get(1).setWord(command.getEnglishSentence());
+		
+		card.getWords().get(2).setWord(command.getRussianWord());
+		card.getWords().get(2).setWord(command.getRussianSentence());
+		
+		card.getWords().get(3).setWord(command.getSpainWord());
+		card.getWords().get(3).setWord(command.getSpainSentence());
+		
+		return card;
 		
 	}
 	
@@ -178,19 +261,25 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
 		CardEntity card = cards.get(index);
 		
-		WordEntity polishWord = card.getWords().get(0);		
+		command.setCardId(card.getId());
+		
+		WordEntity polishWord = card.getWords().get(0);
+		command.setPolishWordId(polishWord.getId());
 		command.setPolishWord(polishWord.getWord());
 		command.setPolishSentence(polishWord.getSentence());
 		
 		WordEntity englishhWord = card.getWords().get(1);
+		command.setEnglishWordId(englishhWord.getId());
 		command.setEnglishWord(englishhWord.getWord());
 		command.setEnglishSentence(englishhWord.getSentence());
 		
 		WordEntity russianhWord = card.getWords().get(2);
+		command.setRussianWordId(russianhWord.getId());
 		command.setRussianWord(russianhWord.getWord());
 		command.setRussianSentence(russianhWord.getSentence());
 		
 		WordEntity spainhWord = card.getWords().get(3);
+		command.setSpainWordId(spainhWord.getId());
 		command.setSpainWord(spainhWord.getWord());
 		command.setSpainSentence(spainhWord.getSentence());
 		
@@ -203,6 +292,25 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 		} else {
 			command.setDisablePrevious(false);
 		}
+		
+	}
+	
+	private void deleteCardLast(MoreEditRunCommand command, HttpSession session, List<CardEntity> cards) {
+		
+		readNewCardCommand(command, session, command.getCurrentCardNumber() - 2);
+		command.setCurrentCardNumber(command.getCurrentCardNumber() - 1);	
+		command.setAllCardsCount(command.getAllCardsCount() - 1);
+		cards.remove(cards.size() -1);
+		session.setAttribute(CARDS_ATTRIBUTE, cards);
+		
+	}
+	
+	private void deleteCardinMiddle(MoreEditRunCommand command, HttpSession session, List<CardEntity> cards) {
+		
+		readNewCardCommand(command, session, command.getCurrentCardNumber());
+		command.setAllCardsCount(command.getAllCardsCount() - 1);
+		cards.remove(command.getCurrentCardNumber() -1);
+		session.setAttribute(CARDS_ATTRIBUTE, cards);
 		
 	}
 

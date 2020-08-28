@@ -44,6 +44,12 @@ public class WordEntity {
 		this.sentence = sentence;
 		this.language = language;
 	}
+	public WordEntity(long id, String word, String sentence, LanguageEnum language) {
+		this.id = id;
+		this.word = word;
+		this.sentence = sentence;
+		this.language = language;
+	}
 
 
 	public long getId() {
