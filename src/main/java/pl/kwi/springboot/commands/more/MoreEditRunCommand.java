@@ -28,6 +28,7 @@ public class MoreEditRunCommand {
 	private int currentCardNumber;
 	private int allCardsCount;
 	private boolean disablePrevious;
+	private boolean disableDelete;
 
 	
 	public Long getSelectedItem() {
@@ -119,6 +120,13 @@ public class MoreEditRunCommand {
 	}
 	public void setDisablePrevious(boolean disablePrevious) {
 		this.disablePrevious = disablePrevious;
+	}
+	
+	public boolean isDisableDelete() {
+		return disableDelete;
+	}
+	public void setDisableDelete(boolean disableDelete) {
+		this.disableDelete = disableDelete;
 	}
 	
 	

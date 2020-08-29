@@ -47,11 +47,10 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 		command.setDeckName(deck.getName());
 		command.setCurrentCardNumber(DEFAULT_CARD_NUMBER);
 		command.setAllCardsCount(deck.getCards().size());
-		command.setDisablePrevious(true);
 		session.setAttribute(CARDS_ATTRIBUTE, deck.getCards());
 		
 		readNewCardCommand(command, session, 0);			
-		handlePreviousAndNext(command);
+		handlePreviousNextAndDelete(command);
 		
 		return "more/moreEditRun";
 		
@@ -75,7 +74,7 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 		} else {
 			handleExistingCard(command, session, command.getCurrentCardNumber() + 1);
 		}			
-		handlePreviousAndNext(command);
+		handlePreviousNextAndDelete(command);
 		
 		return "more/moreEditRun";
 		
@@ -95,7 +94,7 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
 		adjustCardsInSession(command, session, cards);
 		handleExistingCard(command, session, command.getCurrentCardNumber() - 1);		
-		handlePreviousAndNext(command);
+		handlePreviousNextAndDelete(command);
 				
 		return "more/moreEditRun";
 		
@@ -108,11 +107,6 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 			BindingResult bindingResult,
 			HttpSession session) {
 		
-		if(DEFAULT_CARD_NUMBER == command.getAllCardsCount()) {
-			// TODO
-			return "redirect:more/edit/list";
-		}
-		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);		
 		adjustCardsInSession(command, session, cards);		
 		if(command.getCurrentCardNumber() == command.getAllCardsCount()) {
@@ -120,7 +114,7 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 		} else {
 			deleteCardinMiddle(command, session, cards);
 		}
-		handlePreviousAndNext(command);
+		handlePreviousNextAndDelete(command);
 		
 		return "more/moreEditRun";
 		
@@ -273,12 +267,14 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 		
 	}
 	
-	private void handlePreviousAndNext(MoreEditRunCommand command) {
+	private void handlePreviousNextAndDelete(MoreEditRunCommand command) {
 		
 		if(DEFAULT_CARD_NUMBER == command.getCurrentCardNumber()) {
 			command.setDisablePrevious(true);
+			command.setDisableDelete(true);
 		} else {
 			command.setDisablePrevious(false);
+			command.setDisableDelete(false);
 		}
 		
 	}
