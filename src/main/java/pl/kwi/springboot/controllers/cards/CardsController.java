@@ -39,15 +39,15 @@ public class CardsController {
 	
 
 	@RequestMapping
-	public String add(
+	public String display(
 			@ModelAttribute("command") CardsCommand command,
 			HttpSession session) {
 						
 		command.setDeckName(DEFAULT_DECK_NAME + getDeckDefaultId());
 		command.setCurrentCardNumber(DEFAULT_CARD_NUMBER);
 		command.setAllCardsCount(DEFAULT_CARDS_COUNT);
-		command.setDisablePrevious(true);
 		session.setAttribute(CARDS_ATTRIBUTE, new ArrayList<CardEntity>());
+		handlePreviousNextAndDelete(command);
 		
 		return "cards/cards";
 		
@@ -71,7 +71,7 @@ public class CardsController {
 		} else {
 			handleExistingCard(command, session, command.getCurrentCardNumber() + 1);
 		}			
-		handlePreviousAndNext(command);
+		handlePreviousNextAndDelete(command);
 		
 		return "cards/cards";
 		
@@ -91,7 +91,7 @@ public class CardsController {
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
 		adjustCardsInSession(command, session, cards);
 		handleExistingCard(command, session, command.getCurrentCardNumber() - 1);		
-		handlePreviousAndNext(command);
+		handlePreviousNextAndDelete(command);
 				
 		return "cards/cards";
 		
@@ -103,11 +103,7 @@ public class CardsController {
 			@Validated @ModelAttribute("command") CardsCommand command,
 			BindingResult bindingResult,
 			HttpSession session) {
-		
-		if(DEFAULT_CARD_NUMBER == command.getAllCardsCount()) {
-			return "redirect:cards";
-		}
-		
+			
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);		
 		adjustCardsInSession(command, session, cards);		
 		if(command.getCurrentCardNumber() == command.getAllCardsCount()) {
@@ -115,7 +111,7 @@ public class CardsController {
 		} else {
 			deleteCardinMiddle(command, session, cards);
 		}
-		handlePreviousAndNext(command);
+		handlePreviousNextAndDelete(command);
 		
 		return "cards/cards";
 		
@@ -234,12 +230,14 @@ public class CardsController {
 		
 	}
 	
-	private void handlePreviousAndNext(CardsCommand command) {
+	private void handlePreviousNextAndDelete(CardsCommand command) {
 		
 		if(DEFAULT_CARD_NUMBER == command.getCurrentCardNumber()) {
 			command.setDisablePrevious(true);
+			command.setDisableDelete(true);
 		} else {
 			command.setDisablePrevious(false);
+			command.setDisableDelete(false);
 		}
 		
 	}
