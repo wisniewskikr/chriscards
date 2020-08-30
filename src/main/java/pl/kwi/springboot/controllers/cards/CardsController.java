@@ -17,6 +17,7 @@ import pl.kwi.springboot.db.entities.CardEntity;
 import pl.kwi.springboot.db.entities.DeckEntity;
 import pl.kwi.springboot.db.entities.WordEntity;
 import pl.kwi.springboot.enums.LanguageEnum;
+import pl.kwi.springboot.enums.SessionAttributesEnum;
 import pl.kwi.springboot.services.intf.CardService;
 import pl.kwi.springboot.services.intf.DeckService;
 
@@ -25,8 +26,7 @@ import pl.kwi.springboot.services.intf.DeckService;
 public class CardsController {
 	
 	
-	private static final String DEFAULT_DECK_NAME = "Talia numer ";
-	private static final String CARDS_ATTRIBUTE = "cards";
+	private static final String DEFAULT_DECK_NAME = "Talia numer ";	
 	private static final int DEFAULT_CARDS_COUNT = 1;
 	private static final int DEFAULT_CARD_NUMBER = 1;
 
@@ -46,7 +46,7 @@ public class CardsController {
 		command.setDeckName(DEFAULT_DECK_NAME + getDeckDefaultId());
 		command.setCurrentCardNumber(DEFAULT_CARD_NUMBER);
 		command.setAllCardsCount(DEFAULT_CARDS_COUNT);
-		session.setAttribute(CARDS_ATTRIBUTE, new ArrayList<CardEntity>());
+		session.setAttribute(SessionAttributesEnum.CARDS.name(), new ArrayList<CardEntity>());
 		handlePrevious(command);
 		handleDelete(command);
 		
@@ -65,7 +65,7 @@ public class CardsController {
 			return "cards/cards";
 		}
 		
-		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(SessionAttributesEnum.CARDS.name());
 		adjustCardsInSession(command, session, cards);		
 		if(command.getCurrentCardNumber() == command.getAllCardsCount()) {
 			handleNewCard(command, session);			
@@ -90,7 +90,7 @@ public class CardsController {
 			return "cards/cards";
 		}
 		
-		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(SessionAttributesEnum.CARDS.name());
 		adjustCardsInSession(command, session, cards);
 		handleExistingCard(command, session, command.getCurrentCardNumber() - 1);		
 		handlePrevious(command);
@@ -106,7 +106,7 @@ public class CardsController {
 			@ModelAttribute("command") CardsCommand command,			
 			HttpSession session) {
 		
-		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);		
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(SessionAttributesEnum.CARDS.name());		
 		adjustCardsInSession(command, session, cards);		
 		if(command.getCurrentCardNumber() == command.getAllCardsCount()) {
 			deleteCardLast(command, session, cards);
@@ -134,14 +134,14 @@ public class CardsController {
 		DeckEntity deck = new DeckEntity(command.getDeckName());		
 		deck = deckService.save(deck);
 		
-		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(SessionAttributesEnum.CARDS.name());
 		if(command.getAllCardsCount() != cards.size()) {			
 			addNewCardToSessionAttribute(session, command);
 		} else {
 			updateCardInSessionAttribute(session, command, command.getCurrentCardNumber() - 1);
 		}
 			
-		cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
+		cards = (List<CardEntity>)session.getAttribute(SessionAttributesEnum.CARDS.name());
 		for (CardEntity card : cards) {
 			card.setDeck(deck);
 			cardService.save(card);
@@ -170,18 +170,18 @@ public class CardsController {
 	@SuppressWarnings("unchecked")
 	private void addNewCardToSessionAttribute(HttpSession session, CardsCommand command) {
 		
-		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(SessionAttributesEnum.CARDS.name());
 		cards.add(createCard(command));	
-		session.setAttribute(CARDS_ATTRIBUTE, cards);
+		session.setAttribute(SessionAttributesEnum.CARDS.name(), cards);
 		
 	}
 	
 	@SuppressWarnings("unchecked")
 	private void updateCardInSessionAttribute(HttpSession session, CardsCommand command, int index) {
 		
-		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(SessionAttributesEnum.CARDS.name());
 		cards.set(index, createCard(command));	
-		session.setAttribute(CARDS_ATTRIBUTE, cards);
+		session.setAttribute(SessionAttributesEnum.CARDS.name(), cards);
 		
 	}
 	
@@ -204,7 +204,7 @@ public class CardsController {
 	@SuppressWarnings("unchecked")
 	private void readNewCardCommand(CardsCommand command, HttpSession session, int index) {
 		
-		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
+		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(SessionAttributesEnum.CARDS.name());
 		CardEntity card = cards.get(index);
 		
 		WordEntity polishWord = card.getWords().get(0);		
@@ -276,7 +276,7 @@ public class CardsController {
 		command.setCurrentCardNumber(command.getCurrentCardNumber() - 1);	
 		command.setAllCardsCount(command.getAllCardsCount() - 1);
 		cards.remove(cards.size() -1);
-		session.setAttribute(CARDS_ATTRIBUTE, cards);
+		session.setAttribute(SessionAttributesEnum.CARDS.name(), cards);
 		
 	}
 	
@@ -285,7 +285,7 @@ public class CardsController {
 		readNewCardCommand(command, session, command.getCurrentCardNumber());
 		command.setAllCardsCount(command.getAllCardsCount() - 1);
 		cards.remove(command.getCurrentCardNumber() -1);
-		session.setAttribute(CARDS_ATTRIBUTE, cards);
+		session.setAttribute(SessionAttributesEnum.CARDS.name(), cards);
 		
 	}
 	
