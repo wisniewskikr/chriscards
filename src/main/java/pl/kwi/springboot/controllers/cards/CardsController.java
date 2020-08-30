@@ -103,11 +103,8 @@ public class CardsController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/delete", method = RequestMethod.POST)
 	public String deleteCurrentCard(
-			@Validated @ModelAttribute("command") CardsCommand command,
-			BindingResult bindingResult,
+			@ModelAttribute("command") CardsCommand command,			
 			HttpSession session) {
-		
-		bindingResult.addAllErrors(null);
 		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);		
 		adjustCardsInSession(command, session, cards);		

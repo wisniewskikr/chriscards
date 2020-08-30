@@ -107,8 +107,7 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/delete", method = RequestMethod.POST)
 	public String deleteCurrentCard(
-			@Validated @ModelAttribute("command") MoreEditRunCommand command,
-			BindingResult bindingResult,
+			@ModelAttribute("command") MoreEditRunCommand command,			
 			HttpSession session) {
 		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);		
