@@ -47,7 +47,8 @@ public class CardsController {
 		command.setCurrentCardNumber(DEFAULT_CARD_NUMBER);
 		command.setAllCardsCount(DEFAULT_CARDS_COUNT);
 		session.setAttribute(CARDS_ATTRIBUTE, new ArrayList<CardEntity>());
-		handlePreviousNextAndDelete(command);
+		handlePrevious(command);
+		handleDelete(command);
 		
 		return "cards/cards";
 		
@@ -71,7 +72,8 @@ public class CardsController {
 		} else {
 			handleExistingCard(command, session, command.getCurrentCardNumber() + 1);
 		}			
-		handlePreviousNextAndDelete(command);
+		handlePrevious(command);
+		handleDelete(command);
 		
 		return "cards/cards";
 		
@@ -91,7 +93,8 @@ public class CardsController {
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
 		adjustCardsInSession(command, session, cards);
 		handleExistingCard(command, session, command.getCurrentCardNumber() - 1);		
-		handlePreviousNextAndDelete(command);
+		handlePrevious(command);
+		handleDelete(command);
 				
 		return "cards/cards";
 		
@@ -103,7 +106,9 @@ public class CardsController {
 			@Validated @ModelAttribute("command") CardsCommand command,
 			BindingResult bindingResult,
 			HttpSession session) {
-			
+		
+		bindingResult.addAllErrors(null);
+		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);		
 		adjustCardsInSession(command, session, cards);		
 		if(command.getCurrentCardNumber() == command.getAllCardsCount()) {
@@ -111,7 +116,8 @@ public class CardsController {
 		} else {
 			deleteCardinMiddle(command, session, cards);
 		}
-		handlePreviousNextAndDelete(command);
+		handlePrevious(command);
+		handleDelete(command);
 		
 		return "cards/cards";
 		
@@ -230,13 +236,21 @@ public class CardsController {
 		
 	}
 	
-	private void handlePreviousNextAndDelete(CardsCommand command) {
+	private void handlePrevious(CardsCommand command) {
 		
 		if(DEFAULT_CARD_NUMBER == command.getCurrentCardNumber()) {
 			command.setDisablePrevious(true);
-			command.setDisableDelete(true);
 		} else {
 			command.setDisablePrevious(false);
+		}
+		
+	}
+	
+	private void handleDelete(CardsCommand command) {
+						
+		if(command.getAllCardsCount() == DEFAULT_CARDS_COUNT) {
+			command.setDisableDelete(true);
+		} else {
 			command.setDisableDelete(false);
 		}
 		
