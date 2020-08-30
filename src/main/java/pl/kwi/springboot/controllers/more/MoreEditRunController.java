@@ -28,6 +28,7 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 	
 	// TODO
 	private static final String CARDS_ATTRIBUTE = "cards";
+	private static final int DEFAULT_CARDS_COUNT = 1;
 	private static final int DEFAULT_CARD_NUMBER = 1;	
 	
 	@Autowired
@@ -50,7 +51,8 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 		session.setAttribute(CARDS_ATTRIBUTE, deck.getCards());
 		
 		readNewCardCommand(command, session, 0);			
-		handlePreviousNextAndDelete(command);
+		handlePrevious(command);
+		handleDelete(command);
 		
 		return "more/moreEditRun";
 		
@@ -74,7 +76,8 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 		} else {
 			handleExistingCard(command, session, command.getCurrentCardNumber() + 1);
 		}			
-		handlePreviousNextAndDelete(command);
+		handlePrevious(command);
+		handleDelete(command);
 		
 		return "more/moreEditRun";
 		
@@ -94,7 +97,8 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(CARDS_ATTRIBUTE);
 		adjustCardsInSession(command, session, cards);
 		handleExistingCard(command, session, command.getCurrentCardNumber() - 1);		
-		handlePreviousNextAndDelete(command);
+		handlePrevious(command);
+		handleDelete(command);
 				
 		return "more/moreEditRun";
 		
@@ -114,7 +118,8 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 		} else {
 			deleteCardinMiddle(command, session, cards);
 		}
-		handlePreviousNextAndDelete(command);
+		handlePrevious(command);
+		handleDelete(command);
 		
 		return "more/moreEditRun";
 		
@@ -267,13 +272,21 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 		
 	}
 	
-	private void handlePreviousNextAndDelete(MoreEditRunCommand command) {
+	private void handlePrevious(MoreEditRunCommand command) {
 		
 		if(DEFAULT_CARD_NUMBER == command.getCurrentCardNumber()) {
 			command.setDisablePrevious(true);
-			command.setDisableDelete(true);
 		} else {
 			command.setDisablePrevious(false);
+		}
+		
+	}
+	
+	private void handleDelete(MoreEditRunCommand command) {
+		
+		if(command.getAllCardsCount() == DEFAULT_CARDS_COUNT) {
+			command.setDisableDelete(true);
+		} else {
 			command.setDisableDelete(false);
 		}
 		
