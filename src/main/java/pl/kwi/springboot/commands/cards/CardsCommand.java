@@ -1,6 +1,6 @@
 package pl.kwi.springboot.commands.cards;
 
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 public class CardsCommand {
 	
