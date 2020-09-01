@@ -135,6 +135,7 @@ public class MoreEditRunController extends AbstrCheckboxPaginationController {
 		}
 		
 		DeckEntity deck = deckService.findById(command.getSelectedItem());
+		deck.setName(command.getDeckName());
 		
 		List<CardEntity> cards = (List<CardEntity>)session.getAttribute(SessionAttributesEnum.CARDS.name());
 		if(command.getAllCardsCount() != cards.size()) {			

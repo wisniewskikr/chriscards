@@ -41,3 +41,4 @@ spring.jpa.hibernate.ddl-auto = update
 spring.datasource.url=jdbc:h2:file:C:/data/sample
 
 Aktualizacja tytułu
+Id o jeden
