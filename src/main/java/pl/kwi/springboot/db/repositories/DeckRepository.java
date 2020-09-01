@@ -9,9 +9,6 @@ import pl.kwi.springboot.db.entities.DeckEntity;
 
 public interface DeckRepository extends PagingAndSortingRepository<DeckEntity, Long> {
 	
-	@Query("SELECT max(d.id) FROM DeckEntity d")
-	public Long getMaxId();
-	
 	@Query("SELECT d FROM DeckEntity d")
     public Page<DeckEntity> find(Pageable pageable);
 	

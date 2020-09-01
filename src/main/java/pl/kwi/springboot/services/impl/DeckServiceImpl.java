@@ -26,8 +26,8 @@ public class DeckServiceImpl implements DeckService {
 	}
 	
 	@Override
-	public Long getMaxId() {
-		return deckRepository.getMaxId();
+	public long count() {
+		return deckRepository.count();
 	}
 	
 	@Override

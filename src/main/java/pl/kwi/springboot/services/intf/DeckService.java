@@ -9,7 +9,7 @@ public interface DeckService {
 
 	DeckEntity save(DeckEntity deck);
 
-	Long getMaxId();
+	long count();
 
 	Page<DeckEntity> find(Pageable pageable);
 

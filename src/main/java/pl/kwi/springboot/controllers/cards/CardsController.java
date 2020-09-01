@@ -291,13 +291,9 @@ public class CardsController {
 	
 	private long getDeckDefaultId() {
 		
-		Long maxId = deckService.getMaxId();
-		if(maxId == null) {
-			maxId = 0L;
-		}
-		maxId++;
-		
-		return maxId;
+		long rowCount = deckService.count();		
+		rowCount++;		
+		return rowCount;
 		
 	}
 	
