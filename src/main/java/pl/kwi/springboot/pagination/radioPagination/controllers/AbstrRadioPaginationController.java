@@ -30,7 +30,7 @@ public abstract class AbstrRadioPaginationController {
 			command.setDisablePrevious(false);
 		}
 		
-		if (command.getCurrentPage() == page.getTotalPages()) {
+		if (command.getCurrentPage() == page.getTotalPages() || pages.isEmpty()) {
 			command.setDisableNext(true);
 		} else {
 			command.setDisableNext(false);
